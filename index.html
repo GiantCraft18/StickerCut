@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>StickerCut — AI-генератор смайлов для Twitch и YouTube</title>
+<meta name="theme-color" content="#08080d">
+<title>StickerCut — AI-генератор стикеров для стримеров</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,10 +19,11 @@
     --red: #ff2d55;
     --green: #4ade80;
     --yellow: #fbbf24;
+    --blue: #4d7cff;
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.14);
-    --radius: 24px;
-    --radius-sm: 14px;
+    --radius: 20px;
+    --radius-sm: 12px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -37,569 +39,187 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 32px 16px 48px;
-    padding-top: max(32px, env(safe-area-inset-top));
+    padding: 28px 16px 48px;
+    padding-top: max(28px, env(safe-area-inset-top));
     padding-bottom: max(48px, env(safe-area-inset-bottom));
     position: relative;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  .bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .bg-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.5;
-    will-change: transform;
-  }
-
-  .bg-blob.b1 {
-    width: 520px; height: 520px;
-    background: radial-gradient(circle, #9147ff, transparent 70%);
-    top: -140px; left: -140px;
-    animation: float1 24s ease-in-out infinite;
-  }
-
-  .bg-blob.b2 {
-    width: 460px; height: 460px;
-    background: radial-gradient(circle, #ff2d55, transparent 70%);
-    top: 15%; right: -160px;
-    animation: float2 28s ease-in-out infinite;
-  }
-
-  .bg-blob.b3 {
-    width: 480px; height: 480px;
-    background: radial-gradient(circle, #4d7cff, transparent 70%);
-    bottom: -180px; left: 25%;
-    animation: float3 32s ease-in-out infinite;
-  }
-
-  @keyframes float1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(50px, -40px) scale(1.1); }
-  }
-  @keyframes float2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(-60px, 40px) scale(0.95); }
-  }
-  @keyframes float3 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(40px, 30px) scale(1.05); }
-  }
-
+  /* ФОН */
+  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .bg-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.45; will-change: transform; }
+  .bg-blob.b1 { width: 520px; height: 520px; background: radial-gradient(circle, #9147ff, transparent 70%); top: -140px; left: -140px; animation: float1 24s ease-in-out infinite; }
+  .bg-blob.b2 { width: 460px; height: 460px; background: radial-gradient(circle, #ff2d55, transparent 70%); top: 15%; right: -160px; animation: float2 28s ease-in-out infinite; }
+  .bg-blob.b3 { width: 480px; height: 480px; background: radial-gradient(circle, #4d7cff, transparent 70%); bottom: -180px; left: 25%; animation: float3 32s ease-in-out infinite; }
+  @keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px,-40px) scale(1.1); } }
+  @keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px,40px) scale(0.95); } }
+  @keyframes float3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,30px) scale(1.05); } }
   .bg-grid {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
   }
 
-  header {
-    text-align: center;
-    margin-bottom: 28px;
-    width: 100%;
-    max-width: 560px;
-    animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
+  /* ШАПКА */
+  header { text-align: center; margin-bottom: 24px; width: 100%; max-width: 620px; animation: fadeUp 0.6s cubic-bezier(0.2,0.8,0.2,1) both; }
+  .logo-wrap { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; padding: 8px 16px 8px 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 100px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .logo-mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #9147ff, #ff2d55); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(145,71,255,0.4); }
+  .logo-text { font-size: 0.82rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
+  h1 { font-size: clamp(1.75rem, 7vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; line-height: 1.1; }
+  h1 span { background: linear-gradient(135deg, #b380ff 0%, #ff4d6d 50%, #ff9558 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientMove 6s ease infinite; }
+  @keyframes gradientMove { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .sub { color: var(--text-dim); font-size: 0.95rem; line-height: 1.55; max-width: 480px; margin: 0 auto; }
+  .feature-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+  .feature-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 100px; font-size: 0.72rem; color: var(--text-dim); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .feature-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-  .logo-wrap {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    padding: 8px 16px 8px 8px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
+  /* КАРТОЧКА */
+  .card { width: 100%; max-width: 620px; border-radius: var(--radius); padding: 1px; background: linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.02) 70%, rgba(255,255,255,0.1) 100%); box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(145,71,255,0.1); animation: fadeUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.1s both; }
+  .card-inner { background: linear-gradient(180deg, rgba(24,24,34,0.94) 0%, rgba(16,16,24,0.94) 100%); border-radius: calc(var(--radius) - 1px); padding: 22px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
+  .card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .card-header-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; background: linear-gradient(135deg, rgba(145,71,255,0.25), rgba(255,45,85,0.18)); border: 1px solid rgba(145,71,255,0.3); flex-shrink: 0; box-shadow: 0 4px 20px rgba(145,71,255,0.2); }
+  .card-header-text h2 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 3px; }
+  .card-header-text p { font-size: 0.78rem; color: var(--text-mute); line-height: 1.4; }
 
-  .logo-mark {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #9147ff, #ff2d55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    box-shadow: 0 4px 14px rgba(145, 71, 255, 0.4);
-  }
+  /* ЗОНА ЗАГРУЗКИ */
+  .upload-label { display: block; width: 100%; border: 1.5px dashed var(--border-strong); border-radius: var(--radius-sm); padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1); background: rgba(255,255,255,0.012); user-select: none; -webkit-user-select: none; }
+  .upload-label:hover, .upload-label.dragover { border-color: var(--purple); background: rgba(145,71,255,0.05); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(145,71,255,0.15); }
+  .upload-icon-wrap { width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 18px; background: linear-gradient(135deg, rgba(145,71,255,0.18), rgba(255,45,85,0.1)); border: 1px solid rgba(145,71,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1); }
+  .upload-label:hover .upload-icon-wrap { transform: scale(1.08) translateY(-4px); }
+  .upload-text { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; }
+  .upload-text strong { color: var(--text); font-weight: 600; }
+  .upload-hint { display: block; margin-top: 8px; font-size: 0.72rem; color: var(--text-mute); }
+  #fileInput { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-  .logo-text {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-dim);
-    letter-spacing: 0.02em;
-  }
+  /* ПАНЕЛЬ ФАЙЛОВ */
+  #workspace { display: none; }
+  #workspace.visible { display: block; animation: fadeUp 0.4s cubic-bezier(0.2,0.8,0.2,1) both; }
 
-  h1 {
-    font-size: clamp(1.75rem, 7vw, 2.75rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
-    line-height: 1.1;
-  }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-mute); margin-bottom: 12px; font-weight: 600; }
+  .section-title::before, .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
 
-  h1 span {
-    background: linear-gradient(135deg, #b380ff 0%, #ff4d6d 50%, #ff9558 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientMove 6s ease infinite;
-  }
+  .file-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .file-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: var(--radius-sm); position: relative; transition: border-color 0.25s, background 0.25s; }
+  .file-item.active { border-color: rgba(145,71,255,0.5); background: rgba(145,71,255,0.06); }
+  .file-item-thumb { width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0; object-fit: contain; background: repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 16px 16px; cursor: pointer; }
+  .file-item-info { flex: 1; min-width: 0; }
+  .file-item-name { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-item-status { font-size: 0.72rem; color: var(--text-mute); display: flex; align-items: center; gap: 6px; }
+  .file-item-status.done { color: var(--green); }
+  .file-item-status.error { color: #ff8fa3; }
+  .file-item-status.processing { color: var(--purple-2); }
+  .file-item-remove { width: 28px; height: 28px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-dim); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+  .file-item-remove:hover { background: rgba(255,45,85,0.15); border-color: rgba(255,45,85,0.4); color: var(--red); }
 
-  @keyframes gradientMove {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
-  }
-
-  .sub {
-    color: var(--text-dim);
-    font-size: 0.95rem;
-    line-height: 1.55;
-    max-width: 440px;
-    margin: 0 auto;
-  }
-
-  .feature-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 18px;
-  }
-
-  .feature-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-size: 0.72rem;
-    color: var(--text-dim);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  .feature-pill .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px var(--green);
-    animation: pulse 2s ease infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.4; }
-  }
-
-  .card {
-    width: 100%;
-    max-width: 480px;
-    border-radius: var(--radius);
-    padding: 1px;
-    background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(255, 255, 255, 0.03) 30%,
-      rgba(255, 255, 255, 0.02) 70%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
-    box-shadow:
-      0 30px 80px rgba(0, 0, 0, 0.55),
-      0 0 60px rgba(145, 71, 255, 0.1);
-    animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
-  }
-
-  .card-inner {
-    background: linear-gradient(
-      180deg,
-      rgba(24, 24, 34, 0.94) 0%,
-      rgba(16, 16, 24, 0.94) 100%
-    );
-    border-radius: calc(var(--radius) - 1px);
-    padding: 22px;
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .card-header-icon {
-    width: 44px; height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    background: linear-gradient(135deg, rgba(145, 71, 255, 0.25), rgba(255, 45, 85, 0.18));
-    border: 1px solid rgba(145, 71, 255, 0.3);
-    flex-shrink: 0;
-    box-shadow: 0 4px 20px rgba(145, 71, 255, 0.2);
-  }
-
-  .card-header-text h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 3px;
-  }
-
-  .card-header-text p {
-    font-size: 0.78rem;
-    color: var(--text-mute);
-    line-height: 1.4;
-  }
-
-  .upload-label {
-    display: block;
-    width: 100%;
-    border: 1.5px dashed var(--border-strong);
-    border-radius: var(--radius-sm);
-    padding: 44px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    background: rgba(255, 255, 255, 0.012);
-    color: inherit;
-    font-family: inherit;
-    position: relative;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  .upload-label:hover,
-  .upload-label.dragover {
-    border-color: var(--purple);
-    background: rgba(145, 71, 255, 0.05);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(145, 71, 255, 0.15);
-  }
-
-  .upload-icon-wrap {
-    width: 64px; height: 64px;
-    margin: 0 auto 16px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgba(145, 71, 255, 0.18), rgba(255, 45, 85, 0.1));
-    border: 1px solid rgba(145, 71, 255, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.7rem;
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .upload-text {
-    color: var(--text-dim);
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .upload-text strong {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .upload-hint {
-    display: block;
-    margin-top: 8px;
-    font-size: 0.72rem;
-    color: var(--text-mute);
-  }
-
-  #fileInput {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  #preview-section {
-    display: none;
-    text-align: center;
-  }
-
-  #preview-section.visible {
-    display: block;
-    animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
-  .preview-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-mute);
-    margin-bottom: 14px;
-    font-weight: 600;
-  }
-
-  .preview-label::before,
-  .preview-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-  }
-
-  .preview-wrap {
-    padding: 24px;
-    background:
-      repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 22px 22px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    margin-bottom: 18px;
-    transition: border-color 0.3s;
-    position: relative;
-    min-height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .preview-wrap.busy::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.06) 50%, transparent 70%);
-    animation: shimmer 1.5s linear infinite;
-    pointer-events: none;
-    border-radius: var(--radius-sm);
-  }
-
-  @keyframes shimmer {
-    from { transform: translateX(-100%); }
-    to   { transform: translateX(100%); }
-  }
-
-  #preview-img {
-    max-width: 160px;
-    max-height: 160px;
-    display: block;
-    margin: 0 auto;
-    border-radius: 10px;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
-  }
-
-  .btn-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn {
-    padding: 16px 20px;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 0.94rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: -0.01em;
-    width: 100%;
-  }
-
-  .btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
-    transform: translateX(-100%);
-    transition: transform 0.7s;
-    pointer-events: none;
-  }
-
-  .btn:hover:not(:disabled)::after { transform: translateX(100%); }
-  .btn:active:not(:disabled) { transform: scale(0.975); }
-  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  .btn-twitch {
-    background: linear-gradient(135deg, #9147ff, #a970ff);
-    color: #fff;
-    box-shadow:
-      0 4px 24px rgba(145, 71, 255, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-
-  .btn-twitch:hover:not(:disabled) {
-    box-shadow:
-      0 8px 32px rgba(145, 71, 255, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
-  }
-
-  .btn-youtube {
-    background: linear-gradient(135deg, #ff0040, #ff4d6d);
-    color: #fff;
-    box-shadow:
-      0 4px 24px rgba(255, 45, 85, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-
-  .btn-youtube:hover:not(:disabled) {
-    box-shadow:
-      0 8px 32px rgba(255, 45, 85, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
-  }
-
-  .btn-reset {
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-dim);
-    border: 1px solid var(--border);
-    font-weight: 500;
-  }
-
-  .btn-reset:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text);
-    border-color: var(--border-strong);
-  }
-
-  #status {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    min-height: 24px;
-    text-align: center;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    line-height: 1.45;
-  }
-
-  #status.visible { display: flex; }
-
-  #status.error {
-    color: #ff8fa3;
-  }
-
-  #status.success {
-    color: var(--green);
-  }
-
-  .spinner {
-    width: 16px; height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-top-color: var(--purple);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    flex-shrink: 0;
-  }
-
+  .mini-spinner { width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.15); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  footer {
-    margin-top: 32px;
-    color: var(--text-mute);
-    font-size: 0.78rem;
-    text-align: center;
-    animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  /* НАСТРОЙКИ */
+  .settings { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+  .setting-group { display: flex; flex-direction: column; gap: 8px; }
+  .setting-label { font-size: 0.75rem; font-weight: 600; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .setting-label .value { color: var(--purple-2); font-variant-numeric: tabular-nums; }
 
-  footer a {
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color 0.2s;
-    border-bottom: 1px solid transparent;
-  }
+  .preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+  .preset-btn { padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.78rem; font-weight: 500; color: var(--text-dim); cursor: pointer; transition: all 0.2s; text-align: left; display: flex; flex-direction: column; gap: 3px; }
+  .preset-btn:hover { background: rgba(255,255,255,0.06); border-color: var(--border-strong); color: var(--text); }
+  .preset-btn.active { background: linear-gradient(135deg, rgba(145,71,255,0.2), rgba(255,45,85,0.12)); border-color: rgba(145,71,255,0.5); color: var(--text); }
+  .preset-btn .preset-title { font-weight: 600; font-size: 0.82rem; }
+  .preset-btn .preset-size { font-size: 0.68rem; color: var(--text-mute); }
+  .preset-btn.active .preset-size { color: var(--purple-2); }
 
-  footer a:hover {
-    color: var(--purple-2);
-    border-bottom-color: rgba(179, 128, 255, 0.3);
-  }
+  .radio-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .radio-btn { padding: 8px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 100px; font-family: inherit; font-size: 0.78rem; font-weight: 500; color: var(--text-dim); cursor: pointer; transition: all 0.2s; }
+  .radio-btn:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+  .radio-btn.active { background: linear-gradient(135deg, rgba(145,71,255,0.25), rgba(255,45,85,0.15)); border-color: rgba(145,71,255,0.5); color: var(--text); }
 
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .toggle-info { font-size: 0.82rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 2px; }
+  .toggle-info small { font-size: 0.68rem; color: var(--text-mute); }
+  .switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .switch-slider { position: absolute; cursor: pointer; inset: 0; background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 100px; transition: all 0.25s; }
+  .switch-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform 0.25s; }
+  .switch input:checked + .switch-slider { background: linear-gradient(135deg, #9147ff, #a970ff); border-color: transparent; }
+  .switch input:checked + .switch-slider::before { transform: translateX(20px); }
+
+  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 100px; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, #9147ff, #a970ff); cursor: pointer; box-shadow: 0 2px 8px rgba(145,71,255,0.5); }
+  input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border: none; border-radius: 50%; background: linear-gradient(135deg, #9147ff, #a970ff); cursor: pointer; box-shadow: 0 2px 8px rgba(145,71,255,0.5); }
+
+  input[type="color"] { -webkit-appearance: none; appearance: none; width: 42px; height: 32px; border: 1px solid var(--border); border-radius: 8px; background: transparent; cursor: pointer; padding: 2px; }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 6px; }
+  input[type="color"]::-moz-color-swatch { border: none; border-radius: 6px; }
+
+  /* ПРЕВЬЮ */
+  .preview-wrap { padding: 24px; background: repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 22px 22px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; display: flex; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden; }
+  .preview-wrap.busy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%); animation: shimmer 1.5s linear infinite; pointer-events: none; }
+  @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+  #preview-img { max-width: 200px; max-height: 200px; display: block; border-radius: 10px; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); transition: transform 0.3s; }
+
+  /* КНОПКИ */
+  .btn-row { display: flex; flex-direction: column; gap: 10px; }
+  .btn { padding: 14px 18px; border: none; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.25s cubic-bezier(0.2,0.8,0.2,1); display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; letter-spacing: -0.01em; width: 100%; }
+  .btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.7s; pointer-events: none; }
+  .btn:hover:not(:disabled)::after { transform: translateX(100%); }
+  .btn:active:not(:disabled) { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-primary { background: linear-gradient(135deg, #9147ff, #a970ff); color: #fff; box-shadow: 0 4px 24px rgba(145,71,255,0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
+  .btn-primary:hover:not(:disabled) { box-shadow: 0 8px 32px rgba(145,71,255,0.55), inset 0 1px 0 rgba(255,255,255,0.25); transform: translateY(-2px); }
+  .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border-strong); }
+  .btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.1); border-color: rgba(145,71,255,0.4); transform: translateY(-1px); }
+  .btn-ghost { background: rgba(255,255,255,0.03); color: var(--text-dim); border: 1px solid var(--border); font-weight: 500; font-size: 0.85rem; padding: 12px 16px; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.07); color: var(--text); }
+
+  /* СТАТУС */
+  #status { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.83rem; color: var(--text-dim); min-height: 22px; text-align: center; display: none; align-items: center; justify-content: center; gap: 10px; line-height: 1.45; }
+  #status.visible { display: flex; }
+  #status.error { color: #ff8fa3; }
+  #status.success { color: var(--green); }
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.1); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+
+  /* ПОДВАЛ */
+  footer { margin-top: 28px; color: var(--text-mute); font-size: 0.78rem; text-align: center; animation: fadeUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.2s both; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; border-bottom: 1px solid transparent; }
+  footer a:hover { color: var(--purple-2); border-bottom-color: rgba(179,128,255,0.3); }
   .footer-sep { opacity: 0.4; }
 
+  /* МОДАЛКА */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.visible { display: flex; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal { background: linear-gradient(180deg, #1a1a26 0%, #12121a 100%); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 24px; max-width: 400px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.7); animation: fadeUp 0.3s ease; }
+  .modal h3 { font-size: 1rem; margin-bottom: 12px; }
+  .modal p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 18px; }
+  .modal .btn-row { gap: 8px; }
+
+  /* АДАПТАЦИЯ */
   @media (max-width: 520px) {
-    body {
-      padding: 24px 12px 40px;
-      padding-top: max(24px, env(safe-area-inset-top));
-      padding-bottom: max(40px, env(safe-area-inset-bottom));
-    }
-    header { margin-bottom: 22px; }
-    .logo-wrap { margin-bottom: 14px; padding: 6px 14px 6px 6px; }
-    .logo-mark { width: 26px; height: 26px; font-size: 0.8rem; }
-    .sub { font-size: 0.88rem; }
-    .feature-pill { font-size: 0.68rem; padding: 5px 10px; }
-    .card { border-radius: 20px; }
-    .card-inner { padding: 16px; border-radius: 19px; }
+    body { padding: 20px 12px 40px; padding-top: max(20px, env(safe-area-inset-top)); padding-bottom: max(40px, env(safe-area-inset-bottom)); }
+    header { margin-bottom: 18px; }
+    h1 { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+    .sub { font-size: 0.86rem; }
+    .feature-pill { font-size: 0.66rem; padding: 5px 10px; }
+    .card-inner { padding: 16px; }
     .card-header { gap: 12px; margin-bottom: 16px; padding-bottom: 14px; }
     .card-header-icon { width: 40px; height: 40px; font-size: 1.1rem; border-radius: 10px; }
-    .card-header-text h2 { font-size: 0.95rem; }
-    .card-header-text p { font-size: 0.72rem; }
-    .upload-label { padding: 34px 14px; }
+    .upload-label { padding: 32px 14px; }
     .upload-icon-wrap { width: 56px; height: 56px; font-size: 1.5rem; margin-bottom: 14px; }
-    .upload-text { font-size: 0.85rem; }
-    .upload-hint { font-size: 0.68rem; }
-    .preview-wrap { padding: 20px; min-height: 160px; }
-    #preview-img { max-width: 130px; max-height: 130px; }
-    .btn { padding: 14px 16px; font-size: 0.88rem; }
-  }
-
-  @media (max-width: 360px) {
-    h1 { font-size: 1.6rem; }
-    .feature-row { gap: 6px; }
-    .feature-pill { font-size: 0.64rem; padding: 4px 8px; }
+    .preset-grid { grid-template-columns: repeat(2, 1fr); }
+    .file-item-thumb { width: 46px; height: 46px; }
+    #preview-img { max-width: 150px; max-height: 150px; }
+    .preview-wrap { min-height: 170px; padding: 20px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
 </style>
 </head>
@@ -617,12 +237,12 @@
     <div class="logo-mark">✂️</div>
     <span class="logo-text">StickerCut</span>
   </div>
-  <h1>Превращай фото в <span>смайлы</span></h1>
-  <p class="sub">Загрузи любое изображение — AI уберёт фон и подготовит стикер под Twitch или YouTube за пару секунд.</p>
+  <h1>Превращай фото в <span>стикеры</span></h1>
+  <p class="sub">AI убирает фон, а сайт готовит эмодзи под Twitch, YouTube, Discord, Telegram и другие платформы. Всё — прямо в браузере, без регистрации.</p>
   <div class="feature-row">
     <div class="feature-pill"><span class="dot"></span><span>Без регистрации</span></div>
     <div class="feature-pill"><span>🔒</span><span>Фото не покидает устройство</span></div>
-    <div class="feature-pill"><span>⚡</span><span>Работает в браузере</span></div>
+    <div class="feature-pill"><span>📦</span><span>Экспорт ZIP</span></div>
   </div>
 </header>
 
@@ -632,34 +252,112 @@
     <div class="card-header">
       <div class="card-header-icon">✨</div>
       <div class="card-header-text">
-        <h2>Создать смайл</h2>
-        <p>AI-удаление фона · экспорт под платформы</p>
+        <h2>Создать стикеры</h2>
+        <p>Загрузи одно или несколько фото — AI уберёт фон</p>
       </div>
     </div>
 
+    <!-- Зона загрузки -->
     <label class="upload-label" id="uploadLabel" for="fileInput">
       <div class="upload-icon-wrap">🖼️</div>
-      <div class="upload-text"><strong>Нажми</strong> или перетащи изображение сюда</div>
-      <span class="upload-hint">PNG, JPG, WEBP · до 10 МБ</span>
+      <div class="upload-text"><strong>Нажми</strong> или перетащи изображения сюда</div>
+      <span class="upload-hint">PNG, JPG, WEBP · до 10 МБ каждое · можно несколько</span>
     </label>
-    <input type="file" id="fileInput" accept="image/*">
+    <input type="file" id="fileInput" accept="image/*" multiple>
 
-    <div id="preview-section">
-      <div class="preview-label">Результат</div>
+    <!-- Рабочая область -->
+    <div id="workspace">
+
+      <!-- Файлы -->
+      <div class="section-title" id="filesTitle">Файлы</div>
+      <div class="file-list" id="fileList"></div>
+
+      <!-- Настройки -->
+      <div class="section-title">Настройки</div>
+      <div class="settings">
+
+        <!-- Пресет платформы -->
+        <div class="setting-group">
+          <div class="setting-label">Платформа</div>
+          <div class="preset-grid" id="presetGrid"></div>
+        </div>
+
+        <!-- Качество AI -->
+        <div class="setting-group">
+          <div class="setting-label">
+            <span>Качество AI</span>
+            <span class="value" id="modelHint">баланс</span>
+          </div>
+          <div class="radio-row" id="modelRow">
+            <button type="button" class="radio-btn" data-model="isnet_quint8">Быстро</button>
+            <button type="button" class="radio-btn active" data-model="isnet_fp16">Баланс</button>
+            <button type="button" class="radio-btn" data-model="isnet">Максимум</button>
+          </div>
+        </div>
+
+        <!-- Обводка -->
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span>Обводка</span>
+            <small>Контур вокруг объекта</small>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="color" id="strokeColor" value="#000000" title="Цвет обводки">
+            <label class="switch">
+              <input type="checkbox" id="strokeToggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="setting-group" id="strokeSizeGroup" style="display: none;">
+          <div class="setting-label">
+            <span>Толщина обводки</span>
+            <span class="value" id="strokeSizeValue">8 px</span>
+          </div>
+          <input type="range" id="strokeSize" min="2" max="30" value="8">
+        </div>
+
+        <!-- Белый фон -->
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span>Фон</span>
+            <small>Прозрачный или сплошной</small>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="color" id="bgColor" value="#ffffff" title="Цвет фона">
+            <label class="switch">
+              <input type="checkbox" id="bgToggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Форма -->
+        <div class="setting-group">
+          <div class="setting-label">Форма</div>
+          <div class="radio-row" id="shapeRow">
+            <button type="button" class="radio-btn active" data-shape="square">Квадрат</button>
+            <button type="button" class="radio-btn" data-shape="circle">Круг</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Превью -->
+      <div class="section-title">Превью</div>
       <div class="preview-wrap" id="previewWrap">
-        <img id="preview-img" alt="Результат">
+        <img id="preview-img" alt="Превью">
       </div>
+
+      <!-- Кнопки -->
       <div class="btn-row">
-        <button type="button" class="btn btn-twitch" id="btnTwitch" disabled>
-          <span>🎮</span> Скачать для Twitch (112×112)
-        </button>
-        <button type="button" class="btn btn-youtube" id="btnYouTube" disabled>
-          <span>▶️</span> Скачать для YouTube (48×48)
-        </button>
-        <button type="button" class="btn btn-reset" id="btnReset">
-          <span>↺</span> Загрузить другое фото
-        </button>
+        <button type="button" class="btn btn-primary" id="btnDownload">⬇ Скачать текущий стикер</button>
+        <button type="button" class="btn btn-secondary" id="btnZip" disabled>📦 Скачать всё ZIP-архивом</button>
+        <button type="button" class="btn btn-ghost" id="btnCopy">📋 Скопировать в буфер</button>
+        <button type="button" class="btn btn-ghost" id="btnReset">↺ Начать заново</button>
       </div>
+
     </div>
 
     <div id="status"></div>
@@ -670,36 +368,100 @@
 <footer>
   <span>Сделано с ❤️</span>
   <span class="footer-sep">·</span>
+  <a href="#" id="historyLink">История</a>
+  <span class="footer-sep">·</span>
   <a href="https://github.com" target="_blank" rel="noopener">Открытый исходный код</a>
 </footer>
 
+<!-- Модалка -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalTitle">Заголовок</h3>
+    <p id="modalText">Текст</p>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" id="modalOk">Понятно</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
-const uploadLabel = document.getElementById('uploadLabel');
-const fileInput = document.getElementById('fileInput');
-const previewSection = document.getElementById('preview-section');
-const previewImg = document.getElementById('preview-img');
-const previewWrap = document.getElementById('previewWrap');
-const btnTwitch = document.getElementById('btnTwitch');
-const btnYouTube = document.getElementById('btnYouTube');
-const btnReset = document.getElementById('btnReset');
-const statusEl = document.getElementById('status');
+/* ============================================================
+   StickerCut — AI-генератор стикеров
+   ============================================================ */
 
-let currentBlob = null;
-let removeBackgroundFn = null;
-let modelLoading = null;
+// ---------- Константы ----------
+const PRESETS = [
+  { id: 'twitch_emote',  name: 'Twitch Emote',  sizes: [112, 56, 28],  ext: 'png', dir: 'twitch-emote' },
+  { id: 'twitch_badge',  name: 'Twitch Badge',  sizes: [72, 36, 18],   ext: 'png', dir: 'twitch-badge' },
+  { id: 'youtube',       name: 'YouTube Emoji', sizes: [48],           ext: 'png', dir: 'youtube' },
+  { id: 'discord',       name: 'Discord Emoji', sizes: [128, 64],      ext: 'png', dir: 'discord' },
+  { id: 'telegram',      name: 'Telegram',      sizes: [512],          ext: 'png', dir: 'telegram' },
+  { id: 'vk',            name: 'VK Стикер',     sizes: [512],          ext: 'png', dir: 'vk' },
+  { id: 'whatsapp',      name: 'WhatsApp',      sizes: [512],          ext: 'png', dir: 'whatsapp' },
+  { id: 'custom',        name: 'Свой размер',   sizes: [256],          ext: 'png', dir: 'custom', custom: true },
+];
 
-// Показываем статус
+const MODEL_HINTS = {
+  isnet_quint8: 'быстро',
+  isnet_fp16:   'баланс',
+  isnet:        'максимум',
+};
+
+const STORAGE_KEY = 'stickercut_history_v1';
+const MAX_HISTORY = 10;
+
+// ---------- Состояние ----------
+const state = {
+  files: [],           // { id, name, originalFile, originalUrl, resultBlob, resultUrl, status, error }
+  activeFileId: null,
+  preset: 'twitch_emote',
+  customSize: 256,
+  model: 'isnet_fp16',
+  stroke: { enabled: false, color: '#000000', size: 8 },
+  background: { enabled: false, color: '#ffffff' },
+  shape: 'square',
+};
+
+// ---------- DOM ----------
+const uploadLabel    = document.getElementById('uploadLabel');
+const fileInput      = document.getElementById('fileInput');
+const workspace      = document.getElementById('workspace');
+const fileList       = document.getElementById('fileList');
+const presetGrid     = document.getElementById('presetGrid');
+const modelRow       = document.getElementById('modelRow');
+const modelHint      = document.getElementById('modelHint');
+const strokeToggle   = document.getElementById('strokeToggle');
+const strokeColor    = document.getElementById('strokeColor');
+const strokeSize     = document.getElementById('strokeSize');
+const strokeSizeVal  = document.getElementById('strokeSizeValue');
+const strokeSizeGrp  = document.getElementById('strokeSizeGroup');
+const bgToggle       = document.getElementById('bgToggle');
+const bgColor        = document.getElementById('bgColor');
+const shapeRow       = document.getElementById('shapeRow');
+const previewWrap    = document.getElementById('previewWrap');
+const previewImg     = document.getElementById('preview-img');
+const btnDownload    = document.getElementById('btnDownload');
+const btnZip         = document.getElementById('btnZip');
+const btnCopy        = document.getElementById('btnCopy');
+const btnReset       = document.getElementById('btnReset');
+const statusEl       = document.getElementById('status');
+const modalOverlay   = document.getElementById('modalOverlay');
+const modalTitle     = document.getElementById('modalTitle');
+const modalText      = document.getElementById('modalText');
+const modalOk        = document.getElementById('modalOk');
+const historyLink    = document.getElementById('historyLink');
+
+// ---------- Утилиты ----------
+let uid = 0;
+const nextId = () => ++uid;
+
 function setStatus(text, type = 'info', loading = false) {
   statusEl.innerHTML = '';
-  if (!text) {
-    statusEl.classList.remove('visible', 'error', 'success');
-    return;
-  }
+  if (!text) { statusEl.classList.remove('visible', 'error', 'success'); return; }
   statusEl.classList.add('visible');
   statusEl.classList.remove('error', 'success');
   if (type === 'error') statusEl.classList.add('error');
   if (type === 'success') statusEl.classList.add('success');
-
   if (loading) {
     const sp = document.createElement('span');
     sp.className = 'spinner';
@@ -710,177 +472,590 @@ function setStatus(text, type = 'info', loading = false) {
   statusEl.appendChild(span);
 }
 
-// Ленивая загрузка библиотеки (только когда она реально нужна)
-async function loadRemoveBackground() {
-  if (removeBackgroundFn) return removeBackgroundFn;
-  if (modelLoading) return modelLoading;
+function showModal(title, text) {
+  modalTitle.textContent = title;
+  modalText.textContent = text;
+  modalOverlay.classList.add('visible');
+}
+modalOk.addEventListener('click', () => modalOverlay.classList.remove('visible'));
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.classList.remove('visible'); });
 
-  modelLoading = (async () => {
-    setStatus('Загружаю AI-модель (первый раз ~30-60 сек)...', 'info', true);
+function getActiveFile() {
+  return state.files.find(f => f.id === state.activeFileId) || null;
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' Б';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' КБ';
+  return (bytes / 1024 / 1024).toFixed(1) + ' МБ';
+}
+
+// ---------- Ленивая загрузка библиотеки ----------
+let removeBgFn = null;
+let modelLoadingPromise = null;
+
+async function loadRemoveBackground() {
+  if (removeBgFn) return removeBgFn;
+  if (modelLoadingPromise) return modelLoadingPromise;
+
+  modelLoadingPromise = (async () => {
+    setStatus('Загружаю AI-библиотеку (первый раз ~30-60 сек)...', 'info', true);
     try {
       const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm');
-      removeBackgroundFn = mod.default || mod.removeBackground;
-      if (typeof removeBackgroundFn !== 'function') {
-        throw new Error('Библиотека загрузилась, но функция не найдена');
-      }
-      return removeBackgroundFn;
+      removeBgFn = mod.default || mod.removeBackground;
+      if (typeof removeBgFn !== 'function') throw new Error('Функция не найдена');
+      return removeBgFn;
     } catch (e) {
-      modelLoading = null;
+      modelLoadingPromise = null;
       throw new Error('Не удалось загрузить AI-библиотеку. Проверь интернет и попробуй снова.');
     }
   })();
 
-  return modelLoading;
+  return modelLoadingPromise;
 }
 
-// Drag & drop
-['dragenter', 'dragover'].forEach(ev => {
-  uploadLabel.addEventListener(ev, (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadLabel.classList.add('dragover');
+// ---------- Пресеты ----------
+function renderPresets() {
+  presetGrid.innerHTML = '';
+  PRESETS.forEach(p => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'preset-btn' + (state.preset === p.id ? ' active' : '');
+    btn.dataset.preset = p.id;
+    btn.innerHTML = `<span class="preset-title">${p.name}</span><span class="preset-size">${p.sizes.join(' / ')} px</span>`;
+    btn.addEventListener('click', () => {
+      state.preset = p.id;
+      renderPresets();
+      updatePreview();
+    });
+    presetGrid.appendChild(btn);
   });
-});
-['dragleave', 'drop'].forEach(ev => {
-  uploadLabel.addEventListener(ev, (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadLabel.classList.remove('dragover');
-  });
-});
-uploadLabel.addEventListener('drop', (e) => {
-  const file = e.dataTransfer?.files?.[0];
-  if (file) processFile(file);
-});
+}
 
-// Основной обработчик
-fileInput.addEventListener('change', (e) => {
-  const file = e.target.files?.[0];
-  if (file) processFile(file);
-});
+// ---------- Файлы ----------
+function addFiles(fileList) {
+  const arr = Array.from(fileList);
+  const valid = arr.filter(f => f.type.startsWith('image/') && f.size <= 10 * 1024 * 1024);
+  const skipped = arr.length - valid.length;
 
-async function processFile(file) {
-  // Проверка типа
-  if (!file.type.startsWith('image/')) {
-    setStatus('Это не изображение. Выбери PNG, JPG или WEBP.', 'error');
+  if (!valid.length) {
+    setStatus('Не выбрано ни одного подходящего изображения (до 10 МБ).', 'error');
     return;
   }
 
-  if (file.size > 10 * 1024 * 1024) {
-    setStatus('Файл больше 10 МБ. Выбери поменьше.', 'error');
-    return;
-  }
+  valid.forEach(file => {
+    const item = {
+      id: nextId(),
+      name: file.name.replace(/\.[^.]+$/, ''),
+      originalFile: file,
+      originalUrl: URL.createObjectURL(file),
+      resultBlob: null,
+      resultUrl: null,
+      status: 'pending',
+      error: null,
+    };
+    state.files.push(item);
+  });
 
-  // Показываем превью ИСХОДНОГО фото сразу — чтобы было видно, что файл выбран
-  currentBlob = null;
-  previewSection.classList.add('visible');
+  if (!state.activeFileId) state.activeFileId = state.files[0].id;
+
   uploadLabel.style.display = 'none';
-  btnTwitch.disabled = true;
-  btnYouTube.disabled = true;
-  previewWrap.classList.add('busy');
+  workspace.classList.add('visible');
+  renderFileList();
 
-  const originalUrl = URL.createObjectURL(file);
-  previewImg.src = originalUrl;
-  previewImg.alt = 'Исходное фото';
+  const msg = skipped
+    ? `Добавлено ${valid.length}, пропущено ${skipped} (не картинки или >10 МБ)`
+    : `Добавлено ${valid.length} файл(ов). Начинаю обработку...`;
+  setStatus(msg, 'info', true);
 
-  setStatus('Файл получен. Загружаю AI-модель...', 'info', true);
+  processAll();
+}
+
+function renderFileList() {
+  fileList.innerHTML = '';
+  state.files.forEach(f => {
+    const item = document.createElement('div');
+    item.className = 'file-item' + (f.id === state.activeFileId ? ' active' : '');
+    item.dataset.id = f.id;
+
+    const thumb = document.createElement('img');
+    thumb.className = 'file-item-thumb';
+    thumb.src = f.resultUrl || f.originalUrl;
+    thumb.alt = f.name;
+    thumb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      state.activeFileId = f.id;
+      renderFileList();
+      updatePreview();
+    });
+
+    const info = document.createElement('div');
+    info.className = 'file-item-info';
+    const name = document.createElement('div');
+    name.className = 'file-item-name';
+    name.textContent = f.name;
+
+    const status = document.createElement('div');
+    status.className = 'file-item-status ' + f.status;
+    if (f.status === 'pending')    status.textContent = 'Ожидает';
+    if (f.status === 'processing') status.innerHTML = '<span class="mini-spinner"></span> Обработка...';
+    if (f.status === 'done')       status.textContent = '✓ Готово';
+    if (f.status === 'error')      status.textContent = '✕ ' + (f.error || 'Ошибка');
+
+    info.appendChild(name);
+    info.appendChild(status);
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'file-item-remove';
+    remove.innerHTML = '×';
+    remove.title = 'Удалить';
+    remove.addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeFile(f.id);
+    });
+
+    item.appendChild(thumb);
+    item.appendChild(info);
+    item.appendChild(remove);
+    item.addEventListener('click', () => {
+      state.activeFileId = f.id;
+      renderFileList();
+      updatePreview();
+    });
+
+    fileList.appendChild(item);
+  });
+
+  const doneCount = state.files.filter(f => f.status === 'done').length;
+  btnZip.disabled = doneCount === 0;
+  document.getElementById('filesTitle').textContent = `Файлы (${state.files.length})`;
+}
+
+function removeFile(id) {
+  const idx = state.files.findIndex(f => f.id === id);
+  if (idx === -1) return;
+  const f = state.files[idx];
+  if (f.originalUrl) URL.revokeObjectURL(f.originalUrl);
+  if (f.resultUrl) URL.revokeObjectURL(f.resultUrl);
+  state.files.splice(idx, 1);
+
+  if (state.activeFileId === id) {
+    state.activeFileId = state.files[0]?.id || null;
+  }
+
+  if (!state.files.length) {
+    workspace.classList.remove('visible');
+    uploadLabel.style.display = 'block';
+    setStatus('');
+  }
+  renderFileList();
+  updatePreview();
+}
+
+// ---------- Обработка ----------
+async function processAll() {
+  const pending = state.files.filter(f => f.status === 'pending');
+  if (!pending.length) {
+    setStatus('Все файлы обработаны.', 'success');
+    return;
+  }
 
   try {
     const removeBg = await loadRemoveBackground();
 
-    setStatus('Удаляю фон... Это может занять до 30 секунд.', 'info', true);
+    for (const f of pending) {
+      f.status = 'processing';
+      renderFileList();
+      setStatus(`Обрабатываю "${f.name}"...`, 'info', true);
 
-    const blob = await removeBg(file, {
-      model: 'isnet_fp16',
-      output: { format: 'image/png', type: 'foreground' }
-    });
+      try {
+        const blob = await removeBg(f.originalFile, {
+          model: state.model,
+          output: { format: 'image/png', type: 'foreground' }
+        });
 
-    // Проверяем, что получили именно blob
-    if (!(blob instanceof Blob) || blob.size === 0) {
-      throw new Error('AI вернул пустой результат');
+        if (!(blob instanceof Blob) || blob.size === 0) {
+          throw new Error('Пустой результат');
+        }
+
+        f.resultBlob = blob;
+        f.resultUrl = URL.createObjectURL(blob);
+        f.status = 'done';
+      } catch (err) {
+        console.error('Ошибка обработки файла', f.name, err);
+        f.status = 'error';
+        f.error = 'Не удалось обработать';
+      }
+
+      renderFileList();
+      updatePreview();
+      // даём браузеру передышку
+      await new Promise(r => setTimeout(r, 30));
     }
 
-    currentBlob = blob;
-    const resultUrl = URL.createObjectURL(blob);
-    previewImg.src = resultUrl;
-    previewImg.alt = 'Результат';
-    URL.revokeObjectURL(originalUrl);
-
-    previewWrap.classList.remove('busy');
-    setStatus('Готово! Выбери формат для скачивания.', 'success');
-    btnTwitch.disabled = false;
-    btnYouTube.disabled = false;
-
+    const doneCount = state.files.filter(f => f.status === 'done').length;
+    const errCount  = state.files.filter(f => f.status === 'error').length;
+    if (errCount) {
+      setStatus(`Готово: ${doneCount}. С ошибками: ${errCount}.`, 'info');
+    } else {
+      setStatus(`Готово: ${doneCount} файл(ов). Выбери платформу и скачай.`, 'success');
+    }
+    saveHistory();
   } catch (err) {
-    console.error('Ошибка обработки:', err);
-    previewWrap.classList.remove('busy');
-    const msg = err?.message?.includes('AI') || err?.message?.includes('модель')
-      ? err.message
-      : 'Ошибка при удалении фона. Попробуй другое фото или перезагрузи страницу.';
-    setStatus(msg, 'error');
-    // Оставляем исходное фото в превью, чтобы пользователь видел результат выбора
+    console.error(err);
+    setStatus(err.message || 'Ошибка обработки.', 'error');
   }
 }
 
-// Скачивание
-async function resizeAndDownload(targetSize, filename) {
-  if (!currentBlob) {
-    setStatus('Сначала обработай фото.', 'error');
+// ---------- Превью ----------
+async function updatePreview() {
+  const f = getActiveFile();
+  if (!f || !f.resultBlob) {
+    if (f && f.originalUrl) {
+      previewImg.src = f.originalUrl;
+      previewImg.alt = 'Исходное фото';
+    } else {
+      previewImg.removeAttribute('src');
+    }
     return;
   }
 
   try {
-    const img = new Image();
-    const url = URL.createObjectURL(currentBlob);
-    img.src = url;
-    await img.decode();
-
-    const canvas = document.createElement('canvas');
-    canvas.width = targetSize;
-    canvas.height = targetSize;
-    const ctx = canvas.getContext('2d');
-
-    const minSide = Math.min(img.naturalWidth, img.naturalHeight);
-    const sx = (img.naturalWidth - minSide) / 2;
-    const sy = (img.naturalHeight - minSide) / 2;
-
-    ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
-
-    canvas.toBlob((resultBlob) => {
-      if (!resultBlob) {
-        setStatus('Не удалось создать файл.', 'error');
-        URL.revokeObjectURL(url);
-        return;
-      }
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(resultBlob);
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-      URL.revokeObjectURL(url);
-    }, 'image/png');
+    const previewSize = 256;
+    const blob = await renderSticker(f.resultBlob, previewSize);
+    previewImg.src = URL.createObjectURL(blob);
+    previewImg.alt = 'Результат';
   } catch (e) {
-    console.error(e);
-    setStatus('Не удалось скачать файл.', 'error');
+    console.error('Preview error', e);
   }
 }
 
-btnTwitch.addEventListener('click', () => resizeAndDownload(112, 'sticker-twitch-112.png'));
-btnYouTube.addEventListener('click', () => resizeAndDownload(48, 'sticker-youtube-48.png'));
+// ---------- Рендер стикера ----------
+async function renderSticker(sourceBlob, targetSize) {
+  const img = await loadImage(sourceBlob);
 
-btnReset.addEventListener('click', () => {
-  currentBlob = null;
-  fileInput.value = '';
-  previewImg.src = '';
-  previewSection.classList.remove('visible');
-  uploadLabel.style.display = 'block';
-  previewWrap.classList.remove('busy');
-  btnTwitch.disabled = true;
-  btnYouTube.disabled = true;
-  setStatus('');
+  const canvas = document.createElement('canvas');
+  canvas.width = targetSize;
+  canvas.height = targetSize;
+  const ctx = canvas.getContext('2d');
+
+  // Квадратная обрезка источника (по центру)
+  const minSide = Math.min(img.naturalWidth, img.naturalHeight);
+  const sx = (img.naturalWidth - minSide) / 2;
+  const sy = (img.naturalHeight - minSide) / 2;
+
+  // Фон
+  if (state.background.enabled) {
+    ctx.fillStyle = state.background.color;
+    if (state.shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(targetSize / 2, targetSize / 2, targetSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.fillRect(0, 0, targetSize, targetSize);
+    }
+  }
+
+  // Обводка (через многократную отрисовку со смещением)
+  if (state.stroke.enabled && state.stroke.size > 0) {
+    const offset = state.stroke.size;
+    const steps = Math.max(8, Math.ceil(offset));
+    const angleStep = (Math.PI * 2) / steps;
+
+    ctx.save();
+    if (state.shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(targetSize / 2, targetSize / 2, targetSize / 2, 0, Math.PI * 2);
+      ctx.clip();
+    }
+    for (let i = 0; i < steps; i++) {
+      const a = i * angleStep;
+      const dx = Math.cos(a) * offset;
+      const dy = Math.sin(a) * offset;
+      drawStrokedShape(ctx, img, sx, sy, minSide, targetSize, dx, dy, state.stroke.color);
+    }
+    ctx.restore();
+  }
+
+  // Основное изображение
+  ctx.save();
+  if (state.shape === 'circle') {
+    ctx.beginPath();
+    ctx.arc(targetSize / 2, targetSize / 2, targetSize / 2, 0, Math.PI * 2);
+    ctx.clip();
+  }
+  ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
+  ctx.restore();
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png');
+  });
+}
+
+function drawStrokedShape(ctx, img, sx, sy, minSide, targetSize, dx, dy, color) {
+  // Создаём временный canvas для силуэта
+  const tmp = document.createElement('canvas');
+  tmp.width = targetSize;
+  tmp.height = targetSize;
+  const tctx = tmp.getContext('2d');
+
+  tctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
+
+  // Красим силуэт в цвет обводки
+  tctx.globalCompositeOperation = 'source-in';
+  tctx.fillStyle = color;
+  tctx.fillRect(0, 0, targetSize, targetSize);
+
+  ctx.drawImage(tmp, dx, dy);
+}
+
+function loadImage(blob) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(blob);
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = (e) => { URL.revokeObjectURL(url); reject(e); };
+    img.src = url;
+  });
+}
+
+// ---------- Скачивание ----------
+function currentPreset() {
+  return PRESETS.find(p => p.id === state.preset) || PRESETS[0];
+}
+
+function currentSizes() {
+  const p = currentPreset();
+  if (p.custom) return [state.customSize];
+  return p.sizes;
+}
+
+async function downloadSingle() {
+  const f = getActiveFile();
+  if (!f || !f.resultBlob) {
+    setStatus('Нет готового файла для скачивания.', 'error');
+    return;
+  }
+
+  const sizes = currentSizes();
+  const largest = Math.max(...sizes);
+  const blob = await renderSticker(f.resultBlob, largest);
+
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${f.name}-${currentPreset().id}-${largest}.png`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+
+  setStatus(`Скачано: ${a.download}`, 'success');
+}
+
+async function downloadZip() {
+  const ready = state.files.filter(f => f.status === 'done' && f.resultBlob);
+  if (!ready.length) {
+    setStatus('Нет готовых файлов.', 'error');
+    return;
+  }
+
+  let JSZip;
+  try {
+    JSZip = (await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm')).default;
+  } catch (e) {
+    setStatus('Не удалось загрузить модуль ZIP.', 'error');
+    return;
+  }
+
+  setStatus('Собираю ZIP-архив...', 'info', true);
+
+  const zip = new JSZip();
+  const preset = currentPreset();
+  const sizes = currentSizes();
+
+  for (const f of ready) {
+    const folder = zip.folder(sanitizeName(f.name)) || zip;
+    for (const size of sizes) {
+      try {
+        const blob = await renderSticker(f.resultBlob, size);
+        const buf = await blob.arrayBuffer();
+        folder.file(`${sanitizeName(f.name)}-${size}.png`, buf);
+      } catch (e) {
+        console.error('ZIP error for', f.name, size, e);
+      }
+    }
+  }
+
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(zipBlob);
+  a.download = `stickercut-${preset.id}.zip`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+
+  setStatus(`ZIP готов: ${a.download}`, 'success');
+}
+
+function sanitizeName(name) {
+  return (name || 'sticker').replace(/[^\wа-яА-ЯёЁ\-]+/g, '_').slice(0, 40);
+}
+
+// ---------- Копирование ----------
+async function copyToClipboard() {
+  const f = getActiveFile();
+  if (!f || !f.resultBlob) {
+    setStatus('Нет готового файла.', 'error');
+    return;
+  }
+
+  if (!navigator.clipboard || !window.ClipboardItem) {
+    showModal('Копирование не поддерживается', 'Твой браузер не поддерживает копирование картинок в буфер. Воспользуйся кнопкой «Скачать».');
+    return;
+  }
+
+  try {
+    const sizes = currentSizes();
+    const blob = await renderSticker(f.resultBlob, Math.max(...sizes));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    setStatus('Скопировано в буфер обмена!', 'success');
+  } catch (e) {
+    console.error(e);
+    setStatus('Не удалось скопировать. Попробуй скачать.', 'error');
+  }
+}
+
+// ---------- История ----------
+async function saveHistory() {
+  try {
+    const entries = state.files
+      .filter(f => f.status === 'done' && f.resultBlob)
+      .map(f => ({ name: f.name, size: f.resultBlob.size }));
+    if (!entries.length) return;
+
+    const prev = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const merged = [...entries, ...prev].slice(0, MAX_HISTORY);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+  } catch (e) { /* localStorage может быть недоступен */ }
+}
+
+function showHistory() {
+  const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  if (!items.length) {
+    showModal('История пуста', 'Здесь появятся последние обработанные стикеры. Сейчас ничего нет.');
+    return;
+  }
+  const text = items.map((it, i) => `${i + 1}. ${it.name} (${formatBytes(it.size)})`).join('\n');
+  showModal('Последние стикеры', text);
+}
+
+historyLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  showHistory();
 });
+
+// ---------- События ----------
+uploadLabel.addEventListener('dragenter', (e) => { e.preventDefault(); e.stopPropagation(); uploadLabel.classList.add('dragover'); });
+uploadLabel.addEventListener('dragover',  (e) => { e.preventDefault(); e.stopPropagation(); uploadLabel.classList.add('dragover'); });
+uploadLabel.addEventListener('dragleave', (e) => { e.preventDefault(); e.stopPropagation(); uploadLabel.classList.remove('dragover'); });
+uploadLabel.addEventListener('drop', (e) => {
+  e.preventDefault(); e.stopPropagation();
+  uploadLabel.classList.remove('dragover');
+  if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files);
+});
+
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files?.length) addFiles(e.target.files);
+  fileInput.value = '';
+});
+
+// Модель
+modelRow.addEventListener('click', (e) => {
+  const btn = e.target.closest('.radio-btn');
+  if (!btn) return;
+  modelRow.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.model = btn.dataset.model;
+  modelHint.textContent = MODEL_HINTS[state.model] || '';
+  // Переобрабатываем всё, что было готово — можно добавить, но это дорого,
+  // поэтому просто предупреждаем, что новая модель применится к новым файлам.
+  setStatus('Модель изменена. Применится к новым файлам.', 'info');
+});
+
+// Обводка
+strokeToggle.addEventListener('change', () => {
+  state.stroke.enabled = strokeToggle.checked;
+  strokeSizeGrp.style.display = state.stroke.enabled ? 'flex' : 'none';
+  updatePreview();
+});
+strokeColor.addEventListener('input', () => { state.stroke.color = strokeColor.value; updatePreview(); });
+strokeSize.addEventListener('input', () => {
+  state.stroke.size = +strokeSize.value;
+  strokeSizeVal.textContent = state.stroke.size + ' px';
+  updatePreview();
+});
+
+// Фон
+bgToggle.addEventListener('change', () => { state.background.enabled = bgToggle.checked; updatePreview(); });
+bgColor.addEventListener('input', () => { state.background.color = bgColor.value; updatePreview(); });
+
+// Форма
+shapeRow.addEventListener('click', (e) => {
+  const btn = e.target.closest('.radio-btn');
+  if (!btn) return;
+  shapeRow.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.shape = btn.dataset.shape;
+  updatePreview();
+});
+
+// Кнопки
+btnDownload.addEventListener('click', downloadSingle);
+btnZip.addEventListener('click', downloadZip);
+btnCopy.addEventListener('click', copyToClipboard);
+btnReset.addEventListener('click', () => {
+  state.files.forEach(f => {
+    if (f.originalUrl) URL.revokeObjectURL(f.originalUrl);
+    if (f.resultUrl) URL.revokeObjectURL(f.resultUrl);
+  });
+  state.files = [];
+  state.activeFileId = null;
+  workspace.classList.remove('visible');
+  uploadLabel.style.display = 'block';
+  previewImg.removeAttribute('src');
+  setStatus('');
+  renderFileList();
+});
+
+// ---------- Инициализация ----------
+renderPresets();
+strokeSizeVal.textContent = state.stroke.size + ' px';
+modelHint.textContent = MODEL_HINTS[state.model];
+
+// PWA-манифест инжектим программно (не требует отдельного файла)
+try {
+  const manifest = {
+    name: 'StickerCut',
+    short_name: 'StickerCut',
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#08080d',
+    theme_color: '#9147ff',
+    icons: [{
+      src: 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="42" fill="#9147ff"/><text x="96" y="130" font-size="100" text-anchor="middle" fill="white">✂️</text></svg>'),
+      sizes: '192x192',
+      type: 'image/svg+xml'
+    }]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = URL.createObjectURL(blob);
+  document.head.appendChild(link);
+} catch (e) { /* не критично */ }
+
 </script>
 
 </body>
