@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>StickerCut — AI-генератор смайлов для Twitch и YouTube</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,25 +22,28 @@
     --radius-sm: 14px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  html, body { height: 100%; }
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 16px 56px;
+    padding: 32px 16px 48px;
+    padding-top: max(32px, env(safe-area-inset-top));
+    padding-bottom: max(48px, env(safe-area-inset-bottom));
     position: relative;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ─────── ФОН (отдельным слоем, не перехватывает клики) ─────── */
+  /* ФОН */
   .bg {
     position: fixed;
     inset: 0;
@@ -54,6 +57,7 @@
     border-radius: 50%;
     filter: blur(90px);
     opacity: 0.5;
+    will-change: transform;
   }
 
   .bg-blob.b1 {
@@ -103,10 +107,11 @@
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
   }
 
-  /* ─────── ШАПКА ─────── */
+  /* ШАПКА */
   header {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
+    width: 100%;
     max-width: 560px;
     animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
@@ -143,11 +148,11 @@
   }
 
   h1 {
-    font-size: clamp(2rem, 6vw, 3rem);
+    font-size: clamp(1.75rem, 7vw, 2.75rem);
     font-weight: 800;
     letter-spacing: -0.03em;
-    margin-bottom: 14px;
-    line-height: 1.05;
+    margin-bottom: 12px;
+    line-height: 1.1;
   }
 
   h1 span {
@@ -166,7 +171,7 @@
 
   .sub {
     color: var(--text-dim);
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.55;
     max-width: 440px;
     margin: 0 auto;
@@ -177,7 +182,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 18px;
   }
 
   .feature-pill {
@@ -207,11 +212,10 @@
     50%      { opacity: 0.4; }
   }
 
-  /* ─────── КАРТОЧКА ─────── */
+  /* КАРТОЧКА */
   .card {
     width: 100%;
     max-width: 480px;
-    position: relative;
     border-radius: var(--radius);
     padding: 1px;
     background: linear-gradient(
@@ -234,7 +238,7 @@
       rgba(16, 16, 24, 0.94) 100%
     );
     border-radius: calc(var(--radius) - 1px);
-    padding: 24px;
+    padding: 22px;
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
   }
@@ -244,13 +248,12 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Шапка карточки */
   .card-header {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 22px;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
     border-bottom: 1px solid var(--border);
   }
 
@@ -280,13 +283,13 @@
     line-height: 1.4;
   }
 
-  /* ─────── ЗОНА ЗАГРУЗКИ ─────── */
-  .upload-area {
+  /* ЗОНА ЗАГРУЗКИ — теперь это label */
+  .upload-label {
     display: block;
     width: 100%;
     border: 1.5px dashed var(--border-strong);
     border-radius: var(--radius-sm);
-    padding: 48px 24px;
+    padding: 44px 20px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -294,14 +297,20 @@
     color: inherit;
     font-family: inherit;
     position: relative;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  .upload-area:hover,
-  .upload-area.dragover {
+  .upload-label:hover,
+  .upload-label.dragover {
     border-color: var(--purple);
     background: rgba(145, 71, 255, 0.05);
     transform: translateY(-2px);
     box-shadow: 0 12px 40px rgba(145, 71, 255, 0.15);
+  }
+
+  .upload-label:active {
+    transform: translateY(0) scale(0.99);
   }
 
   .upload-icon-wrap {
@@ -317,17 +326,17 @@
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .upload-area:hover .upload-icon-wrap {
+  .upload-label:hover .upload-icon-wrap {
     transform: scale(1.08) translateY(-4px);
   }
 
-  .upload-area p {
+  .upload-text {
     color: var(--text-dim);
     font-size: 0.9rem;
     line-height: 1.5;
   }
 
-  .upload-area p strong {
+  .upload-text strong {
     color: var(--text);
     font-weight: 600;
   }
@@ -339,10 +348,25 @@
     color: var(--text-mute);
   }
 
-  /* ─────── ПРЕВЬЮ ─────── */
+  /* Скрытый инпут — но доступный для клика через label */
+  #fileInput {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ПРЕВЬЮ */
   #preview-section {
     display: none;
     text-align: center;
+  }
+
+  #preview-section.visible {
+    display: block;
     animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
@@ -367,12 +391,12 @@
   }
 
   .preview-wrap {
-    padding: 28px;
+    padding: 24px;
     background:
       repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 22px 22px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     transition: border-color 0.3s;
   }
 
@@ -381,25 +405,22 @@
   }
 
   #preview-img {
-    max-width: 170px;
-    max-height: 170px;
+    max-width: 160px;
+    max-height: 160px;
     display: block;
     margin: 0 auto;
     border-radius: 10px;
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
   }
 
-  #preview-img:hover { transform: scale(1.05); }
-
-  /* ─────── КНОПКИ ─────── */
+  /* КНОПКИ */
   .btn-row {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
-  button {
+  .btn {
     padding: 16px 20px;
     border: none;
     border-radius: var(--radius-sm);
@@ -415,9 +436,10 @@
     position: relative;
     overflow: hidden;
     letter-spacing: -0.01em;
+    width: 100%;
   }
 
-  button::after {
+  .btn::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -427,9 +449,9 @@
     pointer-events: none;
   }
 
-  button:hover:not(:disabled)::after { transform: translateX(100%); }
-  button:active:not(:disabled) { transform: scale(0.975); }
-  button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn:hover:not(:disabled)::after { transform: translateX(100%); }
+  .btn:active:not(:disabled) { transform: scale(0.975); }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .btn-twitch {
     background: linear-gradient(135deg, #9147ff, #a970ff);
@@ -474,10 +496,10 @@
     border-color: var(--border-strong);
   }
 
-  /* ─────── СТАТУС ─────── */
+  /* СТАТУС */
   #status {
-    margin-top: 20px;
-    padding-top: 18px;
+    margin-top: 18px;
+    padding-top: 16px;
     border-top: 1px solid var(--border);
     font-size: 0.85rem;
     color: var(--text-dim);
@@ -502,9 +524,9 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ─────── ПОДВАЛ ─────── */
+  /* ПОДВАЛ */
   footer {
-    margin-top: 40px;
+    margin-top: 32px;
     color: var(--text-mute);
     font-size: 0.78rem;
     text-align: center;
@@ -512,6 +534,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   footer a {
@@ -528,13 +552,46 @@
 
   .footer-sep { opacity: 0.4; }
 
-  @media (max-width: 480px) {
-    body { padding: 28px 12px 40px; }
-    .card-inner { padding: 18px; }
-    .upload-area { padding: 38px 16px; }
-    .card-header { gap: 12px; }
-    .card-header-icon { width: 40px; height: 40px; font-size: 1.15rem; }
-    .preview-wrap { padding: 22px; }
+  /* АДАПТАЦИЯ */
+  @media (max-width: 520px) {
+    body {
+      padding: 24px 12px 40px;
+      padding-top: max(24px, env(safe-area-inset-top));
+      padding-bottom: max(40px, env(safe-area-inset-bottom));
+    }
+    header { margin-bottom: 22px; }
+    .logo-wrap { margin-bottom: 14px; padding: 6px 14px 6px 6px; }
+    .logo-mark { width: 26px; height: 26px; font-size: 0.8rem; }
+    .sub { font-size: 0.88rem; }
+    .feature-pill { font-size: 0.68rem; padding: 5px 10px; }
+    .card { border-radius: 20px; }
+    .card-inner { padding: 16px; border-radius: 19px; }
+    .card-header { gap: 12px; margin-bottom: 16px; padding-bottom: 14px; }
+    .card-header-icon { width: 40px; height: 40px; font-size: 1.1rem; border-radius: 10px; }
+    .card-header-text h2 { font-size: 0.95rem; }
+    .card-header-text p { font-size: 0.72rem; }
+    .upload-label { padding: 34px 14px; }
+    .upload-icon-wrap { width: 56px; height: 56px; font-size: 1.5rem; margin-bottom: 14px; }
+    .upload-text { font-size: 0.85rem; }
+    .upload-hint { font-size: 0.68rem; }
+    .preview-wrap { padding: 20px; }
+    #preview-img { max-width: 130px; max-height: 130px; }
+    .btn { padding: 14px 16px; font-size: 0.88rem; }
+  }
+
+  @media (max-width: 360px) {
+    h1 { font-size: 1.6rem; }
+    .feature-row { gap: 6px; }
+    .feature-pill { font-size: 0.64rem; padding: 4px 8px; }
+  }
+
+  /* Уважение к настройке «уменьшить движение» */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 </head>
@@ -572,12 +629,13 @@
       </div>
     </div>
 
-    <button type="button" class="upload-area" id="uploadArea">
+    <!-- Зона загрузки: label + input внутри -->
+    <label class="upload-label" id="uploadLabel" for="fileInput">
       <div class="upload-icon-wrap">🖼️</div>
-      <p><strong>Нажми</strong> или перетащи изображение сюда</p>
+      <div class="upload-text"><strong>Нажми</strong> или перетащи изображение сюда</div>
       <span class="upload-hint">PNG, JPG, WEBP · до 10 МБ</span>
-    </button>
-    <input type="file" id="fileInput" accept="image/*" hidden>
+    </label>
+    <input type="file" id="fileInput" accept="image/*">
 
     <div id="preview-section">
       <div class="preview-label">Результат</div>
@@ -585,13 +643,13 @@
         <img id="preview-img" alt="Результат">
       </div>
       <div class="btn-row">
-        <button type="button" class="btn-twitch" id="btnTwitch" disabled>
+        <button type="button" class="btn btn-twitch" id="btnTwitch" disabled>
           <span>🎮</span> Скачать для Twitch (112×112)
         </button>
-        <button type="button" class="btn-youtube" id="btnYouTube" disabled>
+        <button type="button" class="btn btn-youtube" id="btnYouTube" disabled>
           <span>▶️</span> Скачать для YouTube (48×48)
         </button>
-        <button type="button" class="btn-reset" id="btnReset">
+        <button type="button" class="btn btn-reset" id="btnReset">
           <span>↺</span> Загрузить другое фото
         </button>
       </div>
@@ -611,7 +669,7 @@
 <script type="module">
 import removeBackground from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm';
 
-const uploadArea = document.getElementById('uploadArea');
+const uploadLabel = document.getElementById('uploadLabel');
 const fileInput = document.getElementById('fileInput');
 const previewSection = document.getElementById('preview-section');
 const previewImg = document.getElementById('preview-img');
@@ -639,22 +697,22 @@ function setStatus(text, loading = false) {
   statusEl.appendChild(span);
 }
 
-uploadArea.addEventListener('click', () => fileInput.click());
-
-uploadArea.addEventListener('dragover', (e) => {
+// Drag & drop на label
+uploadLabel.addEventListener('dragover', (e) => {
   e.preventDefault();
-  uploadArea.classList.add('dragover');
+  uploadLabel.classList.add('dragover');
 });
-uploadArea.addEventListener('dragleave', () => {
-  uploadArea.classList.remove('dragover');
+uploadLabel.addEventListener('dragleave', () => {
+  uploadLabel.classList.remove('dragover');
 });
-uploadArea.addEventListener('drop', (e) => {
+uploadLabel.addEventListener('drop', (e) => {
   e.preventDefault();
-  uploadArea.classList.remove('dragover');
+  uploadLabel.classList.remove('dragover');
   const file = e.dataTransfer.files[0];
   if (file) processFile(file);
 });
 
+// Изменение input
 fileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (file) processFile(file);
@@ -666,8 +724,8 @@ async function processFile(file) {
     return;
   }
 
-  uploadArea.style.display = 'none';
-  previewSection.style.display = 'block';
+  uploadLabel.style.display = 'none';
+  previewSection.classList.add('visible');
   btnTwitch.disabled = true;
   btnYouTube.disabled = true;
   setStatus('Удаляю фон... Первый раз может занять до 30 секунд.', true);
@@ -687,8 +745,8 @@ async function processFile(file) {
   } catch (err) {
     console.error(err);
     setStatus('Ошибка при обработке. Попробуй другое фото.');
-    previewSection.style.display = 'none';
-    uploadArea.style.display = 'block';
+    previewSection.classList.remove('visible');
+    uploadLabel.style.display = 'block';
   }
 }
 
@@ -715,8 +773,10 @@ async function resizeAndDownload(targetSize, filename) {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(resultBlob);
     a.download = filename;
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     URL.revokeObjectURL(url);
   }, 'image/png');
 }
@@ -727,8 +787,8 @@ btnYouTube.addEventListener('click', () => resizeAndDownload(48, 'sticker-youtub
 btnReset.addEventListener('click', () => {
   currentBlob = null;
   fileInput.value = '';
-  previewSection.style.display = 'none';
-  uploadArea.style.display = 'block';
+  previewSection.classList.remove('visible');
+  uploadLabel.style.display = 'block';
   setStatus('');
 });
 </script>
