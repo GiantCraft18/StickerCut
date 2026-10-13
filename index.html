@@ -5,109 +5,529 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StickerCut — AI-генератор смайлов для Twitch и YouTube</title>
 <style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-soft: #12121a;
+    --surface: rgba(30, 30, 42, 0.6);
+    --surface-2: rgba(255, 255, 255, 0.025);
+    --surface-hover: rgba(40, 40, 58, 0.8);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --text: #f0f0f5;
+    --text-dim: #8a8aa0;
+    --text-mute: #5a5a70;
+    --purple: #9147ff;
+    --purple-glow: rgba(145, 71, 255, 0.4);
+    --red: #ff2d55;
+    --red-glow: rgba(255, 45, 85, 0.35);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
   body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background: #0f0f13;
-    color: #e8e8ed;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 24px 16px;
+    padding: 32px 16px 48px;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
-  h1 { font-size: 1.8rem; margin-bottom: 8px; }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(145, 71, 255, 0.18), transparent 45%),
+      radial-gradient(circle at 80% 30%, rgba(255, 45, 85, 0.12), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(80, 120, 255, 0.12), transparent 50%);
+    animation: bgShift 20s ease-in-out infinite alternate;
+    z-index: -1;
+    filter: blur(40px);
+  }
+
+  @keyframes bgShift {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-4%, 3%) scale(1.08); }
+    100% { transform: translate(3%, -2%) scale(1.04); }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    z-index: -1;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+    max-width: 520px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+
   h1 span {
-    background: linear-gradient(90deg, #9147ff, #ff4d6d);
+    background: linear-gradient(135deg, #a970ff 0%, #ff4d6d 50%, #ff9558 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s ease infinite;
   }
-  .sub { color: #8888a0; margin-bottom: 24px; text-align: center; font-size: 0.9rem; }
+
+  @keyframes gradientMove {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  .sub {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 6px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+
+  /* ───────── КАРТОЧКА ───────── */
+  .card {
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgba(35, 35, 50, 0.75) 0%,
+      rgba(22, 22, 32, 0.75) 100%
+    );
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 8px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.3) inset,
+      0 24px 70px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.02);
+    animation: fadeUp 0.6s ease 0.1s both;
+    overflow: hidden;
+  }
+
+  /* Градиентная обводка сверху карточки */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(145, 71, 255, 0.6) 30%,
+      rgba(255, 77, 109, 0.6) 70%,
+      transparent 100%
+    );
+    z-index: 1;
+  }
+
+  /* Мягкое свечение за карточкой */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(
+      ellipse at top,
+      rgba(145, 71, 255, 0.15),
+      transparent 60%
+    );
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(20px);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Внутренние секции карточки */
+  .card-inner {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: calc(var(--radius) - 6px);
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-header-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, rgba(145, 71, 255, 0.2), rgba(255, 45, 85, 0.15));
+    border: 1px solid rgba(145, 71, 255, 0.25);
+    flex-shrink: 0;
+  }
+
+  .card-header-text h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .card-header-text p {
+    font-size: 0.75rem;
+    color: var(--text-mute);
+    margin-top: 2px;
+  }
 
   .upload-area {
-    width: 100%; max-width: 420px;
-    border: 2px dashed #33334a;
-    border-radius: 16px;
-    padding: 40px 20px;
+    border: 2px dashed var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 44px 20px;
     text-align: center;
     cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    background: #17171f;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.015);
+    position: relative;
+    overflow: hidden;
   }
-  .upload-area:hover, .upload-area.dragover {
-    border-color: #9147ff;
-    background: #1c1c28;
-  }
-  .upload-area p { color: #8888a0; font-size: 0.9rem; }
-  .upload-area .icon { font-size: 2.5rem; margin-bottom: 12px; }
 
+  .upload-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--purple-glow), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .upload-area:hover,
+  .upload-area.dragover {
+    border-color: var(--purple);
+    background: rgba(145, 71, 255, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .upload-area:hover::before,
+  .upload-area.dragover::before { opacity: 1; }
+
+  .upload-area .icon {
+    font-size: 2.6rem;
+    margin-bottom: 14px;
+    display: block;
+    transition: transform 0.3s;
+    filter: drop-shadow(0 4px 12px rgba(145, 71, 255, 0.3));
+  }
+
+  .upload-area:hover .icon { transform: scale(1.1) translateY(-3px); }
+
+  .upload-area p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    position: relative;
+  }
+
+  .upload-area p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ───────── СЕКЦИЯ ПРЕВЬЮ ───────── */
   #preview-section {
     display: none;
-    width: 100%; max-width: 420px;
-    margin-top: 24px;
     text-align: center;
+    animation: fadeUp 0.4s ease both;
   }
-  #preview-img {
-    max-width: 180px; max-height: 180px;
-    border-radius: 12px;
-    background: repeating-conic-gradient(#2a2a35 0% 25%, #1f1f28 0% 50%) 50% / 20px 20px;
-    display: block; margin: 0 auto 20px;
-  }
-  .btn-row { display: flex; flex-direction: column; gap: 12px; }
-  button {
-    padding: 14px 20px;
-    border: none; border-radius: 12px;
-    font-size: 1rem; font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.1s, opacity 0.2s;
-  }
-  button:active { transform: scale(0.97); }
-  button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-twitch { background: #9147ff; color: #fff; }
-  .btn-youtube { background: #ff0000; color: #fff; }
-  .btn-reset { background: #2a2a35; color: #c0c0d0; }
 
-  #status {
-    margin-top: 16px;
-    font-size: 0.85rem;
-    color: #8888a0;
-    min-height: 20px;
-    text-align: center;
+  .preview-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
   }
+
+  .preview-label::before,
+  .preview-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .preview-wrap {
+    padding: 24px;
+    background:
+      repeating-conic-gradient(#1c1c26 0% 25%, #16161e 0% 50%) 50% / 20px 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .preview-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(145, 71, 255, 0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  #preview-img {
+    max-width: 160px;
+    max-height: 160px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    position: relative;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+  }
+
+  #preview-img:hover { transform: scale(1.05); }
+
+  .btn-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    padding: 15px 20px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.15) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+
+  button:hover:not(:disabled)::after { transform: translateX(100%); }
+  button:active:not(:disabled) { transform: scale(0.97); }
+  button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .btn-twitch {
+    background: linear-gradient(135deg, #9147ff, #a970ff);
+    color: #fff;
+    box-shadow: 0 4px 20px var(--purple-glow);
+  }
+
+  .btn-twitch:hover:not(:disabled) {
+    box-shadow: 0 6px 28px rgba(145, 71, 255, 0.55);
+    transform: translateY(-1px);
+  }
+
+  .btn-youtube {
+    background: linear-gradient(135deg, #ff0000, #ff4d4d);
+    color: #fff;
+    box-shadow: 0 4px 20px var(--red-glow);
+  }
+
+  .btn-youtube:hover:not(:disabled) {
+    box-shadow: 0 6px 28px rgba(255, 45, 85, 0.5);
+    transform: translateY(-1px);
+  }
+
+  .btn-reset {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .btn-reset:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+  }
+
+  /* ───────── СТАТУС ───────── */
+  #status {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    min-height: 22px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: color 0.3s;
+  }
+
+  #status:empty {
+    display: none;
+  }
+
   .spinner {
-    display: inline-block;
-    width: 14px; height: 14px;
-    border: 2px solid #8888a0;
-    border-top-color: #9147ff;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--purple);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
+    flex-shrink: 0;
   }
+
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  footer {
+    margin-top: 32px;
+    color: var(--text-mute);
+    font-size: 0.78rem;
+    text-align: center;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--purple); }
+
+  @media (max-width: 480px) {
+    body { padding: 20px 12px 32px; }
+    .card-inner { padding: 16px; }
+    .upload-area { padding: 34px 16px; }
+  }
 </style>
 </head>
 <body>
 
-<h1><span>StickerCut</span></h1>
-<p class="sub">Загрузи фото — получи смайл для Twitch или YouTube</p>
+<header>
+  <h1><span>StickerCut</span></h1>
+  <p class="sub">Преврати любое фото в смайл для Twitch или YouTube<br>за несколько секунд — прямо в браузере</p>
+  <div class="badge">
+    <span class="dot"></span>
+    <span>Работает без регистрации · фото не покидает устройство</span>
+  </div>
+</header>
 
-<div class="upload-area" id="uploadArea">
-  <div class="icon">🖼️</div>
-  <p>Нажми или перетащи изображение сюда</p>
-  <input type="file" id="fileInput" accept="image/*" hidden>
-</div>
+<div class="card">
+  <div class="card-inner">
 
-<div id="preview-section">
-  <img id="preview-img" alt="Результат">
-  <div class="btn-row">
-    <button class="btn-twitch" id="btnTwitch" disabled>Скачать для Twitch (112×112)</button>
-    <button class="btn-youtube" id="btnYouTube" disabled>Скачать для YouTube (48×48)</button>
-    <button class="btn-reset" id="btnReset">Загрузить другое фото</button>
+    <div class="card-header">
+      <div class="card-header-icon">✨</div>
+      <div class="card-header-text">
+        <h2>Создать смайл</h2>
+        <p>Загрузи фото — AI уберёт фон автоматически</p>
+      </div>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <span class="icon">🖼️</span>
+      <p><strong>Нажми</strong> или перетащи изображение сюда</p>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+    </div>
+
+    <div id="preview-section">
+      <div class="preview-label">Результат</div>
+      <div class="preview-wrap">
+        <img id="preview-img" alt="Результат">
+      </div>
+      <div class="btn-row">
+        <button class="btn-twitch" id="btnTwitch" disabled>
+          <span>🎮</span> Скачать для Twitch (112×112)
+        </button>
+        <button class="btn-youtube" id="btnYouTube" disabled>
+          <span>▶️</span> Скачать для YouTube (48×48)
+        </button>
+        <button class="btn-reset" id="btnReset">
+          <span>↺</span> Загрузить другое фото
+        </button>
+      </div>
+    </div>
+
+    <div id="status"></div>
+
   </div>
 </div>
 
-<div id="status"></div>
+<footer>
+  Сделано с ❤️ · <a href="https://github.com" target="_blank" rel="noopener">Открытый исходный код</a>
+</footer>
 
 <script type="module">
 import removeBackground from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm';
@@ -124,7 +544,15 @@ const statusEl = document.getElementById('status');
 let currentBlob = null;
 
 function setStatus(text, loading = false) {
-  statusEl.innerHTML = (loading ? '<span class="spinner"></span>' : '') + text;
+  statusEl.innerHTML = '';
+  if (loading) {
+    const sp = document.createElement('span');
+    sp.className = 'spinner';
+    statusEl.appendChild(sp);
+  }
+  const span = document.createElement('span');
+  span.textContent = text;
+  statusEl.appendChild(span);
 }
 
 uploadArea.addEventListener('click', () => fileInput.click());
@@ -193,7 +621,6 @@ async function resizeAndDownload(targetSize, filename) {
   canvas.height = targetSize;
   const ctx = canvas.getContext('2d');
 
-  // Центрируем и обрезаем в квадрат, потом масштабируем
   const minSide = Math.min(img.naturalWidth, img.naturalHeight);
   const sx = (img.naturalWidth - minSide) / 2;
   const sy = (img.naturalHeight - minSide) / 2;
