@@ -29,7 +29,6 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
   html, body { height: 100%; }
 
   body {
@@ -49,20 +48,14 @@
   }
 
   .bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background:
       radial-gradient(ellipse 60% 50% at 20% 0%, rgba(145, 71, 255, 0.15), transparent 60%),
       radial-gradient(ellipse 50% 40% at 90% 100%, rgba(255, 92, 138, 0.08), transparent 60%);
   }
 
   .bg-grid {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
@@ -73,62 +66,29 @@
 
   /* ШАПКА */
   .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
     padding: 10px 16px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    margin-bottom: 14px;
-    flex-wrap: wrap;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    margin-bottom: 14px; flex-wrap: wrap;
   }
 
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .brand { display: flex; align-items: center; gap: 10px; }
 
   .brand-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
+    width: 32px; height: 32px; border-radius: 9px;
     background: linear-gradient(135deg, #9147ff, #ff5c8a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    box-shadow: 0 4px 16px rgba(145, 71, 255, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; box-shadow: 0 4px 16px rgba(145, 71, 255, 0.5);
   }
 
-  .brand-text {
-    display: flex;
-    flex-direction: column;
-  }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .brand-sub { font-size: 0.68rem; color: var(--text-mute); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
 
-  .brand-name {
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-
-  .brand-sub {
-    font-size: 0.68rem;
-    color: var(--text-mute);
-    font-family: 'JetBrains Mono', monospace;
-    margin-top: 2px;
-  }
-
-  .topbar-actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+  .topbar-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
   .btn {
     padding: 8px 14px;
@@ -136,99 +96,94 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text-dim);
-    font-family: inherit;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    font-family: inherit; font-size: 0.78rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
     white-space: nowrap;
   }
 
   .btn:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.06);
     border-color: var(--border-strong);
-    color: var(--text);
-    transform: translateY(-1px);
+    color: var(--text); transform: translateY(-1px);
   }
-
   .btn:active:not(:disabled) { transform: scale(0.98); }
   .btn:disabled { opacity: 0.35; cursor: not-allowed; }
-
   .btn.primary {
     background: linear-gradient(135deg, #9147ff, #a970ff);
-    color: #fff;
-    border: none;
+    color: #fff; border: none;
     box-shadow: 0 4px 16px rgba(145, 71, 255, 0.4);
   }
-
-  .btn.primary:hover:not(:disabled) {
-    box-shadow: 0 6px 24px rgba(145, 71, 255, 0.55);
-    color: #fff;
-  }
-
+  .btn.primary:hover:not(:disabled) { box-shadow: 0 6px 24px rgba(145, 71, 255, 0.55); color: #fff; }
   .btn.ghost { background: transparent; }
+  .btn.danger { color: #ff8fa3; border-color: rgba(255, 92, 138, 0.3); }
+  .btn.danger:hover:not(:disabled) { background: rgba(255, 92, 138, 0.1); }
 
   /* ОСНОВНОЙ LAYOUT */
   .app {
     display: grid;
-    grid-template-columns: 260px 1fr 300px;
+    grid-template-columns: 260px 1fr 320px;
     gap: 12px;
     flex: 1;
     min-height: 0;
   }
 
-  /* ЛЕВАЯ ПАНЕЛЬ — элементы */
   .panel {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: flex; flex-direction: column; gap: 8px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
 
   .panel::-webkit-scrollbar { width: 6px; }
-  .panel::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
-  }
+  .panel::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
 
   .panel-title {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-mute);
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-mute);
     padding: 4px 0 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
   }
 
   .panel-title .badge {
-    font-size: 0.65rem;
-    padding: 2px 7px;
+    font-size: 0.65rem; padding: 2px 7px;
     background: rgba(145, 71, 255, 0.15);
-    color: var(--accent-2);
-    border-radius: 100px;
-    text-transform: none;
-    letter-spacing: 0.02em;
+    color: var(--accent-2); border-radius: 100px;
+    text-transform: none; letter-spacing: 0.02em;
   }
 
-  .element-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
+  /* Табы слева */
+  .side-tabs {
+    display: flex; gap: 4px; padding: 3px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
   }
+
+  .side-tab {
+    flex: 1; padding: 6px 8px;
+    background: transparent; border: none;
+    border-radius: 7px; color: var(--text-mute);
+    font-family: inherit; font-size: 0.72rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .side-tab:hover { color: var(--text); }
+  .side-tab.active {
+    background: linear-gradient(135deg, rgba(145, 71, 255, 0.25), rgba(255, 92, 138, 0.15));
+    color: var(--text);
+  }
+
+  .side-content { display: none; flex-direction: column; gap: 8px; }
+  .side-content.active { display: flex; }
+
+  .element-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 
   .element-btn {
     padding: 10px 6px;
@@ -236,86 +191,80 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text-dim);
-    font-family: inherit;
-    font-size: 0.68rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    text-align: center;
-    line-height: 1.15;
+    font-family: inherit; font-size: 0.68rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; text-align: center; line-height: 1.15;
   }
 
   .element-btn .icon { font-size: 1.1rem; }
-
   .element-btn:hover {
     background: rgba(145, 71, 255, 0.08);
     border-color: rgba(145, 71, 255, 0.3);
-    color: var(--text);
-    transform: translateY(-2px);
+    color: var(--text); transform: translateY(-2px);
   }
 
-  .element-btn:active { transform: scale(0.97); }
+  /* Пресеты */
+  .preset-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
 
-  /* ЦЕНТР — редактор */
-  .editor {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-height: 0;
+  .preset-card {
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    color: var(--text-dim);
+    font-family: inherit;
+    display: flex; align-items: center; gap: 10px;
+    text-align: left;
   }
+
+  .preset-card:hover {
+    background: rgba(145, 71, 255, 0.08);
+    border-color: rgba(145, 71, 255, 0.3);
+    color: var(--text); transform: translateY(-1px);
+  }
+
+  .preset-card .icon { font-size: 1.4rem; }
+  .preset-card .info { display: flex; flex-direction: column; gap: 2px; }
+  .preset-card .name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+  .preset-card .desc { font-size: 0.68rem; color: var(--text-mute); }
+
+  /* Центральный редактор */
+  .editor { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
 
   .editor-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     padding: 8px 12px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     flex-wrap: wrap;
   }
 
   .toolbar-group {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding-right: 8px;
-    margin-right: 4px;
+    display: flex; align-items: center; gap: 4px;
+    padding-right: 8px; margin-right: 4px;
     border-right: 1px solid var(--border);
   }
-
   .toolbar-group:last-child { border-right: none; padding-right: 0; margin-right: 0; }
 
   .icon-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 32px; height: 32px; border-radius: 8px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     color: var(--text-dim);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    transition: all 0.2s;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0;
   }
 
   .icon-btn:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.08);
-    color: var(--text);
-    border-color: var(--border-strong);
+    color: var(--text); border-color: var(--border-strong);
   }
-
   .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
   .icon-btn.active {
     background: rgba(145, 71, 255, 0.2);
     border-color: var(--accent);
@@ -324,10 +273,8 @@
 
   .zoom-display {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--text-dim);
-    min-width: 48px;
-    text-align: center;
+    font-size: 0.72rem; color: var(--text-dim);
+    min-width: 48px; text-align: center;
   }
 
   .canvas-area {
@@ -337,19 +284,35 @@
     border-radius: var(--radius);
     overflow: auto;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     padding: 20px;
     min-height: 300px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    background-image: repeating-conic-gradient(#0e0e18 0% 25%, #0a0a12 0% 50%);
+    background-size: 40px 40px;
   }
 
   .canvas-area::-webkit-scrollbar { width: 8px; height: 8px; }
-  .canvas-area::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
+  .canvas-area::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
+
+  /* Линейки */
+  .ruler-h, .ruler-v {
+    position: absolute;
+    background: rgba(20, 20, 30, 0.9);
+    border: 1px solid var(--border);
+    z-index: 5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-mute);
+    pointer-events: none;
+  }
+  .ruler-h {
+    top: 0; left: 24px; right: 0; height: 22px;
+    border-left: none; border-right: none; border-top: none;
+  }
+  .ruler-v {
+    top: 22px; left: 0; bottom: 0; width: 24px;
+    border-left: none; border-right: none; border-bottom: none;
   }
 
   .canvas-wrap {
@@ -362,58 +325,65 @@
 
   #overlayCanvas {
     display: block;
-    background: repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 24px 24px;
     cursor: default;
   }
 
-  /* ПРАВАЯ ПАНЕЛЬ — свойства */
+  /* Направляющие */
+  .guide-line {
+    position: absolute;
+    background: #ff5c8a;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
+  }
+  .guide-line.visible { display: block; }
+  .guide-h { height: 1px; left: 0; right: 0; }
+  .guide-v { width: 1px; top: 0; bottom: 0; }
+
+  /* Правая панель */
   .properties {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: flex; flex-direction: column; gap: 10px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
-
   .properties::-webkit-scrollbar { width: 6px; }
-  .properties::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
-  }
+  .properties::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
 
-  .prop-section {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .prop-section { padding: 12px 0; border-bottom: 1px solid var(--border); }
   .prop-section:last-child { border-bottom: none; }
 
   .prop-title {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-mute);
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-mute);
     margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
   }
 
-  .slider-row {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 10px;
+  .prop-title .actions { display: flex; gap: 4px; }
+
+  .mini-btn {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; transition: all 0.2s;
   }
 
+  .mini-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+  }
+
+  .slider-row { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
   .slider-row:last-child { margin-bottom: 0; }
 
   .slider-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    color: var(--text-dim);
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; color: var(--text-dim);
   }
-
   .slider-label .val {
     color: var(--accent-2);
     font-family: 'JetBrains Mono', monospace;
@@ -421,22 +391,15 @@
   }
 
   input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 4px;
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px;
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 100px;
-    outline: none;
-    cursor: pointer;
+    border-radius: 100px; outline: none; cursor: pointer;
   }
 
   input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+    -webkit-appearance: none; appearance: none;
+    width: 14px; height: 14px; border-radius: 50%;
     background: linear-gradient(135deg, #9147ff, #b380ff);
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(145, 71, 255, 0.5);
@@ -444,231 +407,160 @@
   }
 
   input[type="range"]::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--bg);
+    width: 14px; height: 14px; border: 2px solid var(--bg);
     border-radius: 50%;
     background: linear-gradient(135deg, #9147ff, #b380ff);
     cursor: pointer;
   }
 
   .color-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; margin-bottom: 8px;
   }
-
   .color-row:last-child { margin-bottom: 0; }
-
-  .color-row label {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    flex: 1;
-  }
+  .color-row label { font-size: 0.75rem; color: var(--text-dim); flex: 1; }
 
   input[type="color"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 40px;
-    height: 28px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: transparent;
-    cursor: pointer;
-    padding: 2px;
-    flex-shrink: 0;
+    -webkit-appearance: none; appearance: none;
+    width: 40px; height: 28px;
+    border: 1px solid var(--border); border-radius: 6px;
+    background: transparent; cursor: pointer; padding: 2px; flex-shrink: 0;
   }
   input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
   input[type="color"]::-webkit-color-swatch { border: none; border-radius: 4px; }
   input[type="color"]::-moz-color-swatch { border: none; border-radius: 4px; }
 
   .toggle-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    gap: 8px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 0; font-size: 0.78rem; color: var(--text-dim); gap: 8px;
   }
-
   .toggle-label { display: flex; flex-direction: column; gap: 2px; flex: 1; }
   .toggle-label small { font-size: 0.65rem; color: var(--text-mute); }
 
-  .switch {
-    position: relative;
-    width: 36px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-
+  .switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
   .switch input { opacity: 0; width: 0; height: 0; }
-
   .switch-slider {
-    position: absolute;
-    cursor: pointer;
-    inset: 0;
+    position: absolute; cursor: pointer; inset: 0;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--border);
-    border-radius: 100px;
-    transition: all 0.25s;
+    border-radius: 100px; transition: all 0.25s;
   }
-
   .switch-slider::before {
-    content: '';
-    position: absolute;
-    height: 12px;
-    width: 12px;
-    left: 3px;
-    top: 3px;
-    background: #fff;
-    border-radius: 50%;
-    transition: transform 0.25s;
+    content: ''; position: absolute;
+    height: 12px; width: 12px; left: 3px; top: 3px;
+    background: #fff; border-radius: 50%; transition: transform 0.25s;
   }
-
   .switch input:checked + .switch-slider {
     background: linear-gradient(135deg, #9147ff, #a970ff);
     border-color: transparent;
   }
-
-  .switch input:checked + .switch-slider::before {
-    transform: translateX(16px);
-  }
+  .switch input:checked + .switch-slider::before { transform: translateX(16px); }
 
   .text-input {
-    width: 100%;
-    padding: 8px 10px;
+    width: 100%; padding: 8px 10px;
     background: rgba(0, 0, 0, 0.25);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.82rem;
-    outline: none;
-    transition: border-color 0.2s;
+    border-radius: 8px; color: var(--text);
+    font-family: inherit; font-size: 0.82rem;
+    outline: none; transition: border-color 0.2s;
     margin-bottom: 6px;
   }
-
   .text-input:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.15);
   }
 
-  .empty-state {
-    padding: 40px 20px;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--text-mute);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
+  select.text-input { cursor: pointer; }
 
+  .empty-state {
+    padding: 40px 20px; text-align: center;
+    font-size: 0.8rem; color: var(--text-mute);
+    display: flex; flex-direction: column;
+    align-items: center; gap: 10px;
+  }
   .empty-state .big { font-size: 2rem; opacity: 0.5; }
 
   /* Слои */
-  .layers-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    max-height: 260px;
-    overflow-y: auto;
-  }
+  .layers-list { display: flex; flex-direction: column; gap: 4px; max-height: 320px; overflow-y: auto; }
 
   .layer-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     padding: 7px 9px;
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: 8px; cursor: pointer;
     transition: all 0.15s;
-    font-size: 0.75rem;
-    color: var(--text-dim);
+    font-size: 0.75rem; color: var(--text-dim);
   }
 
   .layer-item:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: var(--border-strong);
-    color: var(--text);
+    border-color: var(--border-strong); color: var(--text);
   }
 
   .layer-item.active {
     background: rgba(145, 71, 255, 0.15);
-    border-color: var(--accent);
-    color: var(--text);
+    border-color: var(--accent); color: var(--text);
   }
 
   .layer-icon { font-size: 0.9rem; flex-shrink: 0; }
-  .layer-name {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .layer-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .layer-vis {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.04);
-    border: none;
-    color: var(--text-dim);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    flex-shrink: 0;
+    width: 20px; height: 20px; border-radius: 5px;
+    background: rgba(255, 255, 255, 0.04); border: none;
+    color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; flex-shrink: 0;
   }
-
   .layer-vis:hover { background: rgba(255, 255, 255, 0.1); color: var(--text); }
 
   /* Статус */
   #status {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
+    position: fixed; bottom: 20px; left: 50%;
     transform: translateX(-50%) translateY(100px);
     padding: 10px 18px;
     background: var(--surface);
     border: 1px solid var(--border-strong);
     border-radius: 100px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    font-size: 0.82rem;
-    color: var(--text);
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 100;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    font-size: 0.82rem; color: var(--text);
+    opacity: 0; transition: all 0.3s ease;
+    pointer-events: none; z-index: 100;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    max-width: 90vw;
-    text-align: center;
+    max-width: 90vw; text-align: center;
   }
-
-  #status.visible {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
+  #status.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
   #status.success { border-color: rgba(74, 222, 128, 0.5); color: var(--green); }
   #status.error { border-color: rgba(255, 92, 138, 0.5); color: #ff8fa3; }
 
-  /* Пресеты размеров */
-  .preset-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    margin-bottom: 10px;
+  /* Модалка */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.visible { display: flex; }
+
+  .modal {
+    background: linear-gradient(180deg, #1a1a26 0%, #12121a 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 24px; max-width: 480px; width: 100%;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    max-height: 90vh; overflow-y: auto;
   }
 
-  .preset-btn {
+  .modal h3 { font-size: 1rem; margin-bottom: 12px; }
+  .modal p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* Размер холста */
+  .canvas-presets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-bottom: 8px; }
+  .canvas-preset {
     padding: 7px 4px;
     background: var(--surface-2);
     border: 1px solid var(--border);
@@ -680,30 +572,80 @@
     transition: all 0.2s;
     text-align: center;
   }
-
-  .preset-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--text);
-  }
-
-  .preset-btn.active {
+  .canvas-preset:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
+  .canvas-preset.active {
     background: rgba(145, 71, 255, 0.2);
     border-color: var(--accent);
     color: var(--accent-2);
   }
 
+  /* Углы */
+  .corners-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    margin-top: 6px;
+  }
+
+  .corner-input {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.7rem; color: var(--text-mute);
+  }
+
+  .corner-input input {
+    flex: 1; padding: 4px 6px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; outline: none;
+    width: 100%;
+  }
+
+  /* Рамки шаблонов */
+  .frames-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .frame-btn {
+    aspect-ratio: 1/1;
+    padding: 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .frame-btn:hover {
+    background: rgba(145, 71, 255, 0.08);
+    border-color: rgba(145, 71, 255, 0.3);
+    transform: translateY(-2px);
+  }
+  .frame-btn svg { width: 100%; height: 100%; stroke: var(--text-dim); fill: none; stroke-width: 2; }
+  .frame-btn:hover svg { stroke: var(--accent-2); }
+
+  /* Анимации */
+  .anim-preview {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .anim-preview canvas {
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
   /* Адаптация */
-  @media (max-width: 1100px) {
-    .app { grid-template-columns: 220px 1fr 260px; }
+  @media (max-width: 1200px) {
+    .app { grid-template-columns: 220px 1fr 280px; }
   }
 
   @media (max-width: 900px) {
     .app {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto auto;
+      gap: 10px;
     }
-    .panel, .properties { max-height: 300px; }
+    .panel { max-height: 320px; }
     .canvas-area { min-height: 400px; }
+    .ruler-h, .ruler-v { display: none; }
   }
 
   @media (max-width: 480px) {
@@ -734,15 +676,16 @@
     <div class="brand-mark">⚒️</div>
     <div class="brand-text">
       <div class="brand-name">OverlayForge</div>
-      <div class="brand-sub">overlay builder v1.0</div>
+      <div class="brand-sub">overlay builder v2.0</div>
     </div>
   </div>
   <div class="topbar-actions">
     <button type="button" class="btn ghost" id="btnUndo" title="Ctrl+Z">↶ Отменить</button>
     <button type="button" class="btn ghost" id="btnRedo" title="Ctrl+Y">↷ Повторить</button>
-    <button type="button" class="btn" id="btnImport">📂 Загрузить</button>
+    <button type="button" class="btn" id="btnImport">📂 Открыть</button>
     <button type="button" class="btn" id="btnExport">💾 Сохранить</button>
-    <button type="button" class="btn primary" id="btnDownload">⬇ Скачать PNG</button>
+    <button type="button" class="btn" id="btnExportHtml">📄 HTML</button>
+    <button type="button" class="btn primary" id="btnDownload">⬇ PNG</button>
   </div>
 </div>
 
@@ -750,52 +693,72 @@
 
   <!-- ЛЕВАЯ ПАНЕЛЬ -->
   <div class="panel">
-    <div class="panel-title">Элементы <span class="badge">нажми чтобы добавить</span></div>
-    <div class="element-list">
-      <button type="button" class="element-btn" data-add="webcam">
-        <span class="icon">📹</span>
-        <span>Веб-камера</span>
-      </button>
-      <button type="button" class="element-btn" data-add="chat">
-        <span class="icon">💬</span>
-        <span>Чат</span>
-      </button>
-      <button type="button" class="element-btn" data-add="alert">
-        <span class="icon">🔔</span>
-        <span>Алерт</span>
-      </button>
-      <button type="button" class="element-btn" data-add="goal">
-        <span class="icon">🎯</span>
-        <span>Цель</span>
-      </button>
-      <button type="button" class="element-btn" data-add="counter">
-        <span class="icon">🔢</span>
-        <span>Счётчик</span>
-      </button>
-      <button type="button" class="element-btn" data-add="label">
-        <span class="icon">📝</span>
-        <span>Текст</span>
-      </button>
-      <button type="button" class="element-btn" data-add="shape">
-        <span class="icon">⬛</span>
-        <span>Фигура</span>
-      </button>
-      <button type="button" class="element-btn" data-add="line">
-        <span class="icon">➖</span>
-        <span>Линия</span>
-      </button>
-      <button type="button" class="element-btn" data-add="timer">
-        <span class="icon">⏱️</span>
-        <span>Таймер</span>
-      </button>
-      <button type="button" class="element-btn" data-add="social">
-        <span class="icon">📱</span>
-        <span>Соцсети</span>
-      </button>
+    <div class="side-tabs">
+      <button type="button" class="side-tab active" data-side="add">➕ Добавить</button>
+      <button type="button" class="side-tab" data-side="presets">🎬 Пресеты</button>
+      <button type="button" class="side-tab" data-side="canvas">📐 Холст</button>
+      <button type="button" class="side-tab" data-side="layers">📚 Слои</button>
     </div>
 
-    <div class="panel-title" style="margin-top: 10px;">Слои</div>
-    <div class="layers-list" id="layersList"></div>
+    <!-- ДОБАВИТЬ -->
+    <div class="side-content active" data-content="add">
+      <div class="panel-title">Элементы <span class="badge">нажми</span></div>
+      <div class="element-list">
+        <button type="button" class="element-btn" data-add="webcam"><span class="icon">📹</span><span>Камера</span></button>
+        <button type="button" class="element-btn" data-add="chat"><span class="icon">💬</span><span>Чат</span></button>
+        <button type="button" class="element-btn" data-add="alert"><span class="icon">🔔</span><span>Алерт</span></button>
+        <button type="button" class="element-btn" data-add="goal"><span class="icon">🎯</span><span>Цель</span></button>
+        <button type="button" class="element-btn" data-add="counter"><span class="icon">🔢</span><span>Счётчик</span></button>
+        <button type="button" class="element-btn" data-add="label"><span class="icon">📝</span><span>Текст</span></button>
+        <button type="button" class="element-btn" data-add="shape"><span class="icon">⬛</span><span>Фигура</span></button>
+        <button type="button" class="element-btn" data-add="line"><span class="icon">➖</span><span>Линия</span></button>
+        <button type="button" class="element-btn" data-add="timer"><span class="icon">⏱️</span><span>Таймер</span></button>
+        <button type="button" class="element-btn" data-add="social"><span class="icon">📱</span><span>Соцсети</span></button>
+        <button type="button" class="element-btn" data-add="image"><span class="icon">🖼️</span><span>Картинка</span></button>
+        <button type="button" class="element-btn" data-add="video"><span class="icon">🎥</span><span>Видео</span></button>
+      </div>
+    </div>
+
+    <!-- ПРЕСЕТЫ -->
+    <div class="side-content" data-content="presets">
+      <div class="panel-title">Компоновка</div>
+      <div class="preset-grid" id="layoutPresets"></div>
+    </div>
+
+    <!-- ХОЛСТ -->
+    <div class="side-content" data-content="canvas">
+      <div class="panel-title">Размер холста</div>
+      <div class="canvas-presets" id="canvasPresets"></div>
+      <div class="slider-row">
+        <div class="slider-label"><span>Ширина</span><span class="val" id="canvasWVal">1920</span></div>
+        <input type="range" id="canvasW" min="480" max="3840" value="1920" step="10">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label"><span>Высота</span><span class="val" id="canvasHVal">1080</span></div>
+        <input type="range" id="canvasH" min="480" max="2160" value="1080" step="10">
+      </div>
+
+      <div class="panel-title" style="margin-top: 10px;">Фон</div>
+      <div class="toggle-row">
+        <div class="toggle-label"><span>Показать фон</span><small>Для проверки</small></div>
+        <label class="switch"><input type="checkbox" id="bgVisible"><span class="switch-slider"></span></label>
+      </div>
+      <div class="color-row">
+        <label>Цвет</label>
+        <input type="color" id="bgCanvasColor" value="#1a1a2e">
+      </div>
+      <div class="color-row">
+        <label>Скриншот игры</label>
+        <input type="file" id="bgImageInput" accept="image/*" hidden>
+        <button type="button" class="btn" id="btnBgImage" style="padding: 4px 10px; font-size: 0.7rem;">Загрузить</button>
+      </div>
+    </div>
+
+    <!-- СЛОИ -->
+    <div class="side-content" data-content="layers">
+      <div class="panel-title">Слои <span class="badge" id="layersCount">0</span></div>
+      <div class="layers-list" id="layersList"></div>
+    </div>
   </div>
 
   <!-- ЦЕНТР -->
@@ -808,12 +771,22 @@
         <button type="button" class="icon-btn" id="btnFit" title="По размеру">⤢</button>
       </div>
       <div class="toolbar-group">
-        <button type="button" class="icon-btn" id="btnCenter" title="Центрировать">⊙</button>
-        <button type="button" class="icon-btn" id="btnGrid" title="Сетка">⋮⋮</button>
-        <button type="button" class="icon-btn" id="btnSafe" title="Safe-зона">▢</button>
+        <button type="button" class="icon-btn active" id="btnGrid" title="Сетка">⋮⋮</button>
+        <button type="button" class="icon-btn active" id="btnSafe" title="Safe-зона">▢</button>
+        <button type="button" class="icon-btn active" id="btnSnap" title="Привязка">🧲</button>
+        <button type="button" class="icon-btn active" id="btnGuides" title="Направляющие">📏</button>
+      </div>
+      <div class="toolbar-group">
+        <button type="button" class="icon-btn" id="btnAlignLeft" title="По левому краю">⇤</button>
+        <button type="button" class="icon-btn" id="btnAlignCenterH" title="По центру H">↔</button>
+        <button type="button" class="icon-btn" id="btnAlignRight" title="По правому краю">⇥</button>
+        <button type="button" class="icon-btn" id="btnAlignTop" title="По верху">⤒</button>
+        <button type="button" class="icon-btn" id="btnAlignCenterV" title="По центру V">↕</button>
+        <button type="button" class="icon-btn" id="btnAlignBottom" title="По низу">⤓</button>
       </div>
       <div class="toolbar-group">
         <button type="button" class="icon-btn" id="btnDup" title="Дублировать">⧉</button>
+        <button type="button" class="icon-btn" id="btnMirrorH" title="Зеркало H">⇋</button>
         <button type="button" class="icon-btn" id="btnDelete" title="Удалить">🗑</button>
       </div>
       <div class="toolbar-group" style="margin-left: auto;">
@@ -822,8 +795,12 @@
     </div>
 
     <div class="canvas-area" id="canvasArea">
+      <div class="ruler-h" id="rulerH"></div>
+      <div class="ruler-v" id="rulerV"></div>
       <div class="canvas-wrap" id="canvasWrap">
         <canvas id="overlayCanvas" width="1920" height="1080"></canvas>
+        <div class="guide-line guide-h" id="guideH"></div>
+        <div class="guide-line guide-v" id="guideV"></div>
       </div>
     </div>
   </div>
@@ -840,25 +817,33 @@
 
 </div>
 
+<!-- Модалки -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
 <div id="status"></div>
 
 <script>
 /* ============================================================
-   OverlayForge — конструктор оверлеев
+   OverlayForge v2.0 — полная версия
    ============================================================ */
 
 // ============ СОСТОЯНИЕ ============
 
 const state = {
   canvas: { width: 1920, height: 1080 },
+  background: { visible: false, color: '#1a1a2e', image: null, imageEl: null },
   elements: [],
-  selectedId: null,
+  selectedIds: [],  // мультивыделение
   zoom: 1,
   showGrid: true,
   showSafe: true,
+  snap: true,
+  guides: true,
 };
 
-const history = { stack: [], index: -1, limit: 30 };
+const history = { stack: [], index: -1, limit: 40 };
 
 let uid = 0;
 const nextId = () => ++uid;
@@ -867,141 +852,351 @@ const nextId = () => ++uid;
 
 const ELEMENT_TYPES = {
   webcam: {
-    icon: '📹',
-    name: 'Веб-камера',
+    icon: '📹', name: 'Камера',
     create: () => ({
-      type: 'webcam',
-      label: 'Webcam',
+      type: 'webcam', label: 'Webcam',
       x: 60, y: 60, w: 480, h: 270,
-      radius: 16,
-      fill: '#1e1e2e',
+      radius: 16, corners: { tl: 16, tr: 16, br: 16, bl: 16 },
+      fill: '#1e1e2e', fillAlpha: 1,
       stroke: { enabled: true, width: 4, color: '#9147ff' },
       labelStyle: { enabled: true, text: 'Webcam', color: '#ffffff', size: 16, pos: 'inside' },
+      frame: 'none',
     }),
   },
   chat: {
-    icon: '💬',
-    name: 'Чат',
+    icon: '💬', name: 'Чат',
     create: () => ({
-      type: 'chat',
-      label: 'Chat',
+      type: 'chat', label: 'Chat',
       x: 1480, y: 60, w: 380, h: 600,
-      radius: 12,
-      fill: 'rgba(10, 10, 18, 0.7)',
+      radius: 12, corners: { tl: 12, tr: 12, br: 12, bl: 12 },
+      fill: '#0a0a12', fillAlpha: 0.75,
       stroke: { enabled: true, width: 2, color: '#9147ff' },
       labelStyle: { enabled: true, text: 'CHAT', color: '#ffffff', size: 14, pos: 'top' },
+      frame: 'none',
     }),
   },
   alert: {
-    icon: '🔔',
-    name: 'Алерт',
+    icon: '🔔', name: 'Алерт',
     create: () => ({
-      type: 'alert',
-      label: 'Alert',
+      type: 'alert', label: 'Alert',
       x: 760, y: 400, w: 400, h: 120,
-      radius: 20,
-      fill: 'rgba(145, 71, 255, 0.85)',
+      radius: 20, corners: { tl: 20, tr: 20, br: 20, bl: 20 },
+      fill: '#9147ff', fillAlpha: 0.9,
       stroke: { enabled: false, width: 2, color: '#ffffff' },
       labelStyle: { enabled: true, text: 'NEW FOLLOWER!', color: '#ffffff', size: 22, pos: 'inside' },
+      frame: 'none',
     }),
   },
   goal: {
-    icon: '🎯',
-    name: 'Цель',
+    icon: '🎯', name: 'Цель',
     create: () => ({
-      type: 'goal',
-      label: 'Goal',
+      type: 'goal', label: 'Goal',
       x: 760, y: 950, w: 400, h: 60,
-      radius: 12,
-      fill: 'rgba(30, 30, 46, 0.9)',
-      progress: 0.65,
-      progressColor: '#9147ff',
+      radius: 12, corners: { tl: 12, tr: 12, br: 12, bl: 12 },
+      fill: '#1e1e2e', fillAlpha: 0.9,
+      progress: 0.65, progressColor: '#9147ff',
       stroke: { enabled: true, width: 2, color: '#9147ff' },
       labelStyle: { enabled: true, text: 'SUB GOAL — 65/100', color: '#ffffff', size: 14, pos: 'inside' },
+      frame: 'none',
     }),
   },
   counter: {
-    icon: '🔢',
-    name: 'Счётчик',
+    icon: '🔢', name: 'Счётчик',
     create: () => ({
-      type: 'counter',
-      label: 'Counter',
+      type: 'counter', label: 'Counter',
       x: 60, y: 950, w: 200, h: 80,
-      radius: 14,
-      fill: 'rgba(30, 30, 46, 0.9)',
+      radius: 14, corners: { tl: 14, tr: 14, br: 14, bl: 14 },
+      fill: '#1e1e2e', fillAlpha: 0.9,
       stroke: { enabled: true, width: 2, color: '#4ade80' },
       labelStyle: { enabled: true, text: '42', color: '#4ade80', size: 42, pos: 'inside' },
+      frame: 'none',
     }),
   },
   label: {
-    icon: '📝',
-    name: 'Текст',
+    icon: '📝', name: 'Текст',
     create: () => ({
-      type: 'label',
-      label: 'Text',
+      type: 'label', label: 'Text',
       x: 760, y: 30, w: 400, h: 60,
-      radius: 0,
-      fill: 'transparent',
+      radius: 0, corners: { tl: 0, tr: 0, br: 0, bl: 0 },
+      fill: '#000000', fillAlpha: 0,
       stroke: { enabled: false, width: 0, color: '#ffffff' },
       labelStyle: { enabled: true, text: 'STREAM TITLE HERE', color: '#ffffff', size: 28, pos: 'inside' },
+      frame: 'none',
     }),
   },
   shape: {
-    icon: '⬛',
-    name: 'Фигура',
+    icon: '⬛', name: 'Фигура',
     create: () => ({
-      type: 'shape',
-      label: 'Shape',
+      type: 'shape', label: 'Shape',
       x: 400, y: 300, w: 300, h: 300,
-      shape: 'rectangle',
-      radius: 16,
-      fill: 'rgba(145, 71, 255, 0.3)',
+      radius: 16, corners: { tl: 16, tr: 16, br: 16, bl: 16 },
+      fill: '#9147ff', fillAlpha: 0.3,
       stroke: { enabled: true, width: 3, color: '#9147ff' },
       labelStyle: { enabled: false, text: '', color: '#ffffff', size: 16, pos: 'inside' },
+      frame: 'none',
     }),
   },
   line: {
-    icon: '➖',
-    name: 'Линия',
+    icon: '➖', name: 'Линия',
     create: () => ({
-      type: 'line',
-      label: 'Line',
+      type: 'line', label: 'Line',
       x: 400, y: 500, w: 400, h: 4,
-      fill: '#9147ff',
-      radius: 0,
+      fill: '#9147ff', fillAlpha: 1,
+      radius: 0, corners: { tl: 0, tr: 0, br: 0, bl: 0 },
       stroke: { enabled: false, width: 0, color: '#ffffff' },
       labelStyle: { enabled: false, text: '', color: '#ffffff', size: 14, pos: 'inside' },
+      frame: 'none',
     }),
   },
   timer: {
-    icon: '⏱️',
-    name: 'Таймер',
+    icon: '⏱️', name: 'Таймер',
     create: () => ({
-      type: 'timer',
-      label: 'Timer',
+      type: 'timer', label: 'Timer',
       x: 760, y: 30, w: 400, h: 100,
-      radius: 12,
-      fill: 'rgba(30, 30, 46, 0.9)',
+      radius: 12, corners: { tl: 12, tr: 12, br: 12, bl: 12 },
+      fill: '#1e1e2e', fillAlpha: 0.9,
       stroke: { enabled: true, width: 2, color: '#fbbf24' },
       labelStyle: { enabled: true, text: '05:00', color: '#fbbf24', size: 56, pos: 'inside' },
+      frame: 'none',
     }),
   },
   social: {
-    icon: '📱',
-    name: 'Соцсети',
+    icon: '📱', name: 'Соцсети',
     create: () => ({
-      type: 'social',
-      label: 'Social',
+      type: 'social', label: 'Social',
       x: 60, y: 1000, w: 400, h: 40,
-      radius: 0,
-      fill: 'transparent',
+      radius: 0, corners: { tl: 0, tr: 0, br: 0, bl: 0 },
+      fill: '#000000', fillAlpha: 0,
       stroke: { enabled: false, width: 0, color: '#ffffff' },
       labelStyle: { enabled: true, text: '@yourname · twitch.tv/you', color: '#ffffff', size: 18, pos: 'inside' },
+      frame: 'none',
+    }),
+  },
+  image: {
+    icon: '🖼️', name: 'Картинка',
+    create: () => ({
+      type: 'image', label: 'Image',
+      x: 760, y: 400, w: 200, h: 200,
+      radius: 8, corners: { tl: 8, tr: 8, br: 8, bl: 8 },
+      fill: '#000000', fillAlpha: 0,
+      stroke: { enabled: false, width: 2, color: '#ffffff' },
+      labelStyle: { enabled: false, text: '', color: '#ffffff', size: 16, pos: 'inside' },
+      image: null, imageEl: null, imageUrl: null,
+      frame: 'none',
+    }),
+  },
+  video: {
+    icon: '🎥', name: 'Видео',
+    create: () => ({
+      type: 'video', label: 'Video',
+      x: 760, y: 400, w: 320, h: 180,
+      radius: 8, corners: { tl: 8, tr: 8, br: 8, bl: 8 },
+      fill: '#000000', fillAlpha: 0.3,
+      stroke: { enabled: false, width: 2, color: '#ffffff' },
+      labelStyle: { enabled: true, text: '🎥 VIDEO', color: '#ffffff', size: 16, pos: 'inside' },
+      videoEl: null, videoUrl: null,
+      frame: 'none',
     }),
   },
 };
 
-// ============ CANVAS ============
+// Рамки для вебкамеры
+const FRAMES = {
+  none: { icon: '<rect x="3" y="3" width="18" height="18" rx="2"/>', draw(ctx, el) {} },
+  corners: {
+    icon: '<path d="M3 9 L3 3 L9 3 M15 3 L21 3 L21 9 M21 15 L21 21 L15 21 M9 21 L3 21 L3 15"/>',
+    draw(ctx, el) {
+      const len = Math.min(el.w, el.h) * 0.2;
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width + 2;
+      ctx.lineCap = 'round';
+      const pts = [
+        [[el.x, el.y + len], [el.x, el.y], [el.x + len, el.y]],
+        [[el.x + el.w - len, el.y], [el.x + el.w, el.y], [el.x + el.w, el.y + len]],
+        [[el.x + el.w, el.y + el.h - len], [el.x + el.w, el.y + el.h], [el.x + el.w - len, el.y + el.h]],
+        [[el.x + len, el.y + el.h], [el.x, el.y + el.h], [el.x, el.y + el.h - len]],
+      ];
+      pts.forEach(p => {
+        ctx.beginPath();
+        ctx.moveTo(p[0][0], p[0][1]);
+        ctx.lineTo(p[1][0], p[1][1]);
+        ctx.lineTo(p[2][0], p[2][1]);
+        ctx.stroke();
+      });
+    }
+  },
+  glow: {
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2" stroke-width="3"/>',
+    draw(ctx, el) {
+      ctx.save();
+      ctx.shadowColor = el.stroke.color;
+      ctx.shadowBlur = 30;
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width + 2;
+      roundRectCustom(ctx, el);
+      ctx.stroke();
+      ctx.restore();
+    }
+  },
+  double: {
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6" y="6" width="12" height="12" rx="1"/>',
+    draw(ctx, el) {
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width;
+      roundRectCustom(ctx, el);
+      ctx.stroke();
+      const inset = 12;
+      ctx.beginPath();
+      ctx.rect(el.x + inset, el.y + inset, el.w - inset * 2, el.h - inset * 2);
+      ctx.stroke();
+    }
+  },
+  tape: {
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/>',
+    draw(ctx, el) {
+      ctx.fillStyle = el.stroke.color;
+      ctx.fillRect(el.x - 6, el.y - 6, el.w + 12, 10);
+      ctx.fillRect(el.x - 6, el.y + el.h - 4, el.w + 12, 10);
+    }
+  },
+  dashed: {
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="3 3"/>',
+    draw(ctx, el) {
+      ctx.setLineDash([15, 10]);
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width;
+      roundRectCustom(ctx, el);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  },
+  inset: {
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><rect x="9" y="9" width="6" height="6"/>',
+    draw(ctx, el) {
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width;
+      roundRectCustom(ctx, el);
+      ctx.stroke();
+      const inset = 20;
+      ctx.beginPath();
+      ctx.rect(el.x + inset, el.y + inset, el.w - inset * 2, el.h - inset * 2);
+      ctx.stroke();
+    }
+  },
+};
+
+function roundRectCustom(ctx, el) {
+  const c = el.corners || { tl: el.radius, tr: el.radius, br: el.radius, bl: el.radius };
+  const { x, y, w, h } = el;
+  ctx.beginPath();
+  ctx.moveTo(x + c.tl, y);
+  ctx.lineTo(x + w - c.tr, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + c.tr);
+  ctx.lineTo(x + w, y + h - c.br);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - c.br, y + h);
+  ctx.lineTo(x + c.bl, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - c.bl);
+  ctx.lineTo(x, y + c.tl);
+  ctx.quadraticCurveTo(x, y, x + c.tl, y);
+  ctx.closePath();
+}
+
+// ============ ПРЕСЕТЫ КОМПОНОВКИ ============
+
+const LAYOUT_PRESETS = [
+  {
+    id: 'standard', name: 'Стандарт', icon: '🎬', desc: 'Вебка слева, чат справа',
+    build: (c) => {
+      const pad = 40;
+      return [
+        { ...ELEMENT_TYPES.webcam.create(), x: pad, y: pad, w: c.width * 0.28, h: c.width * 0.28 * 0.5625 },
+        { ...ELEMENT_TYPES.chat.create(), x: c.width - c.width * 0.22 - pad, y: pad, w: c.width * 0.22, h: c.height - pad * 2 },
+        { ...ELEMENT_TYPES.social.create(), x: pad, y: c.height - 60, w: c.width * 0.4, h: 30 },
+      ];
+    }
+  },
+  {
+    id: 'chatting', name: 'Just Chatting', icon: '💬', desc: 'Вебка по центру',
+    build: (c) => {
+      const w = c.width * 0.5;
+      const h = w * 0.5625;
+      return [
+        { ...ELEMENT_TYPES.webcam.create(), x: (c.width - w) / 2, y: (c.height - h) / 2, w, h },
+        { ...ELEMENT_TYPES.label.create(), x: (c.width - 600) / 2, y: 40, w: 600, h: 60 },
+      ];
+    }
+  },
+  {
+    id: 'gameplay', name: 'Gameplay', icon: '🎮', desc: 'Минимум элементов',
+    build: (c) => {
+      const pad = 30;
+      return [
+        { ...ELEMENT_TYPES.webcam.create(), x: c.width - 320 - pad, y: pad, w: 320, h: 180 },
+        { ...ELEMENT_TYPES.alert.create(), x: (c.width - 500) / 2, y: 80, w: 500, h: 130 },
+      ];
+    }
+  },
+  {
+    id: 'irl', name: 'IRL', icon: '📱', desc: 'Вертикальный',
+    build: (c) => {
+      return [
+        { ...ELEMENT_TYPES.chat.create(), x: 20, y: c.height - 400, w: c.width - 40, h: 380, fill: '#0a0a12', fillAlpha: 0.5 },
+        { ...ELEMENT_TYPES.social.create(), x: 20, y: 20, w: c.width - 40, h: 30 },
+        { ...ELEMENT_TYPES.goal.create(), x: 20, y: 60, w: c.width - 40, h: 50 },
+      ];
+    }
+  },
+  {
+    id: 'esports', name: 'Esports', icon: '🏆', desc: 'Киберспорт',
+    build: (c) => {
+      const pad = 20;
+      return [
+        { ...ELEMENT_TYPES.webcam.create(), x: pad, y: c.height - 220 - pad, w: 380, h: 214 },
+        { ...ELEMENT_TYPES.chat.create(), x: pad, y: pad, w: 380, h: c.height - 220 - pad * 2 - 30 },
+        { ...ELEMENT_TYPES.counter.create(), x: c.width - 220 - pad, y: pad, w: 220, h: 80 },
+        { ...ELEMENT_TYPES.timer.create(), x: c.width - 220 - pad, y: 120, w: 220, h: 70, labelStyle: { enabled: true, text: '00:00', color: '#fbbf24', size: 36, pos: 'inside' } },
+      ];
+    }
+  },
+  {
+    id: 'minimal', name: 'Минимал', icon: '◽', desc: 'Только самое нужное',
+    build: (c) => {
+      const pad = 30;
+      return [
+        { ...ELEMENT_TYPES.webcam.create(), x: c.width - 280 - pad, y: c.height - 160 - pad, w: 280, h: 158, stroke: { enabled: true, width: 3, color: '#9147ff' } },
+        { ...ELEMENT_TYPES.social.create(), x: 30, y: 30, w: 400, h: 30 },
+      ];
+    }
+  },
+];
+
+// ============ УТИЛИТЫ ============
+
+function hexToRgba(hex, alpha = 1) {
+  if (!hex || hex === 'transparent') return 'rgba(0,0,0,0)';
+  if (hex.startsWith('rgba') || hex.startsWith('rgb')) return hex;
+  const num = parseInt(hex.replace('#', ''), 16);
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function rgbaToHex(color) {
+  if (!color || color === 'transparent') return '#000000';
+  if (color.startsWith('#')) return color;
+  const m = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (!m) return '#000000';
+  return '#' + ((+m[1] << 16) | (+m[2] << 8) | +m[3]).toString(16).padStart(6, '0');
+}
+
+function escapeAttr(str) {
+  return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+// ============ DOM ============
 
 const canvas = document.getElementById('overlayCanvas');
 const ctx = canvas.getContext('2d');
@@ -1012,6 +1207,10 @@ const propsContent = document.getElementById('propsContent');
 const emptyState = document.getElementById('emptyState');
 const zoomDisplay = document.getElementById('zoomDisplay');
 const canvasInfo = document.getElementById('canvasInfo');
+const guideH = document.getElementById('guideH');
+const guideV = document.getElementById('guideV');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalContent = document.getElementById('modalContent');
 
 // ============ СТАТУС ============
 
@@ -1024,19 +1223,40 @@ function setStatus(text, type = 'info') {
   if (type === 'success') el.classList.add('success');
   if (type === 'error') el.classList.add('error');
   clearTimeout(statusTimeout);
-  if (text) {
-    statusTimeout = setTimeout(() => {
-      el.classList.remove('visible');
-    }, 2500);
-  }
+  if (text) statusTimeout = setTimeout(() => el.classList.remove('visible'), 2500);
 }
+
+// ============ МОДАЛКА ============
+
+function showModal(html) {
+  modalContent.innerHTML = html;
+  modalOverlay.classList.add('visible');
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('visible');
+}
+
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
 
 // ============ ИСТОРИЯ ============
 
 function snapshot() {
   return JSON.parse(JSON.stringify({
     canvas: state.canvas,
-    elements: state.elements.map(e => ({ ...e })),
+    background: { visible: state.background.visible, color: state.background.color },
+    elements: state.elements.map(e => {
+      const c = { ...e };
+      delete c.imageEl;
+      delete c.videoEl;
+      if (c.image && typeof c.image === 'string') {
+        // оставляем data URL или blob URL (для сессии)
+      }
+      return c;
+    }),
+    selectedIds: [...state.selectedIds],
   }));
 }
 
@@ -1069,13 +1289,34 @@ function redo() {
 
 function applySnapshot(snap) {
   state.canvas = { ...snap.canvas };
-  state.elements = snap.elements.map(e => ({ ...e }));
-  if (!state.elements.find(e => e.id === state.selectedId)) {
-    state.selectedId = null;
-  }
+  state.background.visible = snap.background.visible;
+  state.background.color = snap.background.color;
+  state.elements = snap.elements.map(e => {
+    const el = { ...e };
+    if (el.imageUrl) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = el.imageUrl;
+      el.imageEl = img;
+    }
+    if (el.videoUrl) {
+      const v = document.createElement('video');
+      v.crossOrigin = 'anonymous';
+      v.src = el.videoUrl;
+      v.loop = true;
+      v.muted = true;
+      v.playsInline = true;
+      v.addEventListener('loadedmetadata', () => { draw(); });
+      v.play().catch(() => {});
+      el.videoEl = v;
+    }
+    return el;
+  });
+  state.selectedIds = (snap.selectedIds || []).filter(id => state.elements.find(e => e.id === id));
   canvas.width = state.canvas.width;
   canvas.height = state.canvas.height;
   canvasInfo.textContent = `${state.canvas.width} × ${state.canvas.height}`;
+  updateRulers();
   renderAll();
 }
 
@@ -1089,24 +1330,36 @@ function updateHistoryButtons() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Сетка
-  if (state.showGrid) {
-    drawGrid();
+  // Фон
+  if (state.background.visible) {
+    if (state.background.imageEl) {
+      const img = state.background.imageEl;
+      const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+      const w = img.naturalWidth * scale;
+      const h = img.naturalHeight * scale;
+      ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+    } else {
+      ctx.fillStyle = state.background.color;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
   }
+
+  // Сетка
+  if (state.showGrid) drawGrid();
 
   // Элементы
-  state.elements.forEach(el => drawElement(el));
+  state.elements.forEach(el => {
+    if (!el.hidden) drawElement(el);
+  });
 
   // Safe-зона
-  if (state.showSafe) {
-    drawSafeZone();
-  }
+  if (state.showSafe) drawSafeZone();
 
-  // Выделение выбранного
-  const sel = state.elements.find(e => e.id === state.selectedId);
-  if (sel) {
-    drawSelection(sel);
-  }
+  // Выделение
+  state.selectedIds.forEach(id => {
+    const el = state.elements.find(e => e.id === id);
+    if (el) drawSelection(el);
+  });
 }
 
 function drawGrid() {
@@ -1124,15 +1377,10 @@ function drawGrid() {
     ctx.lineTo(canvas.width, y + 0.5);
   }
   ctx.stroke();
-
-  // Центральные оси
   ctx.strokeStyle = 'rgba(145, 71, 255, 0.15)';
-  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(canvas.width / 2, 0);
-  ctx.lineTo(canvas.width / 2, canvas.height);
-  ctx.moveTo(0, canvas.height / 2);
-  ctx.lineTo(canvas.width, canvas.height / 2);
+  ctx.moveTo(canvas.width / 2, 0); ctx.lineTo(canvas.width / 2, canvas.height);
+  ctx.moveTo(0, canvas.height / 2); ctx.lineTo(canvas.width, canvas.height / 2);
   ctx.stroke();
   ctx.restore();
 }
@@ -1151,8 +1399,42 @@ function drawSafeZone() {
 function drawElement(el) {
   ctx.save();
 
+  // Картинка
+  if (el.type === 'image' && el.imageEl && el.imageEl.complete) {
+    roundRectCustom(ctx, el);
+    ctx.clip();
+    ctx.drawImage(el.imageEl, el.x, el.y, el.w, el.h);
+    ctx.restore();
+    if (el.stroke.enabled) {
+      roundRectCustom(ctx, el);
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width;
+      ctx.stroke();
+    }
+    drawLabel(el);
+    return;
+  }
+
+  // Видео
+  if (el.type === 'video' && el.videoEl) {
+    roundRectCustom(ctx, el);
+    ctx.clip();
+    try {
+      ctx.drawImage(el.videoEl, el.x, el.y, el.w, el.h);
+    } catch (e) {}
+    ctx.restore();
+    if (el.stroke.enabled) {
+      roundRectCustom(ctx, el);
+      ctx.strokeStyle = el.stroke.color;
+      ctx.lineWidth = el.stroke.width;
+      ctx.stroke();
+    }
+    drawLabel(el);
+    return;
+  }
+
   if (el.type === 'line') {
-    ctx.fillStyle = el.fill;
+    ctx.fillStyle = hexToRgba(el.fill, el.fillAlpha);
     ctx.fillRect(el.x, el.y, el.w, el.h);
     drawLabel(el);
     ctx.restore();
@@ -1165,63 +1447,60 @@ function drawElement(el) {
     return;
   }
 
-  // Форма с закруглением
-  if (el.radius > 0) {
-    roundRect(ctx, el.x, el.y, el.w, el.h, el.radius);
-  } else {
-    ctx.beginPath();
-    ctx.rect(el.x, el.y, el.w, el.h);
-  }
+  // Форма
+  roundRectCustom(ctx, el);
 
-  // Заливка
-  if (el.fill && el.fill !== 'transparent') {
-    ctx.fillStyle = el.fill;
+  if (el.fillAlpha > 0) {
+    ctx.fillStyle = hexToRgba(el.fill, el.fillAlpha);
     ctx.fill();
   }
 
-  // Прогресс для цели
+  // Прогресс цели
   if (el.type === 'goal' && typeof el.progress === 'number') {
     ctx.save();
+    roundRectCustom(ctx, el);
     ctx.clip();
     ctx.fillStyle = el.progressColor || '#9147ff';
     ctx.fillRect(el.x, el.y, el.w * el.progress, el.h);
     ctx.restore();
   }
 
-  // Специфика типов
+  // Специфика
   if (el.type === 'webcam') {
-    // Заглушка вебки
     ctx.save();
-    ctx.globalAlpha = 0.3;
+    ctx.globalAlpha = 0.4;
     ctx.fillStyle = '#000';
-    ctx.fillRect(el.x + el.stroke.width, el.y + el.stroke.width, el.w - el.stroke.width * 2, el.h - el.stroke.width * 2);
+    ctx.fillRect(el.x + 4, el.y + 4, el.w - 8, el.h - 8);
     ctx.restore();
     ctx.save();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-    ctx.font = `600 ${Math.round(el.h * 0.08)}px Inter, sans-serif`;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+    ctx.font = `600 ${Math.round(el.h * 0.09)}px Inter, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('📹 WEBCAM', el.x + el.w / 2, el.y + el.h / 2);
     ctx.restore();
+    // Рамка
+    if (el.frame && FRAMES[el.frame]) {
+      FRAMES[el.frame].draw(ctx, el);
+    }
   }
 
   if (el.type === 'chat') {
-    // Заглушка чата
     ctx.save();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-    ctx.font = `500 14px Inter, sans-serif`;
-    ctx.textBaseline = 'top';
     const lines = [
       { name: 'user123', text: 'Hello streamer!', color: '#4ade80' },
       { name: 'viewer_42', text: 'LUL', color: '#fbbf24' },
       { name: 'moderator', text: 'Welcome!', color: '#ff5c8a' },
       { name: 'fan_2024', text: 'PogChamp', color: '#38bdf8' },
+      { name: 'sub_gifter', text: '5 gifted subs!', color: '#b380ff' },
+      { name: 'new_viewer', text: 'first time here', color: '#9ca3af' },
     ];
     lines.forEach((line, i) => {
       const y = el.y + 50 + i * 28;
       if (y > el.y + el.h - 20) return;
       ctx.fillStyle = line.color;
       ctx.font = `700 13px Inter, sans-serif`;
+      ctx.textBaseline = 'top';
       ctx.fillText(line.name + ':', el.x + 14, y);
       const nameWidth = ctx.measureText(line.name + ': ').width;
       ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
@@ -1232,78 +1511,48 @@ function drawElement(el) {
   }
 
   if (el.type === 'alert') {
-    // Пульсирующая подсветка
     ctx.save();
     const grad = ctx.createLinearGradient(el.x, el.y, el.x, el.y + el.h);
-    grad.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+    grad.addColorStop(0, 'rgba(255, 255, 255, 0.2)');
     grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    roundRectCustom(ctx, el);
+    ctx.clip();
     ctx.fillStyle = grad;
     ctx.fillRect(el.x, el.y, el.w, el.h);
     ctx.restore();
   }
 
-  if (el.type === 'timer') {
-    // Моноширинный таймер
-    // уже через labelStyle
-  }
-
   // Обводка
-  if (el.stroke && el.stroke.enabled && el.stroke.width > 0) {
-    if (el.radius > 0) {
-      roundRect(ctx, el.x, el.y, el.w, el.h, el.radius);
-    } else {
-      ctx.beginPath();
-      ctx.rect(el.x, el.y, el.w, el.h);
-    }
+  if (el.stroke.enabled && el.stroke.width > 0) {
+    roundRectCustom(ctx, el);
     ctx.strokeStyle = el.stroke.color;
     ctx.lineWidth = el.stroke.width;
     ctx.stroke();
   }
 
-  // Метка
   drawLabel(el);
-
   ctx.restore();
 }
 
 function drawLabel(el) {
   if (!el.labelStyle || !el.labelStyle.enabled || !el.labelStyle.text) return;
-
   const style = el.labelStyle;
   ctx.save();
   ctx.fillStyle = style.color;
-  const isTimer = el.type === 'timer';
-  const isCounter = el.type === 'counter';
-  const font = isTimer || isCounter
+  const isMono = el.type === 'timer' || el.type === 'counter';
+  const font = isMono
     ? `800 ${style.size}px 'JetBrains Mono', monospace`
     : `700 ${style.size}px Inter, sans-serif`;
   ctx.font = font;
   ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  let x = el.x + el.w / 2;
+  let y = el.y + el.h / 2;
+  if (style.pos === 'top') y = el.y + style.size;
+  else if (style.pos === 'bottom') y = el.y + el.h - style.size / 2;
 
-  let x, y, align;
-  if (style.pos === 'inside') {
-    x = el.x + el.w / 2;
-    y = el.y + el.h / 2;
-    align = 'center';
-  } else if (style.pos === 'top') {
-    x = el.x + el.w / 2;
-    y = el.y + style.size;
-    align = 'center';
-  } else if (style.pos === 'bottom') {
-    x = el.x + el.w / 2;
-    y = el.y + el.h - style.size / 2;
-    align = 'center';
-  } else {
-    x = el.x + el.w / 2;
-    y = el.y + el.h / 2;
-    align = 'center';
-  }
-
-  ctx.textAlign = align;
-
-  // Тень для читаемости
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
-  ctx.shadowBlur = 8;
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+  ctx.shadowBlur = 10;
   ctx.shadowOffsetY = 1;
   ctx.fillText(style.text, x, y);
   ctx.restore();
@@ -1312,12 +1561,11 @@ function drawLabel(el) {
 function drawSelection(el) {
   ctx.save();
   ctx.strokeStyle = '#9147ff';
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 2;
   ctx.setLineDash([8, 4]);
   ctx.strokeRect(el.x - 2, el.y - 2, el.w + 4, el.h + 4);
   ctx.setLineDash([]);
 
-  // Углы
   const corners = [
     [el.x - 4, el.y - 4],
     [el.x + el.w - 4, el.y - 4],
@@ -1325,24 +1573,8 @@ function drawSelection(el) {
     [el.x + el.w - 4, el.y + el.h - 4],
   ];
   ctx.fillStyle = '#9147ff';
-  corners.forEach(([x, y]) => {
-    ctx.fillRect(x, y, 10, 10);
-  });
+  corners.forEach(([x, y]) => ctx.fillRect(x, y, 10, 10));
   ctx.restore();
-}
-
-function roundRect(c, x, y, w, h, r) {
-  c.beginPath();
-  c.moveTo(x + r, y);
-  c.lineTo(x + w - r, y);
-  c.quadraticCurveTo(x + w, y, x + w, y + r);
-  c.lineTo(x + w, y + h - r);
-  c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  c.lineTo(x + r, y + h);
-  c.quadraticCurveTo(x, y + h, x, y + h - r);
-  c.lineTo(x, y + r);
-  c.quadraticCurveTo(x, y, x + r, y);
-  c.closePath();
 }
 
 // ============ РЕНДЕР UI ============
@@ -1351,9 +1583,14 @@ function renderAll() {
   draw();
   renderLayers();
   renderProperties();
+  renderCanvasPresets();
+  renderLayoutPresets();
 }
 
 function renderLayers() {
+  const count = document.getElementById('layersCount');
+  if (count) count.textContent = state.elements.length;
+
   layersList.innerHTML = '';
   if (!state.elements.length) {
     const empty = document.createElement('div');
@@ -1362,13 +1599,21 @@ function renderLayers() {
     layersList.appendChild(empty);
     return;
   }
-  // Слои в обратном порядке (верхние сверху)
+
   [...state.elements].reverse().forEach(el => {
     const item = document.createElement('div');
-    item.className = 'layer-item' + (el.id === state.selectedId ? ' active' : '');
+    item.className = 'layer-item' + (state.selectedIds.includes(el.id) ? ' active' : '');
     item.innerHTML = `<span class="layer-icon">${ELEMENT_TYPES[el.type]?.icon || '▪'}</span><span class="layer-name">${el.label || el.type}</span>`;
-    item.addEventListener('click', () => {
-      state.selectedId = el.id;
+    item.addEventListener('click', (e) => {
+      if (e.shiftKey) {
+        if (state.selectedIds.includes(el.id)) {
+          state.selectedIds = state.selectedIds.filter(id => id !== el.id);
+        } else {
+          state.selectedIds.push(el.id);
+        }
+      } else {
+        state.selectedIds = [el.id];
+      }
       renderAll();
     });
 
@@ -1376,7 +1621,6 @@ function renderLayers() {
     vis.type = 'button';
     vis.className = 'layer-vis';
     vis.textContent = el.hidden ? '◌' : '◉';
-    vis.title = el.hidden ? 'Показать' : 'Скрыть';
     vis.addEventListener('click', (e) => {
       e.stopPropagation();
       el.hidden = !el.hidden;
@@ -1389,8 +1633,87 @@ function renderLayers() {
   });
 }
 
+function renderCanvasPresets() {
+  const presets = [
+    { w: 1920, h: 1080, name: '1080p' },
+    { w: 1280, h: 720, name: '720p' },
+    { w: 2560, h: 1440, name: '1440p' },
+    { w: 3840, h: 2160, name: '4K' },
+    { w: 1080, h: 1920, name: 'TikTok' },
+    { w: 1080, h: 1080, name: 'Square' },
+  ];
+  const grid = document.getElementById('canvasPresets');
+  if (!grid) return;
+  grid.innerHTML = '';
+  presets.forEach(p => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'canvas-preset' + (state.canvas.width === p.w && state.canvas.height === p.h ? ' active' : '');
+    btn.textContent = p.name;
+    btn.title = `${p.w}×${p.h}`;
+    btn.addEventListener('click', () => {
+      state.canvas.width = p.w;
+      state.canvas.height = p.h;
+      canvas.width = p.w;
+      canvas.height = p.h;
+      canvasInfo.textContent = `${p.w} × ${p.h}`;
+      document.getElementById('canvasW').value = p.w;
+      document.getElementById('canvasWVal').textContent = p.w;
+      document.getElementById('canvasH').value = p.h;
+      document.getElementById('canvasHVal').textContent = p.h;
+      updateRulers();
+      renderAll();
+      pushHistory();
+      fitZoom();
+    });
+    grid.appendChild(btn);
+  });
+}
+
+function renderLayoutPresets() {
+  const grid = document.getElementById('layoutPresets');
+  if (!grid) return;
+  grid.innerHTML = '';
+  LAYOUT_PRESETS.forEach(preset => {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'preset-card';
+    card.innerHTML = `
+      <span class="icon">${preset.icon}</span>
+      <span class="info">
+        <span class="name">${preset.name}</span>
+        <span class="desc">${preset.desc}</span>
+      </span>
+    `;
+    card.addEventListener('click', () => applyLayoutPreset(preset));
+    grid.appendChild(card);
+  });
+}
+
+function applyLayoutPreset(preset) {
+  const newElements = preset.build(state.canvas);
+  newElements.forEach(el => { el.id = nextId(); });
+  state.elements = newElements;
+  state.selectedIds = [];
+  renderAll();
+  pushHistory();
+  setStatus(`Применён пресет: ${preset.name}`, 'success');
+}
+
+// ============ СВОЙСТВА ============
+
 function renderProperties() {
-  const el = state.elements.find(e => e.id === state.selectedId);
+  if (!state.selectedIds.length) {
+    emptyState.style.display = 'flex';
+    propsContent.style.display = 'none';
+    return;
+  }
+  if (state.selectedIds.length > 1) {
+    renderMultiProperties();
+    return;
+  }
+
+  const el = state.elements.find(e => e.id === state.selectedIds[0]);
   if (!el) {
     emptyState.style.display = 'flex';
     propsContent.style.display = 'none';
@@ -1400,49 +1723,65 @@ function renderProperties() {
   propsContent.style.display = 'block';
 
   const typeInfo = ELEMENT_TYPES[el.type];
-
   let html = '';
 
   // Заголовок
   html += `<div class="prop-section" style="padding-top: 0;">
-    <div class="prop-title">${typeInfo?.icon || ''} ${typeInfo?.name || el.type}</div>
+    <div class="prop-title">
+      <span>${typeInfo?.icon || ''} ${typeInfo?.name || el.type}</span>
+      <span class="actions">
+        <button type="button" class="mini-btn" id="propCopyStyle" title="Скопировать стиль">📋</button>
+        <button type="button" class="mini-btn" id="propPasteStyle" title="Вставить стиль">📥</button>
+      </span>
+    </div>
     <input type="text" class="text-input" id="propLabel" value="${escapeAttr(el.label || '')}" placeholder="Название слоя">
   </div>`;
 
-  // Позиция и размер
+  // Позиция
   html += `<div class="prop-section">
     <div class="prop-title">Позиция и размер</div>
     <div class="slider-row">
       <div class="slider-label"><span>X</span><span class="val" id="valX">${el.x}</span></div>
-      <input type="range" id="propX" min="0" max="${state.canvas.width}" value="${el.x}">
+      <input type="range" id="propX" min="${-el.w}" max="${state.canvas.width}" value="${el.x}">
     </div>
     <div class="slider-row">
       <div class="slider-label"><span>Y</span><span class="val" id="valY">${el.y}</span></div>
-      <input type="range" id="propY" min="0" max="${state.canvas.height}" value="${el.y}">
+      <input type="range" id="propY" min="${-el.h}" max="${state.canvas.height}" value="${el.y}">
     </div>
     <div class="slider-row">
       <div class="slider-label"><span>Ширина</span><span class="val" id="valW">${el.w}</span></div>
-      <input type="range" id="propW" min="20" max="${state.canvas.width}" value="${el.w}">
+      <input type="range" id="propW" min="10" max="${state.canvas.width}" value="${el.w}">
     </div>
     <div class="slider-row">
       <div class="slider-label"><span>Высота</span><span class="val" id="valH">${el.h}</span></div>
-      <input type="range" id="propH" min="4" max="${state.canvas.height}" value="${el.h}">
+      <input type="range" id="propH" min="2" max="${state.canvas.height}" value="${el.h}">
     </div>
   </div>`;
 
   // Скругление
   if (el.type !== 'line' && el.type !== 'label' && el.type !== 'social') {
+    const c = el.corners || { tl: el.radius, tr: el.radius, br: el.radius, bl: el.radius };
     html += `<div class="prop-section">
       <div class="prop-title">Скругление</div>
-      <div class="slider-row">
-        <div class="slider-label"><span>Радиус</span><span class="val" id="valR">${el.radius || 0}</span></div>
-        <input type="range" id="propR" min="0" max="100" value="${el.radius || 0}">
+      <div class="corners-grid">
+        <div class="corner-input">↖ <input type="number" id="cornerTL" value="${c.tl}" min="0" max="200"></div>
+        <div class="corner-input">↗ <input type="number" id="cornerTR" value="${c.tr}" min="0" max="200"></div>
+        <div class="corner-input">↙ <input type="number" id="cornerBL" value="${c.bl}" min="0" max="200"></div>
+        <div class="corner-input">↘ <input type="number" id="cornerBR" value="${c.br}" min="0" max="200"></div>
       </div>
     </div>`;
   }
 
+  // Рамка для вебкамеры
+  if (el.type === 'webcam') {
+    html += `<div class="prop-section">
+      <div class="prop-title">Рамка</div>
+      <div class="frames-grid" id="framesGrid"></div>
+    </div>`;
+  }
+
   // Заливка
-  if (el.type !== 'label' && el.type !== 'social' && el.type !== 'line') {
+  if (el.type !== 'label' && el.type !== 'social' && el.type !== 'line' && el.type !== 'image' && el.type !== 'video') {
     html += `<div class="prop-section">
       <div class="prop-title">Заливка</div>
       <div class="color-row">
@@ -1450,8 +1789,8 @@ function renderProperties() {
         <input type="color" id="propFill" value="${rgbaToHex(el.fill)}">
       </div>
       <div class="slider-row">
-        <div class="slider-label"><span>Прозрачность</span><span class="val" id="valFillA">${Math.round(getAlpha(el.fill) * 100)}%</span></div>
-        <input type="range" id="propFillA" min="0" max="100" value="${Math.round(getAlpha(el.fill) * 100)}">
+        <div class="slider-label"><span>Прозрачность</span><span class="val" id="valFillA">${Math.round((el.fillAlpha ?? 1) * 100)}%</span></div>
+        <input type="range" id="propFillA" min="0" max="100" value="${Math.round((el.fillAlpha ?? 1) * 100)}">
       </div>
     </div>`;
   }
@@ -1465,9 +1804,25 @@ function renderProperties() {
         <input type="range" id="propProgress" min="0" max="100" value="${Math.round(el.progress * 100)}">
       </div>
       <div class="color-row">
-        <label for="propProgressColor">Цвет прогресса</label>
+        <label for="propProgressColor">Цвет</label>
         <input type="color" id="propProgressColor" value="${el.progressColor || '#9147ff'}">
       </div>
+    </div>`;
+  }
+
+  // Картинка
+  if (el.type === 'image') {
+    html += `<div class="prop-section">
+      <div class="prop-title">Изображение</div>
+      <button type="button" class="btn" id="propUploadImage" style="width:100%; justify-content:center;">📂 Загрузить картинку</button>
+    </div>`;
+  }
+
+  // Видео
+  if (el.type === 'video') {
+    html += `<div class="prop-section">
+      <div class="prop-title">Видео</div>
+      <button type="button" class="btn" id="propUploadVideo" style="width:100%; justify-content:center;">📂 Загрузить видео</button>
     </div>`;
   }
 
@@ -1476,10 +1831,7 @@ function renderProperties() {
     <div class="prop-title">Обводка</div>
     <div class="toggle-row">
       <div class="toggle-label"><span>Включить</span></div>
-      <label class="switch">
-        <input type="checkbox" id="propStroke" ${el.stroke?.enabled ? 'checked' : ''}>
-        <span class="switch-slider"></span>
-      </label>
+      <label class="switch"><input type="checkbox" id="propStroke" ${el.stroke?.enabled ? 'checked' : ''}><span class="switch-slider"></span></label>
     </div>
     <div class="slider-row">
       <div class="slider-label"><span>Толщина</span><span class="val" id="valStrokeW">${el.stroke?.width || 0} px</span></div>
@@ -1489,6 +1841,10 @@ function renderProperties() {
       <label for="propStrokeColor">Цвет</label>
       <input type="color" id="propStrokeColor" value="${el.stroke?.color || '#9147ff'}">
     </div>
+    <div class="toggle-row">
+      <div class="toggle-label"><span>Только верхняя линия</span><small>Для чата</small></div>
+      <label class="switch"><input type="checkbox" id="propStrokeTop" ${el.stroke?.topOnly ? 'checked' : ''}><span class="switch-slider"></span></label>
+    </div>
   </div>`;
 
   // Текст
@@ -1496,10 +1852,7 @@ function renderProperties() {
     <div class="prop-title">Текст</div>
     <div class="toggle-row">
       <div class="toggle-label"><span>Показывать</span></div>
-      <label class="switch">
-        <input type="checkbox" id="propLabelEnabled" ${el.labelStyle?.enabled ? 'checked' : ''}>
-        <span class="switch-slider"></span>
-      </label>
+      <label class="switch"><input type="checkbox" id="propLabelEnabled" ${el.labelStyle?.enabled ? 'checked' : ''}><span class="switch-slider"></span></label>
     </div>
     <input type="text" class="text-input" id="propLabelText" value="${escapeAttr(el.labelStyle?.text || '')}" placeholder="Текст">
     <div class="color-row">
@@ -1515,59 +1868,258 @@ function renderProperties() {
   // Действия
   html += `<div class="prop-section">
     <div class="prop-title">Действия</div>
-    <button type="button" class="btn" id="propDup" style="width: 100%; justify-content: center; margin-bottom: 6px;">⧉ Дублировать</button>
-    <button type="button" class="btn" id="propUp" style="width: 100%; justify-content: center; margin-bottom: 6px;">↑ На передний план</button>
-    <button type="button" class="btn" id="propDelete" style="width: 100%; justify-content: center; color: #ff8fa3;">🗑 Удалить</button>
+    <button type="button" class="btn" id="propDup" style="width:100%; justify-content:center; margin-bottom:6px;">⧉ Дублировать</button>
+    <button type="button" class="btn" id="propUp" style="width:100%; justify-content:center; margin-bottom:6px;">↑ На передний план</button>
+    <button type="button" class="btn danger" id="propDelete" style="width:100%; justify-content:center;">🗑 Удалить</button>
   </div>`;
 
   propsContent.innerHTML = html;
 
-  // Привязка обработчиков
-  document.getElementById('propLabel').addEventListener('input', (e) => { el.label = e.target.value; renderLayers(); });
-  document.getElementById('propLabel').addEventListener('change', () => pushHistory());
+  // Привязка
+  bindProp('propLabel', 'input', v => { el.label = v; renderLayers(); });
+  bindProp('propLabel', 'change', () => pushHistory());
+  bindSlider('propX', 'valX', v => { el.x = v; draw(); });
+  bindSlider('propY', 'valY', v => { el.y = v; draw(); });
+  bindSlider('propW', 'valW', v => { el.w = v; draw(); });
+  bindSlider('propH', 'valH', v => { el.h = v; draw(); });
 
-  bindSlider('propX', 'valX', (v) => { el.x = v; draw(); });
-  bindSlider('propY', 'valY', (v) => { el.y = v; draw(); });
-  bindSlider('propW', 'valW', (v) => { el.w = v; draw(); });
-  bindSlider('propH', 'valH', (v) => { el.h = v; draw(); });
-  if (document.getElementById('propR')) bindSlider('propR', 'valR', (v) => { el.radius = v; draw(); });
+  ['TL','TR','BL','BR'].forEach(c => {
+    const input = document.getElementById('corner' + c);
+    if (!input) return;
+    input.addEventListener('input', (e) => {
+      if (!el.corners) el.corners = { tl: el.radius, tr: el.radius, br: el.radius, bl: el.radius };
+      el.corners[c.toLowerCase()] = +e.target.value;
+      draw();
+    });
+    input.addEventListener('change', pushHistory);
+  });
 
+  // Рамки вебкамеры
+  if (document.getElementById('framesGrid')) {
+    const grid = document.getElementById('framesGrid');
+    Object.keys(FRAMES).forEach(key => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'frame-btn';
+      btn.title = key;
+      btn.style.borderColor = (el.frame === key) ? 'var(--accent)' : '';
+      btn.innerHTML = `<svg viewBox="0 0 24 24">${FRAMES[key].icon}</svg>`;
+      btn.addEventListener('click', () => {
+        el.frame = key;
+        renderProperties();
+        draw();
+        pushHistory();
+      });
+      grid.appendChild(btn);
+    });
+  }
+
+  // Картинка
+  if (document.getElementById('propUploadImage')) {
+    document.getElementById('propUploadImage').addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            el.imageEl = img;
+            el.imageUrl = reader.result;
+            el.w = img.naturalWidth;
+            el.h = img.naturalHeight;
+            if (el.w > state.canvas.width * 0.5) {
+              const k = (state.canvas.width * 0.5) / el.w;
+              el.w *= k;
+              el.h *= k;
+            }
+            renderAll();
+            pushHistory();
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+      input.click();
+    });
+  }
+
+  if (document.getElementById('propUploadVideo')) {
+    document.getElementById('propUploadVideo').addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'video/*';
+      input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        const v = document.createElement('video');
+        v.src = url;
+        v.loop = true;
+        v.muted = true;
+        v.playsInline = true;
+        v.addEventListener('loadedmetadata', () => {
+          el.videoEl = v;
+          el.videoUrl = url;
+          el.w = v.videoWidth;
+          el.h = v.videoHeight;
+          if (el.w > state.canvas.width * 0.5) {
+            const k = (state.canvas.width * 0.5) / el.w;
+            el.w *= k;
+            el.h *= k;
+          }
+          v.play().catch(() => {});
+          renderAll();
+          pushHistory();
+        });
+      });
+      input.click();
+    });
+  }
+
+  // Заливка
   if (document.getElementById('propFill')) {
     document.getElementById('propFill').addEventListener('input', (e) => {
-      const hex = e.target.value;
-      const a = getAlpha(el.fill);
-      el.fill = hexToRgba(hex, a);
+      el.fill = e.target.value;
       draw();
     });
     document.getElementById('propFill').addEventListener('change', pushHistory);
-    bindSlider('propFillA', 'valFillA', (v) => {
-      const hex = rgbaToHex(el.fill);
-      el.fill = hexToRgba(hex, v / 100);
-      draw();
-    }, '%');
+    bindSlider('propFillA', 'valFillA', v => { el.fillAlpha = v / 100; draw(); }, '%');
   }
 
+  // Прогресс
   if (document.getElementById('propProgress')) {
-    bindSlider('propProgress', 'valProgress', (v) => { el.progress = v / 100; draw(); }, '%');
-    document.getElementById('propProgressColor').addEventListener('input', (e) => { el.progressColor = e.target.value; draw(); });
+    bindSlider('propProgress', 'valProgress', v => { el.progress = v / 100; draw(); }, '%');
+    document.getElementById('propProgressColor').addEventListener('input', e => { el.progressColor = e.target.value; draw(); });
     document.getElementById('propProgressColor').addEventListener('change', pushHistory);
   }
 
-  document.getElementById('propStroke').addEventListener('change', (e) => { el.stroke.enabled = e.target.checked; draw(); pushHistory(); });
-  bindSlider('propStrokeW', 'valStrokeW', (v) => { el.stroke.width = v; draw(); }, ' px');
-  document.getElementById('propStrokeColor').addEventListener('input', (e) => { el.stroke.color = e.target.value; draw(); });
-  document.getElementById('propStrokeColor').addEventListener('change', pushHistory);
+  // Обводка
+  bindProp('propStroke', 'change', (e) => { el.stroke.enabled = e.target.checked; draw(); pushHistory(); }, true);
+  bindSlider('propStrokeW', 'valStrokeW', v => { el.stroke.width = v; draw(); }, ' px');
+  bindProp('propStrokeColor', 'input', e => { el.stroke.color = e.target.value; draw(); }, true);
+  bindProp('propStrokeColor', 'change', () => pushHistory());
+  bindProp('propStrokeTop', 'change', (e) => { el.stroke.topOnly = e.target.checked; draw(); pushHistory(); }, true);
 
-  document.getElementById('propLabelEnabled').addEventListener('change', (e) => { el.labelStyle.enabled = e.target.checked; draw(); pushHistory(); });
-  document.getElementById('propLabelText').addEventListener('input', (e) => { el.labelStyle.text = e.target.value; draw(); });
-  document.getElementById('propLabelText').addEventListener('change', pushHistory);
-  document.getElementById('propLabelColor').addEventListener('input', (e) => { el.labelStyle.color = e.target.value; draw(); });
-  document.getElementById('propLabelColor').addEventListener('change', pushHistory);
-  bindSlider('propLabelSize', 'valLabelSize', (v) => { el.labelStyle.size = v; draw(); }, ' px');
+  // Текст
+  bindProp('propLabelEnabled', 'change', (e) => { el.labelStyle.enabled = e.target.checked; draw(); pushHistory(); }, true);
+  bindProp('propLabelText', 'input', e => { el.labelStyle.text = e.target.value; draw(); }, true);
+  bindProp('propLabelText', 'change', () => pushHistory());
+  bindProp('propLabelColor', 'input', e => { el.labelStyle.color = e.target.value; draw(); }, true);
+  bindProp('propLabelColor', 'change', () => pushHistory());
+  bindSlider('propLabelSize', 'valLabelSize', v => { el.labelStyle.size = v; draw(); }, ' px');
 
-  document.getElementById('propDup').addEventListener('click', () => duplicateElement(el.id));
-  document.getElementById('propUp').addEventListener('click', () => bringToFront(el.id));
-  document.getElementById('propDelete').addEventListener('click', () => deleteElement(el.id));
+  // Действия
+  bindProp('propDup', 'click', () => duplicateElement(el.id));
+  bindProp('propUp', 'click', () => bringToFront(el.id));
+  bindProp('propDelete', 'click', () => deleteElement(el.id));
+  bindProp('propCopyStyle', 'click', () => copyStyle(el));
+  bindProp('propPasteStyle', 'click', () => pasteStyle(el));
+}
+
+function renderMultiProperties() {
+  emptyState.style.display = 'none';
+  propsContent.style.display = 'block';
+  propsContent.innerHTML = `
+    <div class="prop-section" style="padding-top:0;">
+      <div class="prop-title">Выбрано: ${state.selectedIds.length}</div>
+      <p style="font-size: 0.78rem; color: var(--text-mute); margin-bottom: 10px;">Shift+клик для мультивыбора</p>
+    </div>
+    <div class="prop-section">
+      <div class="prop-title">Общие настройки</div>
+      <div class="color-row">
+        <label for="multiFill">Цвет заливки</label>
+        <input type="color" id="multiFill" value="#9147ff">
+      </div>
+      <div class="color-row">
+        <label for="multiStroke">Цвет обводки</label>
+        <input type="color" id="multiStroke" value="#ffffff">
+      </div>
+    </div>
+    <div class="prop-section">
+      <div class="prop-title">Действия</div>
+      <button type="button" class="btn" id="multiDup" style="width:100%; justify-content:center; margin-bottom:6px;">⧉ Дублировать все</button>
+      <button type="button" class="btn" id="multiAlignLeft" style="width:100%; justify-content:center; margin-bottom:6px;">⇤ Выровнять слева</button>
+      <button type="button" class="btn danger" id="multiDelete" style="width:100%; justify-content:center;">🗑 Удалить все</button>
+    </div>
+  `;
+  bindProp('multiFill', 'input', e => {
+    state.selectedIds.forEach(id => {
+      const el = state.elements.find(x => x.id === id);
+      if (el) el.fill = e.target.value;
+    });
+    draw();
+  });
+  bindProp('multiFill', 'change', () => pushHistory());
+  bindProp('multiStroke', 'input', e => {
+    state.selectedIds.forEach(id => {
+      const el = state.elements.find(x => x.id === id);
+      if (el) el.stroke.color = e.target.value;
+    });
+    draw();
+  });
+  bindProp('multiStroke', 'change', () => pushHistory());
+  bindProp('multiDup', 'click', () => {
+    const ids = [...state.selectedIds];
+    ids.forEach(id => duplicateElement(id, false));
+    renderAll();
+    pushHistory();
+  });
+  bindProp('multiAlignLeft', 'click', () => {
+    const minX = Math.min(...state.selectedIds.map(id => state.elements.find(e => e.id === id)?.x ?? 0));
+    state.selectedIds.forEach(id => {
+      const el = state.elements.find(e => e.id === id);
+      if (el) el.x = minX;
+    });
+    draw();
+    pushHistory();
+  });
+  bindProp('multiDelete', 'click', () => {
+    state.elements = state.elements.filter(e => !state.selectedIds.includes(e.id));
+    state.selectedIds = [];
+    renderAll();
+    pushHistory();
+  });
+}
+
+// Копирование стиля
+let styleClipboard = null;
+
+function copyStyle(el) {
+  styleClipboard = {
+    fill: el.fill, fillAlpha: el.fillAlpha,
+    stroke: { ...el.stroke },
+    corners: { ...(el.corners || {}) },
+    labelStyle: { ...el.labelStyle },
+  };
+  setStatus('Стиль скопирован', 'success');
+}
+
+function pasteStyle(el) {
+  if (!styleClipboard) {
+    setStatus('Сначала скопируй стиль', 'error');
+    return;
+  }
+  el.fill = styleClipboard.fill;
+  el.fillAlpha = styleClipboard.fillAlpha;
+  el.stroke = { ...styleClipboard.stroke };
+  el.corners = { ...styleClipboard.corners };
+  if (el.labelStyle) {
+    el.labelStyle.color = styleClipboard.labelStyle.color;
+    el.labelStyle.size = styleClipboard.labelStyle.size;
+  }
+  renderAll();
+  pushHistory();
+  setStatus('Стиль применён', 'success');
+}
+
+function bindProp(id, event, handler, direct = false) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener(event, direct ? handler : (e) => handler(e.target.value));
 }
 
 function bindSlider(sliderId, labelId, onChange, suffix = '') {
@@ -1582,48 +2134,14 @@ function bindSlider(sliderId, labelId, onChange, suffix = '') {
   slider.addEventListener('change', pushHistory);
 }
 
-// ============ ЦВЕТА ============
-
-function hexToRgba(hex, alpha = 1) {
-  if (!hex || hex === 'transparent') return `rgba(0, 0, 0, 0)`;
-  if (hex.startsWith('rgba') || hex.startsWith('rgb')) {
-    return hex;
-  }
-  const num = parseInt(hex.replace('#', ''), 16);
-  const r = (num >> 16) & 255;
-  const g = (num >> 8) & 255;
-  const b = num & 255;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
-function rgbaToHex(color) {
-  if (!color || color === 'transparent') return '#000000';
-  if (color.startsWith('#')) return color;
-  const m = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-  if (!m) return '#000000';
-  const r = +m[1], g = +m[2], b = +m[3];
-  return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
-}
-
-function getAlpha(color) {
-  if (!color || color === 'transparent') return 0;
-  if (color.startsWith('#')) return 1;
-  const m = color.match(/rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/);
-  return m ? parseFloat(m[1]) : 1;
-}
-
-function escapeAttr(str) {
-  return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-// ============ ДЕЙСТВИЯ С ЭЛЕМЕНТАМИ ============
+// ============ ДЕЙСТВИЯ ============
 
 function addElement(type) {
   const def = ELEMENT_TYPES[type];
   if (!def) return;
   const el = { id: nextId(), ...def.create(), hidden: false };
   state.elements.push(el);
-  state.selectedId = el.id;
+  state.selectedIds = [el.id];
   renderAll();
   pushHistory();
   setStatus(`Добавлено: ${def.name}`, 'success');
@@ -1633,25 +2151,29 @@ function deleteElement(id) {
   const idx = state.elements.findIndex(e => e.id === id);
   if (idx === -1) return;
   state.elements.splice(idx, 1);
-  if (state.selectedId === id) state.selectedId = null;
+  state.selectedIds = state.selectedIds.filter(x => x !== id);
   renderAll();
   pushHistory();
   setStatus('Удалено');
 }
 
-function duplicateElement(id) {
+function duplicateElement(id, doRender = true) {
   const el = state.elements.find(e => e.id === id);
   if (!el) return;
   const copy = JSON.parse(JSON.stringify(el));
+  delete copy.imageEl;
+  delete copy.videoEl;
   copy.id = nextId();
   copy.x += 30;
   copy.y += 30;
   copy.label = (copy.label || 'Copy') + ' copy';
   state.elements.push(copy);
-  state.selectedId = copy.id;
-  renderAll();
-  pushHistory();
-  setStatus('Дублировано', 'success');
+  if (doRender) {
+    state.selectedIds = [copy.id];
+    renderAll();
+    pushHistory();
+    setStatus('Дублировано', 'success');
+  }
 }
 
 function bringToFront(id) {
@@ -1666,23 +2188,50 @@ function bringToFront(id) {
 // ============ МАСШТАБ ============
 
 function setZoom(z) {
-  state.zoom = Math.max(0.1, Math.min(3, z));
+  state.zoom = clamp(z, 0.1, 3);
   canvasWrap.style.transform = `scale(${state.zoom})`;
   zoomDisplay.textContent = Math.round(state.zoom * 100) + '%';
 }
 
 function fitZoom() {
-  const areaRect = canvasArea.getBoundingClientRect();
-  const padding = 60;
-  const zx = (areaRect.width - padding) / canvas.width;
-  const zy = (areaRect.height - padding) / canvas.height;
+  const rect = canvasArea.getBoundingClientRect();
+  const padding = 80;
+  const zx = (rect.width - padding) / canvas.width;
+  const zy = (rect.height - padding) / canvas.height;
   setZoom(Math.min(zx, zy, 1));
+}
+
+// ============ ЛИНЕЙКИ ============
+
+function updateRulers() {
+  const rh = document.getElementById('rulerH');
+  const rv = document.getElementById('rulerV');
+  if (!rh || !rv) return;
+
+  // Горизонтальная
+  let hHtml = '';
+  const step = 200;
+  const pxPerUnit = (canvasWidth => 1)(canvas.width);
+  for (let x = 0; x <= canvas.width; x += step) {
+    const percent = (x / canvas.width) * 100;
+    hHtml += `<span style="position:absolute;left:${percent}%;top:2px;transform:translateX(-50%);font-size:0.6rem;">${x}</span>`;
+    hHtml += `<span style="position:absolute;left:${percent}%;bottom:0;width:1px;height:6px;background:var(--text-mute);"></span>`;
+  }
+  rh.innerHTML = hHtml;
+
+  // Вертикальная
+  let vHtml = '';
+  for (let y = 0; y <= canvas.height; y += step) {
+    const percent = (y / canvas.height) * 100;
+    vHtml += `<span style="position:absolute;top:${percent}%;left:2px;writing-mode:vertical-rl;font-size:0.6rem;">${y}</span>`;
+    vHtml += `<span style="position:absolute;top:${percent}%;right:0;height:1px;width:6px;background:var(--text-mute);"></span>`;
+  }
+  rv.innerHTML = vHtml;
 }
 
 // ============ ЭКСПОРТ ============
 
 function downloadPng() {
-  // Сохраняем текущий стейт сетки
   const wasGrid = state.showGrid;
   const wasSafe = state.showSafe;
   state.showGrid = false;
@@ -1705,9 +2254,38 @@ function downloadPng() {
   }, 'image/png');
 }
 
+function downloadSvg() {
+  // Простой SVG-экспорт через эмуляцию canvas
+  const svgParts = [`<svg xmlns="http://www.w3.org/2000/svg" width="${state.canvas.width}" height="${state.canvas.height}" viewBox="0 0 ${state.canvas.width} ${state.canvas.height}">`];
+  state.elements.forEach(el => {
+    if (el.hidden) return;
+    if (el.type === 'shape' || el.type === 'webcam' || el.type === 'chat' || el.type === 'alert' || el.type === 'goal' || el.type === 'counter' || el.type === 'timer') {
+      svgParts.push(`<rect x="${el.x}" y="${el.y}" width="${el.w}" height="${el.h}" rx="${el.radius || 0}" fill="${hexToRgba(el.fill, el.fillAlpha)}" ${el.stroke.enabled ? `stroke="${el.stroke.color}" stroke-width="${el.stroke.width}"` : ''}/>`);
+    }
+    if (el.type === 'line') {
+      svgParts.push(`<rect x="${el.x}" y="${el.y}" width="${el.w}" height="${el.h}" fill="${hexToRgba(el.fill, el.fillAlpha)}"/>`);
+    }
+    if (el.labelStyle && el.labelStyle.enabled && el.labelStyle.text) {
+      const y = el.y + el.h / 2;
+      svgParts.push(`<text x="${el.x + el.w / 2}" y="${y}" text-anchor="middle" dominant-baseline="middle" fill="${el.labelStyle.color}" font-size="${el.labelStyle.size}" font-family="Inter, sans-serif" font-weight="700">${escapeAttr(el.labelStyle.text)}</text>`);
+    }
+  });
+  svgParts.push('</svg>');
+  const svg = svgParts.join('\n');
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `overlay-${state.canvas.width}x${state.canvas.height}.svg`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  setStatus('SVG скачан', 'success');
+}
+
 function exportJson() {
   const data = snapshot();
-  data.selectedId = null;
+  data.selectedIds = [];
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -1730,29 +2308,31 @@ function importJson() {
     reader.onload = () => {
       try {
         const data = JSON.parse(reader.result);
-        if (!data.elements || !Array.isArray(data.elements)) {
-          throw new Error('Неверный формат');
-        }
-        // Присваиваем новые ID элементам без id
+        if (!data.elements || !Array.isArray(data.elements)) throw new Error('Неверный формат');
         data.elements.forEach(el => {
           if (!el.id) el.id = nextId();
-          else {
-            const n = +el.id;
-            if (n > uid) uid = n;
+          else { const n = +el.id; if (n > uid) uid = n; }
+          if (el.imageUrl) {
+            const img = new Image();
+            img.src = el.imageUrl;
+            el.imageEl = img;
           }
         });
         state.canvas = data.canvas || state.canvas;
+        state.background.visible = data.background?.visible || false;
+        state.background.color = data.background?.color || '#1a1a2e';
         state.elements = data.elements;
-        state.selectedId = null;
+        state.selectedIds = [];
         canvas.width = state.canvas.width;
         canvas.height = state.canvas.height;
         canvasInfo.textContent = `${state.canvas.width} × ${state.canvas.height}`;
+        updateRulers();
         renderAll();
         pushHistory();
         setStatus('Проект загружен', 'success');
       } catch (err) {
         console.error(err);
-        setStatus('Ошибка загрузки проекта', 'error');
+        setStatus('Ошибка загрузки', 'error');
       }
     };
     reader.readAsText(file);
@@ -1760,31 +2340,362 @@ function importJson() {
   input.click();
 }
 
+function exportHtml() {
+  const elementsData = state.elements.map(el => {
+    const c = { ...el };
+    delete c.imageEl;
+    delete c.videoEl;
+    return c;
+  });
+
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+body { margin: 0; overflow: hidden; background: transparent; }
+canvas { display: block; width: 100vw; height: auto; }
+</style></head>
+<body>
+<canvas id="c" width="${state.canvas.width}" height="${state.canvas.height}"></canvas>
+<script>
+const elements = ${JSON.stringify(elementsData)};
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+function hexToRgba(hex, a) {
+  if (!hex || hex === 'transparent') return 'rgba(0,0,0,0)';
+  if (hex.startsWith('rgba')) return hex;
+  const n = parseInt(hex.replace('#',''), 16);
+  return \`rgba(\${(n>>16)&255},\${(n>>8)&255},\${n&255},\${a ?? 1})\`;
+}
+function rr(el) {
+  const c = el.corners || { tl: el.radius, tr: el.radius, br: el.radius, bl: el.radius };
+  const { x, y, w, h } = el;
+  ctx.beginPath();
+  ctx.moveTo(x + c.tl, y);
+  ctx.lineTo(x + w - c.tr, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + c.tr);
+  ctx.lineTo(x + w, y + h - c.br);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - c.br, y + h);
+  ctx.lineTo(x + c.bl, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - c.bl);
+  ctx.lineTo(x, y + c.tl);
+  ctx.quadraticCurveTo(x, y, x + c.tl, y);
+  ctx.closePath();
+}
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  elements.forEach(el => {
+    if (el.hidden) return;
+    if (el.type === 'line') { ctx.fillStyle = hexToRgba(el.fill, el.fillAlpha); ctx.fillRect(el.x, el.y, el.w, el.h); }
+    else {
+      rr(el);
+      if (el.fillAlpha > 0) { ctx.fillStyle = hexToRgba(el.fill, el.fillAlpha); ctx.fill(); }
+      if (el.type === 'goal' && el.progress) { ctx.save(); rr(el); ctx.clip(); ctx.fillStyle = el.progressColor || '#9147ff'; ctx.fillRect(el.x, el.y, el.w * el.progress, el.h); ctx.restore(); }
+      if (el.stroke && el.stroke.enabled) { rr(el); ctx.strokeStyle = el.stroke.color; ctx.lineWidth = el.stroke.width; ctx.stroke(); }
+    }
+    if (el.labelStyle && el.labelStyle.enabled && el.labelStyle.text) {
+      ctx.fillStyle = el.labelStyle.color;
+      ctx.font = \`700 \${el.labelStyle.size}px Inter, sans-serif\`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(el.labelStyle.text, el.x + el.w/2, el.y + el.h/2);
+    }
+  });
+}
+draw();
+// Пульсация для alert
+function animate(t) {
+  const alerts = elements.filter(e => e.type === 'alert');
+  if (alerts.length) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    elements.forEach(el => {
+      if (el.hidden) return;
+      let alpha = el.fillAlpha ?? 1;
+      if (el.type === 'alert') alpha = alpha * (0.85 + 0.15 * Math.sin(t / 500));
+      if (el.type === 'line') { ctx.fillStyle = hexToRgba(el.fill, alpha); ctx.fillRect(el.x, el.y, el.w, el.h); }
+      else {
+        rr(el);
+        if (alpha > 0) { ctx.fillStyle = hexToRgba(el.fill, alpha); ctx.fill(); }
+        if (el.type === 'goal' && el.progress) { ctx.save(); rr(el); ctx.clip(); ctx.fillStyle = el.progressColor || '#9147ff'; ctx.fillRect(el.x, el.y, el.w * el.progress, el.h); ctx.restore(); }
+        if (el.stroke && el.stroke.enabled) { rr(el); ctx.strokeStyle = el.stroke.color; ctx.lineWidth = el.stroke.width; ctx.stroke(); }
+      }
+      if (el.labelStyle && el.labelStyle.enabled && el.labelStyle.text) {
+        ctx.fillStyle = el.labelStyle.color;
+        ctx.font = \`700 \${el.labelStyle.size}px Inter, sans-serif\`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(el.labelStyle.text, el.x + el.w/2, el.y + el.h/2);
+      }
+    });
+    requestAnimationFrame(animate);
+  }
+}
+requestAnimationFrame(animate);
+<\/script>
+</body></html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'overlay.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  setStatus('HTML-виджет скачан. Открой в OBS как Browser Source', 'success');
+}
+
+async function downloadGif() {
+  setStatus('Готовлю GIF...', 'info');
+  try {
+    const mod = await import('https://cdn.jsdelivr.net/npm/gifenc@1.0.3/+esm');
+    const { GIFEncoder, quantize, applyPalette } = mod;
+
+    const size = 400;
+    const scale = size / canvas.width;
+    const frames = 12;
+    const delay = 100;
+    const gif = GIFEncoder();
+
+    const wasGrid = state.showGrid;
+    const wasSafe = state.showSafe;
+    state.showGrid = false;
+    state.showSafe = false;
+
+    for (let f = 0; f < frames; f++) {
+      const phase = (f / frames) * Math.PI * 2;
+      // Пульсация алертов
+      const pulse = 0.85 + 0.15 * Math.sin(phase);
+
+      const c = document.createElement('canvas');
+      c.width = size;
+      c.height = Math.round(size * canvas.height / canvas.width);
+      const cctx = c.getContext('2d');
+
+      // Отрисовываем каждый элемент вручную (для анимации алертов)
+      state.elements.forEach(el => {
+        if (el.hidden) return;
+        const sa = cctx.globalAlpha;
+        if (el.type === 'alert') cctx.globalAlpha = pulse;
+        drawElementOnCtx(cctx, el, scale);
+        cctx.globalAlpha = sa;
+      });
+
+      const data = cctx.getImageData(0, 0, c.width, c.height).data;
+      const palette = quantize(data, 256);
+      const index = applyPalette(data, palette);
+      gif.writeFrame(index, c.width, c.height, { palette, delay });
+    }
+
+    gif.finish();
+    const blob = new Blob([gif.bytes()], { type: 'image/gif' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `overlay-animated.gif`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    setStatus('GIF готов', 'success');
+
+    state.showGrid = wasGrid;
+    state.showSafe = wasSafe;
+    draw();
+  } catch (e) {
+    console.error(e);
+    setStatus('Не удалось создать GIF', 'error');
+  }
+}
+
+function drawElementOnCtx(c, el, scale) {
+  const scaled = {
+    ...el,
+    x: el.x * scale, y: el.y * scale,
+    w: el.w * scale, h: el.h * scale,
+    radius: (el.radius || 0) * scale,
+    corners: el.corners ? {
+      tl: el.corners.tl * scale, tr: el.corners.tr * scale,
+      br: el.corners.br * scale, bl: el.corners.bl * scale,
+    } : undefined,
+    stroke: { ...el.stroke, width: (el.stroke?.width || 0) * scale },
+    labelStyle: el.labelStyle ? { ...el.labelStyle, size: el.labelStyle.size * scale } : undefined,
+  };
+  const origCtx = ctx;
+  // Временно подменяем ctx
+  const saveCtx = window._ctxRef;
+  window._ctxRef = c;
+  // Используем локальную отрисовку
+  drawElementWith(c, scaled);
+}
+
+function drawElementWith(c, el) {
+  // Мини-версия drawElement для конкретного контекста
+  if (el.type === 'line') {
+    c.fillStyle = hexToRgba(el.fill, el.fillAlpha);
+    c.fillRect(el.x, el.y, el.w, el.h);
+  } else {
+    roundRectOnCtx(c, el);
+    if (el.fillAlpha > 0) {
+      c.fillStyle = hexToRgba(el.fill, el.fillAlpha);
+      c.fill();
+    }
+    if (el.type === 'goal' && typeof el.progress === 'number') {
+      c.save();
+      roundRectOnCtx(c, el);
+      c.clip();
+      c.fillStyle = el.progressColor || '#9147ff';
+      c.fillRect(el.x, el.y, el.w * el.progress, el.h);
+      c.restore();
+    }
+    if (el.stroke?.enabled) {
+      roundRectOnCtx(c, el);
+      c.strokeStyle = el.stroke.color;
+      c.lineWidth = el.stroke.width;
+      c.stroke();
+    }
+  }
+  if (el.labelStyle?.enabled && el.labelStyle.text) {
+    c.fillStyle = el.labelStyle.color;
+    c.font = `700 ${el.labelStyle.size}px Inter, sans-serif`;
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.fillText(el.labelStyle.text, el.x + el.w / 2, el.y + el.h / 2);
+  }
+}
+
+function roundRectOnCtx(c, el) {
+  const cc = el.corners || { tl: el.radius, tr: el.radius, br: el.radius, bl: el.radius };
+  const { x, y, w, h } = el;
+  c.beginPath();
+  c.moveTo(x + cc.tl, y);
+  c.lineTo(x + w - cc.tr, y);
+  c.quadraticCurveTo(x + w, y, x + w, y + cc.tr);
+  c.lineTo(x + w, y + h - cc.br);
+  c.quadraticCurveTo(x + w, y + h, x + w - cc.br, y + h);
+  c.lineTo(x + cc.bl, y + h);
+  c.quadraticCurveTo(x, y + h, x, y + h - cc.bl);
+  c.lineTo(x, y + cc.tl);
+  c.quadraticCurveTo(x, y, x + cc.tl, y);
+  c.closePath();
+}
+
+function exportWebm() {
+  // Заглушка: вместо реального MediaRecorder показываем сообщение
+  setStatus('WebM требует записи в реальном времени. Используй GIF.', 'error');
+}
+
+// ============ ВЫРАВНИВАНИЕ ============
+
+function alignSelected(action) {
+  if (!state.selectedIds.length) return;
+  const els = state.selectedIds.map(id => state.elements.find(e => e.id === id)).filter(Boolean);
+  if (els.length < 1) return;
+
+  if (els.length === 1) {
+    const el = els[0];
+    if (action === 'left') el.x = 0;
+    if (action === 'right') el.x = state.canvas.width - el.w;
+    if (action === 'centerH') el.x = (state.canvas.width - el.w) / 2;
+    if (action === 'top') el.y = 0;
+    if (action === 'bottom') el.y = state.canvas.height - el.h;
+    if (action === 'centerV') el.y = (state.canvas.height - el.h) / 2;
+  } else {
+    const minX = Math.min(...els.map(e => e.x));
+    const maxX = Math.max(...els.map(e => e.x + e.w));
+    const minY = Math.min(...els.map(e => e.y));
+    const maxY = Math.max(...els.map(e => e.y + e.h));
+    if (action === 'left') els.forEach(e => e.x = minX);
+    if (action === 'right') els.forEach(e => e.x = maxX - e.w);
+    if (action === 'centerH') {
+      const c = (minX + maxX) / 2;
+      els.forEach(e => e.x = c - e.w / 2);
+    }
+    if (action === 'top') els.forEach(e => e.y = minY);
+    if (action === 'bottom') els.forEach(e => e.y = maxY - e.h);
+    if (action === 'centerV') {
+      const c = (minY + maxY) / 2;
+      els.forEach(e => e.y = c - e.h / 2);
+    }
+  }
+  renderAll();
+  pushHistory();
+}
+
+function mirrorHorizontal() {
+  if (!state.selectedIds.length) return;
+  const ids = [...state.selectedIds];
+  ids.forEach(id => {
+    const el = state.elements.find(e => e.id === id);
+    if (!el) return;
+    const copy = JSON.parse(JSON.stringify(el));
+    delete copy.imageEl;
+    delete copy.videoEl;
+    copy.id = nextId();
+    copy.x = state.canvas.width - el.x - el.w;
+    state.elements.push(copy);
+  });
+  renderAll();
+  pushHistory();
+  setStatus('Отражено по горизонтали', 'success');
+}
+
 // ============ СОБЫТИЯ ============
 
-// Добавление элементов
+// Табы
+document.querySelectorAll('.side-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.side-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.side-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`[data-content="${tab.dataset.side}"]`)?.classList.add('active');
+  });
+});
+
+// Добавление
 document.querySelectorAll('[data-add]').forEach(btn => {
   btn.addEventListener('click', () => addElement(btn.dataset.add));
 });
 
-// Кнопки шапки
+// Верхние кнопки
 document.getElementById('btnUndo').addEventListener('click', undo);
 document.getElementById('btnRedo').addEventListener('click', redo);
-document.getElementById('btnDownload').addEventListener('click', downloadPng);
-document.getElementById('btnExport').addEventListener('click', exportJson);
 document.getElementById('btnImport').addEventListener('click', importJson);
+document.getElementById('btnExport').addEventListener('click', exportJson);
+document.getElementById('btnExportHtml').addEventListener('click', exportHtml);
+document.getElementById('btnDownload').addEventListener('click', () => {
+  showModal(`
+    <h3>Экспорт</h3>
+    <p>Выбери формат</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+      <button type="button" class="btn primary" data-export="png" style="justify-content:center;">⬇ PNG</button>
+      <button type="button" class="btn" data-export="svg" style="justify-content:center;">⬇ SVG</button>
+      <button type="button" class="btn" data-export="html" style="justify-content:center;">📄 HTML</button>
+      <button type="button" class="btn" data-export="gif" style="justify-content:center;">🎞 GIF</button>
+      <button type="button" class="btn" data-export="json" style="justify-content:center;">💾 JSON</button>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn" id="modalCancel">Закрыть</button>
+    </div>
+  `);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.querySelectorAll('[data-export]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeModal();
+      const t = btn.dataset.export;
+      if (t === 'png') downloadPng();
+      else if (t === 'svg') downloadSvg();
+      else if (t === 'html') exportHtml();
+      else if (t === 'gif') downloadGif();
+      else if (t === 'json') exportJson();
+    });
+  });
+});
 
 // Toolbar
 document.getElementById('btnZoomIn').addEventListener('click', () => setZoom(state.zoom + 0.1));
 document.getElementById('btnZoomOut').addEventListener('click', () => setZoom(state.zoom - 0.1));
 document.getElementById('btnFit').addEventListener('click', fitZoom);
-document.getElementById('btnCenter').addEventListener('click', () => {
-  setZoom(1);
-  canvasArea.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-});
 
 const btnGrid = document.getElementById('btnGrid');
-btnGrid.classList.toggle('active', state.showGrid);
 btnGrid.addEventListener('click', () => {
   state.showGrid = !state.showGrid;
   btnGrid.classList.toggle('active', state.showGrid);
@@ -1792,71 +2703,149 @@ btnGrid.addEventListener('click', () => {
 });
 
 const btnSafe = document.getElementById('btnSafe');
-btnSafe.classList.toggle('active', state.showSafe);
 btnSafe.addEventListener('click', () => {
   state.showSafe = !state.showSafe;
   btnSafe.classList.toggle('active', state.showSafe);
   draw();
 });
 
-document.getElementById('btnDup').addEventListener('click', () => {
-  if (state.selectedId) duplicateElement(state.selectedId);
-});
-document.getElementById('btnDelete').addEventListener('click', () => {
-  if (state.selectedId) deleteElement(state.selectedId);
+const btnSnap = document.getElementById('btnSnap');
+btnSnap.addEventListener('click', () => {
+  state.snap = !state.snap;
+  btnSnap.classList.toggle('active', state.snap);
 });
 
-// Горячие клавиши
+const btnGuides = document.getElementById('btnGuides');
+btnGuides.addEventListener('click', () => {
+  state.guides = !state.guides;
+  btnGuides.classList.toggle('active', state.guides);
+});
+
+document.getElementById('btnAlignLeft').addEventListener('click', () => alignSelected('left'));
+document.getElementById('btnAlignRight').addEventListener('click', () => alignSelected('right'));
+document.getElementById('btnAlignCenterH').addEventListener('click', () => alignSelected('centerH'));
+document.getElementById('btnAlignTop').addEventListener('click', () => alignSelected('top'));
+document.getElementById('btnAlignBottom').addEventListener('click', () => alignSelected('bottom'));
+document.getElementById('btnAlignCenterV').addEventListener('click', () => alignSelected('centerV'));
+
+document.getElementById('btnDup').addEventListener('click', () => {
+  if (state.selectedIds.length) {
+    const ids = [...state.selectedIds];
+    ids.forEach(id => duplicateElement(id, false));
+    renderAll();
+    pushHistory();
+  }
+});
+document.getElementById('btnMirrorH').addEventListener('click', mirrorHorizontal);
+document.getElementById('btnDelete').addEventListener('click', () => {
+  if (!state.selectedIds.length) return;
+  state.elements = state.elements.filter(e => !state.selectedIds.includes(e.id));
+  state.selectedIds = [];
+  renderAll();
+  pushHistory();
+  setStatus('Удалено');
+});
+
+// Размер холста
+document.getElementById('canvasW').addEventListener('input', (e) => {
+  state.canvas.width = +e.target.value;
+  document.getElementById('canvasWVal').textContent = state.canvas.width;
+  canvas.width = state.canvas.width;
+  canvasInfo.textContent = `${state.canvas.width} × ${state.canvas.height}`;
+  updateRulers();
+  draw();
+});
+document.getElementById('canvasW').addEventListener('change', pushHistory);
+document.getElementById('canvasH').addEventListener('input', (e) => {
+  state.canvas.height = +e.target.value;
+  document.getElementById('canvasHVal').textContent = state.canvas.height;
+  canvas.height = state.canvas.height;
+  canvasInfo.textContent = `${state.canvas.width} × ${state.canvas.height}`;
+  updateRulers();
+  draw();
+});
+document.getElementById('canvasH').addEventListener('change', pushHistory);
+
+// Фон
+document.getElementById('bgVisible').addEventListener('change', (e) => {
+  state.background.visible = e.target.checked;
+  draw();
+  pushHistory();
+});
+document.getElementById('bgCanvasColor').addEventListener('input', (e) => {
+  state.background.color = e.target.value;
+  draw();
+});
+document.getElementById('bgCanvasColor').addEventListener('change', pushHistory);
+document.getElementById('btnBgImage').addEventListener('click', () => document.getElementById('bgImageInput').click());
+document.getElementById('bgImageInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      state.background.imageEl = img;
+      state.background.image = reader.result;
+      state.background.visible = true;
+      document.getElementById('bgVisible').checked = true;
+      draw();
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+// ============ Горячие клавиши ============
+
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
     if (e.ctrlKey && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
     if (e.ctrlKey && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); }
     return;
   }
-
   if (e.ctrlKey && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); return; }
   if (e.ctrlKey && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); return; }
-  if (e.ctrlKey && e.key === 'd') { e.preventDefault(); if (state.selectedId) duplicateElement(state.selectedId); return; }
+  if (e.ctrlKey && e.key === 'd') { e.preventDefault(); document.getElementById('btnDup').click(); return; }
+  if (e.ctrlKey && e.key === 's') { e.preventDefault(); exportJson(); return; }
+  if (e.ctrlKey && e.key === 'g') { e.preventDefault(); /* группировка не поддерживается */ return; }
   if (e.ctrlKey) return;
 
-  if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId) {
+  if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedIds.length) {
     e.preventDefault();
-    deleteElement(state.selectedId);
+    document.getElementById('btnDelete').click();
   }
   if (e.key === 'Escape') {
-    state.selectedId = null;
+    state.selectedIds = [];
     renderAll();
   }
-
-  // Стрелки для перемещения
-  if (state.selectedId && e.key.startsWith('Arrow')) {
-    const el = state.elements.find(x => x.id === state.selectedId);
-    if (!el) return;
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    if (!state.selectedIds.length) return;
     e.preventDefault();
     const step = e.shiftKey ? 20 : 2;
-    if (e.key === 'ArrowLeft') el.x -= step;
-    if (e.key === 'ArrowRight') el.x += step;
-    if (e.key === 'ArrowUp') el.y -= step;
-    if (e.key === 'ArrowDown') el.y += step;
+    state.selectedIds.forEach(id => {
+      const el = state.elements.find(x => x.id === id);
+      if (!el) return;
+      if (e.key === 'ArrowLeft') el.x -= step;
+      if (e.key === 'ArrowRight') el.x += step;
+      if (e.key === 'ArrowUp') el.y -= step;
+      if (e.key === 'ArrowDown') el.y += step;
+    });
     draw();
     renderProperties();
   }
 });
 
 document.addEventListener('keyup', (e) => {
-  if (e.key.startsWith('Arrow') && state.selectedId) {
-    pushHistory();
-  }
+  if (e.key.startsWith('Arrow') && state.selectedIds.length) pushHistory();
 });
 
-// Ресайз окна
+// Ресайз
 window.addEventListener('resize', () => {
-  if (window.innerWidth < 900) {
-    setZoom(1);
-  }
+  if (window.innerWidth < 900) setZoom(1);
 });
 
-// ============ CANVAS КЛИКИ ============
+// ============ CANVAS КЛИКИ И DRAG ============
 
 function canvasToLocal(clientX, clientY) {
   const rect = canvas.getBoundingClientRect();
@@ -1867,15 +2856,48 @@ function canvasToLocal(clientX, clientY) {
 }
 
 function hitTest(x, y) {
-  // Проверяем сверху вниз
   for (let i = state.elements.length - 1; i >= 0; i--) {
     const el = state.elements[i];
     if (el.hidden) continue;
-    if (x >= el.x && x <= el.x + el.w && y >= el.y && y <= el.y + el.h) {
-      return el;
-    }
+    if (x >= el.x && x <= el.x + el.w && y >= el.y && y <= el.y + el.h) return el;
   }
   return null;
+}
+
+function snapValue(v, exclude = []) {
+  if (!state.snap) return Math.round(v);
+  const gridStep = 20;
+  let snapped = Math.round(v / gridStep) * gridStep;
+  // Привязка к краям и центрам
+  const targets = [0, state.canvas.width / 2, state.canvas.width];
+  targets.forEach(t => {
+    if (Math.abs(v - t) < 8) snapped = t;
+  });
+  // Привязка к другим элементам
+  state.elements.forEach(other => {
+    if (exclude.includes(other.id) || other.hidden) return;
+    [other.x, other.x + other.w / 2, other.x + other.w].forEach(t => {
+      if (Math.abs(v - t) < 8) snapped = t;
+    });
+  });
+  return Math.round(snapped);
+}
+
+function snapValueY(v, exclude = []) {
+  if (!state.snap) return Math.round(v);
+  const gridStep = 20;
+  let snapped = Math.round(v / gridStep) * gridStep;
+  const targets = [0, state.canvas.height / 2, state.canvas.height];
+  targets.forEach(t => {
+    if (Math.abs(v - t) < 8) snapped = t;
+  });
+  state.elements.forEach(other => {
+    if (exclude.includes(other.id) || other.hidden) return;
+    [other.y, other.y + other.h / 2, other.y + other.h].forEach(t => {
+      if (Math.abs(v - t) < 8) snapped = t;
+    });
+  });
+  return Math.round(snapped);
 }
 
 canvas.addEventListener('mousedown', (e) => {
@@ -1883,25 +2905,64 @@ canvas.addEventListener('mousedown', (e) => {
   const hit = hitTest(pt.x, pt.y);
 
   if (hit) {
-    state.selectedId = hit.id;
+    if (e.shiftKey) {
+      if (state.selectedIds.includes(hit.id)) {
+        state.selectedIds = state.selectedIds.filter(id => id !== hit.id);
+      } else {
+        state.selectedIds.push(hit.id);
+      }
+    } else if (!state.selectedIds.includes(hit.id)) {
+      state.selectedIds = [hit.id];
+    }
     renderAll();
 
-    // Начинаем перетаскивание
     const startX = pt.x;
     const startY = pt.y;
-    const origX = hit.x;
-    const origY = hit.y;
+    const origPositions = state.selectedIds.map(id => {
+      const el = state.elements.find(x => x.id === id);
+      return { id, x: el.x, y: el.y };
+    });
     let moved = false;
 
     const onMove = (ev) => {
       const p = canvasToLocal(ev.clientX, ev.clientY);
-      const dx = p.x - startX;
-      const dy = p.y - startY;
+      let dx = p.x - startX;
+      let dy = p.y - startY;
       if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
-      hit.x = Math.max(-hit.w + 20, Math.min(state.canvas.width - 20, origX + dx));
-      hit.y = Math.max(-hit.h + 20, Math.min(state.canvas.height - 20, origY + dy));
-      hit.x = Math.round(hit.x);
-      hit.y = Math.round(hit.y);
+
+      origPositions.forEach(op => {
+        const el = state.elements.find(x => x.id === op.id);
+        if (!el) return;
+        let newX = op.x + dx;
+        let newY = op.y + dy;
+        if (state.snap) {
+          newX = snapValue(newX, state.selectedIds);
+          newY = snapValueY(newY, state.selectedIds);
+        } else {
+          newX = Math.round(newX);
+          newY = Math.round(newY);
+        }
+        el.x = newX;
+        el.y = newY;
+      });
+
+      // Показываем направляющие
+      if (state.guides) {
+        const first = state.elements.find(x => x.id === state.selectedIds[0]);
+        if (first) {
+          const elCenterX = first.x + first.w / 2;
+          const elCenterY = first.y + first.h / 2;
+          if (Math.abs(elCenterX - state.canvas.width / 2) < 3) {
+            guideV.classList.add('visible');
+            guideV.style.left = (state.canvas.width / 2 * state.zoom) + 'px';
+          } else guideV.classList.remove('visible');
+          if (Math.abs(elCenterY - state.canvas.height / 2) < 3) {
+            guideH.classList.add('visible');
+            guideH.style.top = (state.canvas.height / 2 * state.zoom) + 'px';
+          } else guideH.classList.remove('visible');
+        }
+      }
+
       draw();
       renderProperties();
     };
@@ -1909,30 +2970,32 @@ canvas.addEventListener('mousedown', (e) => {
     const onUp = () => {
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup', onUp);
+      guideH.classList.remove('visible');
+      guideV.classList.remove('visible');
       if (moved) pushHistory();
     };
 
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup', onUp);
   } else {
-    state.selectedId = null;
+    state.selectedIds = [];
     renderAll();
   }
 });
 
-// Touch-перетаскивание
+// Touch
 canvas.addEventListener('touchstart', (e) => {
   if (e.touches.length !== 1) return;
-  const touch = e.touches[0];
-  const pt = canvasToLocal(touch.clientX, touch.clientY);
+  const t = e.touches[0];
+  const pt = canvasToLocal(t.clientX, t.clientY);
   const hit = hitTest(pt.x, pt.y);
   if (!hit) {
-    state.selectedId = null;
+    state.selectedIds = [];
     renderAll();
     return;
   }
   e.preventDefault();
-  state.selectedId = hit.id;
+  state.selectedIds = [hit.id];
   renderAll();
 
   const startX = pt.x;
@@ -1943,13 +3006,13 @@ canvas.addEventListener('touchstart', (e) => {
 
   const onMove = (ev) => {
     if (ev.touches.length !== 1) return;
-    const t = ev.touches[0];
-    const p = canvasToLocal(t.clientX, t.clientY);
-    const dx = p.x - startX;
-    const dy = p.y - startY;
+    const tt = ev.touches[0];
+    const p = canvasToLocal(tt.clientX, tt.clientY);
+    let dx = p.x - startX;
+    let dy = p.y - startY;
     if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
-    hit.x = Math.max(-hit.w + 20, Math.min(state.canvas.width - 20, Math.round(origX + dx)));
-    hit.y = Math.max(-hit.h + 20, Math.min(state.canvas.height - 20, Math.round(origY + dy)));
+    hit.x = state.snap ? snapValue(origX + dx, state.selectedIds) : Math.round(origX + dx);
+    hit.y = state.snap ? snapValueY(origY + dy, state.selectedIds) : Math.round(origY + dy);
     draw();
     renderProperties();
   };
@@ -1964,20 +3027,25 @@ canvas.addEventListener('touchstart', (e) => {
   document.addEventListener('touchend', onEnd);
 }, { passive: false });
 
+// Плавная анимация видео
+setInterval(() => {
+  if (state.elements.some(el => el.type === 'video' && el.videoEl)) {
+    draw();
+  }
+}, 33);
+
 // ============ СТАРТ ============
 
 canvas.width = state.canvas.width;
 canvas.height = state.canvas.height;
 canvasInfo.textContent = `${state.canvas.width} × ${state.canvas.height}`;
-
+updateRulers();
 renderAll();
 pushHistory();
 
-// Автоподгон масштаба на старте
 setTimeout(() => {
   if (window.innerWidth >= 900) fitZoom();
 }, 100);
-
 </script>
 
 </body>
