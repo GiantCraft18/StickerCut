@@ -16,6 +16,8 @@
     --purple: #9147ff;
     --purple-2: #b380ff;
     --red: #ff2d55;
+    --green: #4ade80;
+    --yellow: #fbbf24;
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.14);
     --radius: 24px;
@@ -43,7 +45,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ФОН */
   .bg {
     position: fixed;
     inset: 0;
@@ -107,7 +108,6 @@
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
   }
 
-  /* ШАПКА */
   header {
     text-align: center;
     margin-bottom: 28px;
@@ -202,8 +202,8 @@
   .feature-pill .dot {
     width: 6px; height: 6px;
     border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 8px #4ade80;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
     animation: pulse 2s ease infinite;
   }
 
@@ -212,7 +212,6 @@
     50%      { opacity: 0.4; }
   }
 
-  /* КАРТОЧКА */
   .card {
     width: 100%;
     max-width: 480px;
@@ -283,7 +282,6 @@
     line-height: 1.4;
   }
 
-  /* ЗОНА ЗАГРУЗКИ — теперь это label */
   .upload-label {
     display: block;
     width: 100%;
@@ -309,10 +307,6 @@
     box-shadow: 0 12px 40px rgba(145, 71, 255, 0.15);
   }
 
-  .upload-label:active {
-    transform: translateY(0) scale(0.99);
-  }
-
   .upload-icon-wrap {
     width: 64px; height: 64px;
     margin: 0 auto 16px;
@@ -324,10 +318,6 @@
     justify-content: center;
     font-size: 1.7rem;
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .upload-label:hover .upload-icon-wrap {
-    transform: scale(1.08) translateY(-4px);
   }
 
   .upload-text {
@@ -348,7 +338,6 @@
     color: var(--text-mute);
   }
 
-  /* Скрытый инпут — но доступный для клика через label */
   #fileInput {
     position: absolute;
     width: 1px; height: 1px;
@@ -359,7 +348,6 @@
     border: 0;
   }
 
-  /* ПРЕВЬЮ */
   #preview-section {
     display: none;
     text-align: center;
@@ -398,10 +386,26 @@
     border-radius: var(--radius-sm);
     margin-bottom: 18px;
     transition: border-color 0.3s;
+    position: relative;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .preview-wrap:hover {
-    border-color: rgba(145, 71, 255, 0.25);
+  .preview-wrap.busy::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.06) 50%, transparent 70%);
+    animation: shimmer 1.5s linear infinite;
+    pointer-events: none;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(100%); }
   }
 
   #preview-img {
@@ -413,7 +417,6 @@
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
   }
 
-  /* КНОПКИ */
   .btn-row {
     display: flex;
     flex-direction: column;
@@ -496,7 +499,6 @@
     border-color: var(--border-strong);
   }
 
-  /* СТАТУС */
   #status {
     margin-top: 18px;
     padding-top: 16px;
@@ -509,9 +511,18 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    line-height: 1.45;
   }
 
   #status.visible { display: flex; }
+
+  #status.error {
+    color: #ff8fa3;
+  }
+
+  #status.success {
+    color: var(--green);
+  }
 
   .spinner {
     width: 16px; height: 16px;
@@ -524,7 +535,6 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ПОДВАЛ */
   footer {
     margin-top: 32px;
     color: var(--text-mute);
@@ -552,7 +562,6 @@
 
   .footer-sep { opacity: 0.4; }
 
-  /* АДАПТАЦИЯ */
   @media (max-width: 520px) {
     body {
       padding: 24px 12px 40px;
@@ -574,7 +583,7 @@
     .upload-icon-wrap { width: 56px; height: 56px; font-size: 1.5rem; margin-bottom: 14px; }
     .upload-text { font-size: 0.85rem; }
     .upload-hint { font-size: 0.68rem; }
-    .preview-wrap { padding: 20px; }
+    .preview-wrap { padding: 20px; min-height: 160px; }
     #preview-img { max-width: 130px; max-height: 130px; }
     .btn { padding: 14px 16px; font-size: 0.88rem; }
   }
@@ -585,7 +594,6 @@
     .feature-pill { font-size: 0.64rem; padding: 4px 8px; }
   }
 
-  /* Уважение к настройке «уменьшить движение» */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -629,7 +637,6 @@
       </div>
     </div>
 
-    <!-- Зона загрузки: label + input внутри -->
     <label class="upload-label" id="uploadLabel" for="fileInput">
       <div class="upload-icon-wrap">🖼️</div>
       <div class="upload-text"><strong>Нажми</strong> или перетащи изображение сюда</div>
@@ -639,7 +646,7 @@
 
     <div id="preview-section">
       <div class="preview-label">Результат</div>
-      <div class="preview-wrap">
+      <div class="preview-wrap" id="previewWrap">
         <img id="preview-img" alt="Результат">
       </div>
       <div class="btn-row">
@@ -667,26 +674,32 @@
 </footer>
 
 <script type="module">
-import removeBackground from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm';
-
 const uploadLabel = document.getElementById('uploadLabel');
 const fileInput = document.getElementById('fileInput');
 const previewSection = document.getElementById('preview-section');
 const previewImg = document.getElementById('preview-img');
+const previewWrap = document.getElementById('previewWrap');
 const btnTwitch = document.getElementById('btnTwitch');
 const btnYouTube = document.getElementById('btnYouTube');
 const btnReset = document.getElementById('btnReset');
 const statusEl = document.getElementById('status');
 
 let currentBlob = null;
+let removeBackgroundFn = null;
+let modelLoading = null;
 
-function setStatus(text, loading = false) {
+// Показываем статус
+function setStatus(text, type = 'info', loading = false) {
   statusEl.innerHTML = '';
   if (!text) {
-    statusEl.classList.remove('visible');
+    statusEl.classList.remove('visible', 'error', 'success');
     return;
   }
   statusEl.classList.add('visible');
+  statusEl.classList.remove('error', 'success');
+  if (type === 'error') statusEl.classList.add('error');
+  if (type === 'success') statusEl.classList.add('success');
+
   if (loading) {
     const sp = document.createElement('span');
     sp.className = 'spinner';
@@ -697,88 +710,161 @@ function setStatus(text, loading = false) {
   statusEl.appendChild(span);
 }
 
-// Drag & drop на label
-uploadLabel.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  uploadLabel.classList.add('dragover');
+// Ленивая загрузка библиотеки (только когда она реально нужна)
+async function loadRemoveBackground() {
+  if (removeBackgroundFn) return removeBackgroundFn;
+  if (modelLoading) return modelLoading;
+
+  modelLoading = (async () => {
+    setStatus('Загружаю AI-модель (первый раз ~30-60 сек)...', 'info', true);
+    try {
+      const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm');
+      removeBackgroundFn = mod.default || mod.removeBackground;
+      if (typeof removeBackgroundFn !== 'function') {
+        throw new Error('Библиотека загрузилась, но функция не найдена');
+      }
+      return removeBackgroundFn;
+    } catch (e) {
+      modelLoading = null;
+      throw new Error('Не удалось загрузить AI-библиотеку. Проверь интернет и попробуй снова.');
+    }
+  })();
+
+  return modelLoading;
+}
+
+// Drag & drop
+['dragenter', 'dragover'].forEach(ev => {
+  uploadLabel.addEventListener(ev, (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadLabel.classList.add('dragover');
+  });
 });
-uploadLabel.addEventListener('dragleave', () => {
-  uploadLabel.classList.remove('dragover');
+['dragleave', 'drop'].forEach(ev => {
+  uploadLabel.addEventListener(ev, (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadLabel.classList.remove('dragover');
+  });
 });
 uploadLabel.addEventListener('drop', (e) => {
-  e.preventDefault();
-  uploadLabel.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
+  const file = e.dataTransfer?.files?.[0];
   if (file) processFile(file);
 });
 
-// Изменение input
+// Основной обработчик
 fileInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
+  const file = e.target.files?.[0];
   if (file) processFile(file);
 });
 
 async function processFile(file) {
+  // Проверка типа
   if (!file.type.startsWith('image/')) {
-    setStatus('Пожалуйста, выбери изображение.');
+    setStatus('Это не изображение. Выбери PNG, JPG или WEBP.', 'error');
     return;
   }
 
-  uploadLabel.style.display = 'none';
+  if (file.size > 10 * 1024 * 1024) {
+    setStatus('Файл больше 10 МБ. Выбери поменьше.', 'error');
+    return;
+  }
+
+  // Показываем превью ИСХОДНОГО фото сразу — чтобы было видно, что файл выбран
+  currentBlob = null;
   previewSection.classList.add('visible');
+  uploadLabel.style.display = 'none';
   btnTwitch.disabled = true;
   btnYouTube.disabled = true;
-  setStatus('Удаляю фон... Первый раз может занять до 30 секунд.', true);
+  previewWrap.classList.add('busy');
+
+  const originalUrl = URL.createObjectURL(file);
+  previewImg.src = originalUrl;
+  previewImg.alt = 'Исходное фото';
+
+  setStatus('Файл получен. Загружаю AI-модель...', 'info', true);
 
   try {
-    const blob = await removeBackground(file, {
+    const removeBg = await loadRemoveBackground();
+
+    setStatus('Удаляю фон... Это может занять до 30 секунд.', 'info', true);
+
+    const blob = await removeBg(file, {
       model: 'isnet_fp16',
       output: { format: 'image/png', type: 'foreground' }
     });
 
+    // Проверяем, что получили именно blob
+    if (!(blob instanceof Blob) || blob.size === 0) {
+      throw new Error('AI вернул пустой результат');
+    }
+
     currentBlob = blob;
-    const url = URL.createObjectURL(blob);
-    previewImg.src = url;
-    setStatus('Готово! Выбери формат для скачивания.');
+    const resultUrl = URL.createObjectURL(blob);
+    previewImg.src = resultUrl;
+    previewImg.alt = 'Результат';
+    URL.revokeObjectURL(originalUrl);
+
+    previewWrap.classList.remove('busy');
+    setStatus('Готово! Выбери формат для скачивания.', 'success');
     btnTwitch.disabled = false;
     btnYouTube.disabled = false;
+
   } catch (err) {
-    console.error(err);
-    setStatus('Ошибка при обработке. Попробуй другое фото.');
-    previewSection.classList.remove('visible');
-    uploadLabel.style.display = 'block';
+    console.error('Ошибка обработки:', err);
+    previewWrap.classList.remove('busy');
+    const msg = err?.message?.includes('AI') || err?.message?.includes('модель')
+      ? err.message
+      : 'Ошибка при удалении фона. Попробуй другое фото или перезагрузи страницу.';
+    setStatus(msg, 'error');
+    // Оставляем исходное фото в превью, чтобы пользователь видел результат выбора
   }
 }
 
+// Скачивание
 async function resizeAndDownload(targetSize, filename) {
-  if (!currentBlob) return;
+  if (!currentBlob) {
+    setStatus('Сначала обработай фото.', 'error');
+    return;
+  }
 
-  const img = new Image();
-  const url = URL.createObjectURL(currentBlob);
-  img.src = url;
-  await img.decode();
+  try {
+    const img = new Image();
+    const url = URL.createObjectURL(currentBlob);
+    img.src = url;
+    await img.decode();
 
-  const canvas = document.createElement('canvas');
-  canvas.width = targetSize;
-  canvas.height = targetSize;
-  const ctx = canvas.getContext('2d');
+    const canvas = document.createElement('canvas');
+    canvas.width = targetSize;
+    canvas.height = targetSize;
+    const ctx = canvas.getContext('2d');
 
-  const minSide = Math.min(img.naturalWidth, img.naturalHeight);
-  const sx = (img.naturalWidth - minSide) / 2;
-  const sy = (img.naturalHeight - minSide) / 2;
+    const minSide = Math.min(img.naturalWidth, img.naturalHeight);
+    const sx = (img.naturalWidth - minSide) / 2;
+    const sy = (img.naturalHeight - minSide) / 2;
 
-  ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
+    ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
 
-  canvas.toBlob((resultBlob) => {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(resultBlob);
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    URL.revokeObjectURL(url);
-  }, 'image/png');
+    canvas.toBlob((resultBlob) => {
+      if (!resultBlob) {
+        setStatus('Не удалось создать файл.', 'error');
+        URL.revokeObjectURL(url);
+        return;
+      }
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(resultBlob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  } catch (e) {
+    console.error(e);
+    setStatus('Не удалось скачать файл.', 'error');
+  }
 }
 
 btnTwitch.addEventListener('click', () => resizeAndDownload(112, 'sticker-twitch-112.png'));
@@ -787,8 +873,12 @@ btnYouTube.addEventListener('click', () => resizeAndDownload(48, 'sticker-youtub
 btnReset.addEventListener('click', () => {
   currentBlob = null;
   fileInput.value = '';
+  previewImg.src = '';
   previewSection.classList.remove('visible');
   uploadLabel.style.display = 'block';
+  previewWrap.classList.remove('busy');
+  btnTwitch.disabled = true;
+  btnYouTube.disabled = true;
   setStatus('');
 });
 </script>
