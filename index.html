@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0a12">
-<title>EmoteLab — конструктор эмоутов для стримеров</title>
+<title>EmoteLab — лаборатория эмоутов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -20,12 +20,10 @@
     --text-mute: #5f5f78;
     --accent: #7c5cff;
     --accent-2: #a78bfa;
-    --accent-glow: rgba(124, 92, 255, 0.4);
     --pink: #ff5c8a;
     --green: #4ade80;
     --radius: 18px;
     --radius-sm: 12px;
-    --radius-xs: 8px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -41,15 +39,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 28px 16px 48px;
-    padding-top: max(28px, env(safe-area-inset-top));
+    padding: 24px 16px 48px;
+    padding-top: max(24px, env(safe-area-inset-top));
     padding-bottom: max(48px, env(safe-area-inset-bottom));
     position: relative;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Фон */
   .bg {
     position: fixed;
     inset: 0;
@@ -74,10 +71,9 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 90%);
   }
 
-  /* Шапка */
   header {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     max-width: 560px;
     animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
@@ -86,7 +82,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     padding: 7px 16px 7px 8px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border);
@@ -116,11 +112,11 @@
   }
 
   h1 {
-    font-size: clamp(1.9rem, 6.5vw, 2.8rem);
+    font-size: clamp(1.7rem, 6vw, 2.5rem);
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.05;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   h1 span {
@@ -139,25 +135,24 @@
 
   .sub {
     color: var(--text-dim);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     line-height: 1.55;
     max-width: 460px;
     margin: 0 auto;
   }
 
-  /* Основной layout */
-  .app {
-    width: 100%;
-    max-width: 1040px;
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 20px;
-    animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
-  }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .app {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 18px;
+    animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
   }
 
   .panel {
@@ -166,17 +161,19 @@
     border-radius: var(--radius);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 20px;
+    padding: 18px;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
       0 20px 60px rgba(0, 0, 0, 0.4);
   }
 
-  /* Левая панель — превью */
   .stage {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
+    position: sticky;
+    top: 24px;
+    align-self: start;
   }
 
   .canvas-wrap {
@@ -202,36 +199,37 @@
   }
 
   #emoteCanvas {
-    max-width: 92%;
-    max-height: 92%;
+    max-width: 96%;
+    max-height: 96%;
     display: block;
     filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.5));
   }
 
   .stage-toolbar {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
-    flex-wrap: wrap;
   }
 
   .tool-btn {
-    flex: 1;
-    min-width: 100px;
-    padding: 11px 14px;
+    padding: 11px 8px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text-dim);
     font-family: inherit;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
+    gap: 4px;
   }
+
+  .tool-btn .icon { font-size: 1.1rem; }
+  .tool-btn .label { font-size: 0.68rem; }
 
   .tool-btn:hover {
     background: rgba(255, 255, 255, 0.06);
@@ -241,24 +239,10 @@
 
   .tool-btn:active { transform: scale(0.97); }
 
-  .tool-btn.primary {
-    background: linear-gradient(135deg, #7c5cff, #a78bfa);
-    color: #fff;
-    border: none;
-    box-shadow: 0 4px 20px rgba(124, 92, 255, 0.4);
-  }
-
-  .tool-btn.primary:hover {
-    box-shadow: 0 6px 28px rgba(124, 92, 255, 0.55);
-    transform: translateY(-1px);
-  }
-
-  /* Правая панель — настройки */
   .controls {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    max-height: 720px;
+    max-height: 820px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
@@ -270,8 +254,58 @@
     border-radius: 100px;
   }
 
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex: 1;
+    min-width: fit-content;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-mute);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .tab:hover { color: var(--text); }
+
+  .tab.active {
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.25), rgba(255, 92, 138, 0.15));
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(124, 92, 255, 0.2);
+  }
+
+  .tab-content {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tab-content.active { display: flex; }
+
   .section {
-    padding: 14px 0;
+    padding: 12px 0;
     border-bottom: 1px solid var(--border);
   }
 
@@ -283,7 +317,7 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-mute);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -298,12 +332,12 @@
     border-radius: 100px;
     font-weight: 500;
     letter-spacing: 0.04em;
+    text-transform: none;
   }
 
-  /* Палитра */
   .palette {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     gap: 6px;
   }
 
@@ -313,20 +347,15 @@
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.2s;
-    position: relative;
+    padding: 0;
   }
 
-  .color-swatch:hover {
-    transform: scale(1.12);
-    z-index: 2;
-  }
-
+  .color-swatch:hover { transform: scale(1.15); z-index: 2; }
   .color-swatch.active {
     border-color: #fff;
     box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(255, 255, 255, 0.3);
   }
 
-  /* Форма лица */
   .shape-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -344,35 +373,32 @@
     align-items: center;
     justify-content: center;
     padding: 6px;
+    color: var(--text-dim);
   }
 
   .shape-btn:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: var(--border-strong);
     transform: translateY(-2px);
+    color: var(--text);
   }
 
   .shape-btn.active {
     background: rgba(124, 92, 255, 0.15);
     border-color: var(--accent);
     box-shadow: 0 0 16px rgba(124, 92, 255, 0.25);
+    color: var(--accent-2);
   }
 
   .shape-btn svg {
     width: 100%;
     height: 100%;
     fill: currentColor;
-    color: var(--text-dim);
-    transition: color 0.2s;
   }
 
-  .shape-btn.active svg { color: var(--accent-2); }
-  .shape-btn:hover svg { color: var(--text); }
-
-  /* Глаза и рот */
   .feature-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
     gap: 6px;
   }
 
@@ -387,88 +413,37 @@
     align-items: center;
     justify-content: center;
     padding: 6px;
-    font-size: 1.4rem;
-    line-height: 1;
+    color: var(--text-dim);
   }
 
   .feature-btn:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: var(--border-strong);
     transform: translateY(-2px);
+    color: var(--text);
   }
 
   .feature-btn.active {
     background: rgba(124, 92, 255, 0.15);
     border-color: var(--accent);
     box-shadow: 0 0 16px rgba(124, 92, 255, 0.25);
+    color: var(--accent-2);
   }
 
   .feature-btn svg {
     width: 70%;
     height: 70%;
-    stroke: var(--text-dim);
     fill: none;
-    stroke-width: 2.2;
+    stroke: currentColor;
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke 0.2s;
   }
 
-  .feature-btn.active svg { stroke: var(--accent-2); }
-  .feature-btn:hover svg { stroke: var(--text); }
-
-  /* Пресеты платформ */
-  .preset-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-  }
-
-  .preset-chip {
-    padding: 10px 12px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-    text-align: left;
-    color: var(--text-dim);
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .preset-chip:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-strong);
-    color: var(--text);
-  }
-
-  .preset-chip.active {
-    background: rgba(124, 92, 255, 0.15);
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .preset-chip .name {
-    font-size: 0.82rem;
-    font-weight: 600;
-  }
-
-  .preset-chip .size {
-    font-size: 0.68rem;
-    color: var(--text-mute);
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .preset-chip.active .size { color: var(--accent-2); }
-
-  /* Слайдеры */
   .slider-row {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     margin-bottom: 10px;
   }
 
@@ -520,15 +495,18 @@
     box-shadow: 0 2px 8px rgba(124, 92, 255, 0.5);
   }
 
-  /* Тумблеры */
   .toggle-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 9px 0;
+    padding: 8px 0;
     font-size: 0.82rem;
     color: var(--text-dim);
+    gap: 12px;
   }
+
+  .toggle-label { display: flex; flex-direction: column; gap: 2px; }
+  .toggle-label small { font-size: 0.68rem; color: var(--text-mute); }
 
   .switch {
     position: relative;
@@ -570,7 +548,65 @@
     transform: translateX(18px);
   }
 
-  /* Скачивание */
+  .preset-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .preset-chip {
+    padding: 9px 11px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    text-align: left;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .preset-chip:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .preset-chip.active {
+    background: rgba(124, 92, 255, 0.15);
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .preset-chip .name { font-size: 0.8rem; font-weight: 600; }
+  .preset-chip .size {
+    font-size: 0.66rem;
+    color: var(--text-mute);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .preset-chip.active .size { color: var(--accent-2); }
+
+  .text-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .text-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.15);
+  }
+
   .download-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -590,7 +626,7 @@
     transition: all 0.2s;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
     text-align: left;
   }
 
@@ -599,6 +635,12 @@
     border-color: var(--border-strong);
     color: var(--text);
     transform: translateY(-1px);
+  }
+
+  .dl-btn .ext {
+    font-size: 0.68rem;
+    opacity: 0.7;
+    font-family: 'JetBrains Mono', monospace;
   }
 
   .dl-btn.primary {
@@ -611,31 +653,97 @@
 
   .dl-btn.primary:hover {
     box-shadow: 0 6px 28px rgba(124, 92, 255, 0.55);
+    color: #fff;
   }
 
-  .dl-btn .ext {
-    font-size: 0.7rem;
-    opacity: 0.7;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  /* Статус */
   #status {
-    margin-top: 16px;
+    margin-top: 12px;
     font-size: 0.82rem;
     color: var(--text-dim);
     text-align: center;
     min-height: 20px;
     display: none;
+    padding: 8px 12px;
+    border-radius: 8px;
   }
 
   #status.visible { display: block; }
-  #status.success { color: var(--green); }
-  #status.error { color: #ff8fa3; }
+  #status.success { color: var(--green); background: rgba(74, 222, 128, 0.08); }
+  #status.error { color: #ff8fa3; background: rgba(255, 92, 138, 0.08); }
 
-  /* Подвал */
+  .mood-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .mood-btn {
+    padding: 10px 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .mood-btn .emoji { font-size: 1.2rem; }
+  .mood-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--border-strong);
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  .size-preview {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    justify-content: center;
+    min-height: 120px;
+  }
+
+  .size-preview-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .size-preview-item canvas {
+    display: block;
+    border-radius: 6px;
+    background: repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 12px 12px;
+  }
+
+  .size-preview-item .label {
+    font-size: 0.65rem;
+    color: var(--text-mute);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .saved-empty {
+    padding: 14px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-mute);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+  }
+
   footer {
-    margin-top: 28px;
+    margin-top: 24px;
     color: var(--text-mute);
     font-size: 0.76rem;
     text-align: center;
@@ -652,38 +760,26 @@
     text-decoration: none;
     transition: color 0.2s;
   }
-
   footer a:hover { color: var(--accent-2); }
 
   .sep { opacity: 0.4; }
 
-  /* Адаптация */
-  @media (max-width: 900px) {
-    .app {
-      grid-template-columns: 1fr;
-      max-width: 520px;
-    }
-    .controls {
-      max-height: none;
-      overflow: visible;
-    }
-    .canvas-wrap {
-      aspect-ratio: 1 / 1;
-      max-width: 400px;
-      margin: 0 auto;
-    }
+  @media (max-width: 980px) {
+    .app { grid-template-columns: 1fr; max-width: 540px; }
+    .stage { position: static; }
+    .controls { max-height: none; overflow: visible; }
   }
 
   @media (max-width: 480px) {
-    body { padding: 20px 12px 40px; padding-top: max(20px, env(safe-area-inset-top)); }
-    header { margin-bottom: 20px; }
-    h1 { font-size: 1.7rem; }
-    .sub { font-size: 0.86rem; }
-    .panel { padding: 16px; }
-    .palette { grid-template-columns: repeat(6, 1fr); }
+    body { padding: 16px 10px 40px; padding-top: max(16px, env(safe-area-inset-top)); }
+    header { margin-bottom: 14px; }
+    h1 { font-size: 1.6rem; }
+    .sub { font-size: 0.84rem; }
+    .panel { padding: 14px; }
+    .palette { grid-template-columns: repeat(8, 1fr); }
     .shape-grid { grid-template-columns: repeat(5, 1fr); }
-    .feature-row { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
     .preset-row { grid-template-columns: 1fr; }
+    .mood-row { grid-template-columns: repeat(3, 1fr); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -702,91 +798,212 @@
 <header>
   <div class="logo">
     <div class="logo-mark">🧪</div>
-    <span class="logo-text">emotelab v1.0</span>
+    <span class="logo-text">emotelab v2.0</span>
   </div>
-  <h1>Собери свой <span>эмоут</span></h1>
-  <p class="sub">Выбери форму, палитру, глаза и рот. Никаких фото, никаких регистраций — только Canvas и твоё воображение.</p>
+  <h1>Лаборатория <span>эмоутов</span></h1>
+  <p class="sub">Собери стикер из формы, цвета, глаз, рта и аксессуаров. Экспортируй под Twitch, YouTube, Discord и Telegram.</p>
 </header>
 
 <div class="app">
 
-  <!-- Левая панель — превью -->
   <div class="panel stage">
     <div class="canvas-wrap">
       <canvas id="emoteCanvas" width="512" height="512"></canvas>
     </div>
+
     <div class="stage-toolbar">
-      <button type="button" class="tool-btn" id="btnRandom">🎲 Случайный</button>
-      <button type="button" class="tool-btn" id="btnReset">↺ Сброс</button>
+      <button type="button" class="tool-btn" id="btnRandom">
+        <span class="icon">🎲</span>
+        <span class="label">Случайно</span>
+      </button>
+      <button type="button" class="tool-btn" id="btnMirror">
+        <span class="icon">↔️</span>
+        <span class="label">Отразить</span>
+      </button>
+      <button type="button" class="tool-btn" id="btnSave">
+        <span class="icon">💾</span>
+        <span class="label">Сохранить</span>
+      </button>
+      <button type="button" class="tool-btn" id="btnReset">
+        <span class="icon">↺</span>
+        <span class="label">Сброс</span>
+      </button>
     </div>
   </div>
 
-  <!-- Правая панель — настройки -->
   <div class="panel controls">
 
-    <!-- Форма -->
-    <div class="section">
-      <div class="section-title">Форма</div>
-      <div class="shape-grid" id="shapeGrid"></div>
+    <div class="tabs" id="tabs">
+      <button type="button" class="tab active" data-tab="face">😊 Лицо</button>
+      <button type="button" class="tab" data-tab="style">🎨 Стиль</button>
+      <button type="button" class="tab" data-tab="extras">✨ Детали</button>
+      <button type="button" class="tab" data-tab="export">📦 Экспорт</button>
     </div>
 
-    <!-- Палитра -->
-    <div class="section">
-      <div class="section-title">Цвет <span class="badge" id="colorName">purple</span></div>
-      <div class="palette" id="palette"></div>
-    </div>
-
-    <!-- Глаза -->
-    <div class="section">
-      <div class="section-title">Глаза</div>
-      <div class="feature-row" id="eyesRow"></div>
-    </div>
-
-    <!-- Рот -->
-    <div class="section">
-      <div class="section-title">Рот</div>
-      <div class="feature-row" id="mouthRow"></div>
-    </div>
-
-    <!-- Настройки -->
-    <div class="section">
-      <div class="section-title">Тонкая настройка</div>
-      <div class="slider-row">
-        <div class="slider-label">
-          <span>Размер глаз</span>
-          <span class="val" id="eyeSizeVal">100%</span>
-        </div>
-        <input type="range" id="eyeSize" min="50" max="150" value="100">
+    <div class="tab-content active" data-content="face">
+      <div class="section">
+        <div class="section-title">Настроение <span class="badge">быстрый старт</span></div>
+        <div class="mood-row" id="moodRow"></div>
       </div>
-      <div class="slider-row">
-        <div class="slider-label">
-          <span>Расстояние глаз</span>
-          <span class="val" id="eyeDistVal">100%</span>
-        </div>
-        <input type="range" id="eyeDist" min="60" max="140" value="100">
+
+      <div class="section">
+        <div class="section-title">Глаза</div>
+        <div class="feature-row" id="eyesRow"></div>
       </div>
-      <div class="slider-row">
-        <div class="slider-label">
-          <span>Размер рта</span>
-          <span class="val" id="mouthSizeVal">100%</span>
-        </div>
-        <input type="range" id="mouthSize" min="50" max="150" value="100">
+
+      <div class="section">
+        <div class="section-title">Брови</div>
+        <div class="feature-row" id="browsRow"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Рот</div>
+        <div class="feature-row" id="mouthRow"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Румянец</div>
+        <div class="feature-row" id="blushRow"></div>
       </div>
     </div>
 
-    <!-- Пресеты -->
-    <div class="section">
-      <div class="section-title">Экспорт для</div>
-      <div class="preset-row" id="presetRow"></div>
+    <div class="tab-content" data-content="style">
+      <div class="section">
+        <div class="section-title">Форма</div>
+        <div class="shape-grid" id="shapeGrid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Цвет <span class="badge" id="colorName">purple</span></div>
+        <div class="palette" id="palette"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Обводка</div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Включить обводку</span>
+            <small>Для читаемости в чате</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="strokeToggle">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Толщина</span>
+            <span class="val" id="strokeWidthVal">12 px</span>
+          </div>
+          <input type="range" id="strokeWidth" min="2" max="40" value="12">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Цвет обводки</span>
+            <span class="val" id="strokeColorHex">#000000</span>
+          </div>
+          <input type="color" id="strokeColor" value="#000000" style="height: 36px; padding: 0; border: none; background: none; cursor: pointer; width: 100%; border-radius: 8px;">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Тонкая настройка</div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Размер глаз</span>
+            <span class="val" id="eyeSizeVal">100%</span>
+          </div>
+          <input type="range" id="eyeSize" min="40" max="160" value="100">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Расстояние глаз</span>
+            <span class="val" id="eyeDistVal">100%</span>
+          </div>
+          <input type="range" id="eyeDist" min="50" max="150" value="100">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Размер рта</span>
+            <span class="val" id="mouthSizeVal">100%</span>
+          </div>
+          <input type="range" id="mouthSize" min="40" max="160" value="100">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Поворот</span>
+            <span class="val" id="rotateVal">0°</span>
+          </div>
+          <input type="range" id="rotate" min="-30" max="30" value="0">
+        </div>
+      </div>
     </div>
 
-    <!-- Скачивание -->
-    <div class="section">
-      <div class="section-title">Скачать</div>
-      <div class="download-grid">
-        <button type="button" class="dl-btn primary" id="btnDownload">⬇ PNG <span class="ext">прозрачный фон</span></button>
-        <button type="button" class="dl-btn" id="btnCopy">📋 Копировать <span class="ext">в буфер</span></button>
-        <button type="button" class="dl-btn" id="btnBatch">📦 Все размеры <span class="ext">ZIP</span></button>
+    <div class="tab-content" data-content="extras">
+      <div class="section">
+        <div class="section-title">Аксессуар</div>
+        <div class="feature-row" id="accessoryRow"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Текст под эмоутом</div>
+        <input type="text" class="text-input" id="textInput" placeholder="Например: LUL или POG" maxlength="12">
+        <div class="slider-row" style="margin-top: 10px;">
+          <div class="slider-label">
+            <span>Размер текста</span>
+            <span class="val" id="textSizeVal">60%</span>
+          </div>
+          <input type="range" id="textSize" min="20" max="90" value="60">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Фон</div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Сплошной фон</span>
+            <small>Вместо прозрачности</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="bgToggle">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Цвет фона</span>
+            <span class="val" id="bgColorHex">#ffffff</span>
+          </div>
+          <input type="color" id="bgColor" value="#ffffff" style="height: 36px; padding: 0; border: none; background: none; cursor: pointer; width: 100%; border-radius: 8px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" data-content="export">
+      <div class="section">
+        <div class="section-title">Платформа</div>
+        <div class="preset-row" id="presetRow"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Предпросмотр размеров</div>
+        <div class="size-preview" id="sizePreview"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Скачать</div>
+        <div class="download-grid">
+          <button type="button" class="dl-btn primary" id="btnDownload">⬇ PNG <span class="ext">текущий размер</span></button>
+          <button type="button" class="dl-btn" id="btnCopy">📋 Копировать <span class="ext">в буфер</span></button>
+          <button type="button" class="dl-btn" id="btnZip">📦 ZIP <span class="ext">все размеры</span></button>
+          <button type="button" class="dl-btn" id="btnGif">🎞 GIF <span class="ext">анимация</span></button>
+          <button type="button" class="dl-btn" id="btnJson">💾 Настройки <span class="ext">JSON</span></button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Мои сохранения</div>
+        <div id="savedList" style="display: flex; flex-direction: column; gap: 6px;"></div>
       </div>
     </div>
 
@@ -796,17 +1013,18 @@
 </div>
 
 <footer>
-  <span>EmoteLab</span>
+  <span>EmoteLab v2.0</span>
   <span class="sep">·</span>
-  <span>работает в браузере, ничего не отправляет</span>
+  <span>всё работает в браузере, ничего не отправляется</span>
 </footer>
 
 <script type="module">
 /* ============================================================
-   EmoteLab — конструктор эмоутов
+   EmoteLab v2.0 — конструктор эмоутов
    ============================================================ */
 
-// ---------- Палитры ----------
+// ---------- Данные ----------
+
 const PALETTES = [
   { name: 'purple', color: '#a78bfa' },
   { name: 'lavender', color: '#c4b5fd' },
@@ -830,456 +1048,142 @@ const PALETTES = [
   { name: 'cream', color: '#fef3c7' },
 ];
 
-// ---------- Формы ----------
 const SHAPES = {
-  circle: {
-    draw(ctx, size, color) {
-      ctx.beginPath();
-      ctx.arc(size / 2, size / 2, size * 0.4, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  squircle: {
-    draw(ctx, size, color) {
-      const r = size * 0.28;
-      const pad = size * 0.1;
-      const s = size - pad * 2;
-      ctx.beginPath();
-      ctx.roundRect(pad, pad, s, s, r);
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  blob: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size / 2, r = size * 0.4;
-      ctx.beginPath();
-      for (let i = 0; i <= 64; i++) {
-        const angle = (i / 64) * Math.PI * 2;
-        const wobble = Math.sin(angle * 3) * 0.04 + Math.cos(angle * 5) * 0.02;
-        const rr = r * (1 + wobble);
-        const x = cx + Math.cos(angle) * rr;
-        const y = cy + Math.sin(angle) * rr;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  egg: {
-    draw(ctx, size, color) {
-      ctx.beginPath();
-      ctx.ellipse(size / 2, size / 2, size * 0.36, size * 0.42, 0, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  heart: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size / 2, s = size * 0.42;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy + s * 0.7);
-      ctx.bezierCurveTo(cx - s * 1.4, cy - s * 0.2, cx - s * 0.5, cy - s * 1.1, cx, cy - s * 0.3);
-      ctx.bezierCurveTo(cx + s * 0.5, cy - s * 1.1, cx + s * 1.4, cy - s * 0.2, cx, cy + s * 0.7);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  star: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size / 2;
-      const outer = size * 0.42, inner = outer * 0.5;
-      ctx.beginPath();
-      for (let i = 0; i < 10; i++) {
-        const angle = (i / 10) * Math.PI * 2 - Math.PI / 2;
-        const r = i % 2 === 0 ? outer : inner;
-        const x = cx + Math.cos(angle) * r;
-        const y = cy + Math.sin(angle) * r;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  shield: {
-    draw(ctx, size, color) {
-      const cx = size / 2, top = size * 0.12, bottom = size * 0.88;
-      const w = size * 0.4;
-      ctx.beginPath();
-      ctx.moveTo(cx - w, top);
-      ctx.lineTo(cx + w, top);
-      ctx.quadraticCurveTo(cx + w, size * 0.5, cx, bottom);
-      ctx.quadraticCurveTo(cx - w, size * 0.5, cx - w, top);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  hexagon: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size / 2, r = size * 0.42;
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
-        const x = cx + Math.cos(angle) * r;
-        const y = cy + Math.sin(angle) * r;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  diamond: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size / 2, r = size * 0.42;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy - r);
-      ctx.lineTo(cx + r, cy);
-      ctx.lineTo(cx, cy + r);
-      ctx.lineTo(cx - r, cy);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
-  cloud: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size * 0.55;
-      const r = size * 0.18;
-      ctx.fillStyle = color;
-      const circles = [
-        [cx - r * 1.3, cy, r * 0.9],
-        [cx - r * 0.4, cy - r * 0.5, r * 1.1],
-        [cx + r * 0.6, cy - r * 0.3, r * 1],
-        [cx + r * 1.3, cy + r * 0.15, r * 0.85],
-        [cx, cy + r * 0.3, r * 1.2],
-      ];
-      circles.forEach(([x, y, rr]) => {
-        ctx.beginPath();
-        ctx.arc(x, y, rr, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-  },
-  bubble: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size / 2;
-      const r = size * 0.42;
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-      // хвостик
-      ctx.beginPath();
-      ctx.moveTo(cx - r * 0.6, cy + r * 0.85);
-      ctx.lineTo(cx - r * 0.9, cy + r * 1.15);
-      ctx.lineTo(cx - r * 0.35, cy + r * 0.95);
-      ctx.closePath();
-      ctx.fill();
-    }
-  },
-  drop: {
-    draw(ctx, size, color) {
-      const cx = size / 2, cy = size * 0.55;
-      const r = size * 0.35;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy - r * 1.5);
-      ctx.bezierCurveTo(cx + r * 1.1, cy - r * 0.3, cx + r, cy + r * 0.8, cx, cy + r);
-      ctx.bezierCurveTo(cx - r, cy + r * 0.8, cx - r * 1.1, cy - r * 0.3, cx, cy - r * 1.5);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  },
+  circle:   { icon: '<circle cx="12" cy="12" r="9"/>', draw(ctx, s, c) { ctx.beginPath(); ctx.arc(s/2, s/2, s*0.4, 0, Math.PI*2); ctx.fillStyle = c; ctx.fill(); } },
+  squircle: { icon: '<rect x="3" y="3" width="18" height="18" rx="6"/>', draw(ctx, s, c) { ctx.beginPath(); ctx.roundRect(s*0.1, s*0.1, s*0.8, s*0.8, s*0.28); ctx.fillStyle = c; ctx.fill(); } },
+  blob:     { icon: '<path d="M12 3 C18 3 22 7 22 12 C22 17 18 21 12 21 C6 21 2 17 2 12 C2 7 6 3 12 3 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.4; ctx.beginPath(); for (let i=0; i<=64; i++) { const a=(i/64)*Math.PI*2; const w=Math.sin(a*3)*0.04+Math.cos(a*5)*0.02; const rr=r*(1+w); const x=cx+Math.cos(a)*rr; const y=cy+Math.sin(a)*rr; i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); } ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  egg:      { icon: '<ellipse cx="12" cy="12" rx="8" ry="9.5"/>', draw(ctx, s, c) { ctx.beginPath(); ctx.ellipse(s/2, s/2, s*0.36, s*0.42, 0, 0, Math.PI*2); ctx.fillStyle=c; ctx.fill(); } },
+  heart:    { icon: '<path d="M12 21 C12 21 3 15 3 9 C3 6 5 4 8 4 C10 4 12 6 12 6 C12 6 14 4 16 4 C19 4 21 6 21 9 C21 15 12 21 12 21 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42; ctx.beginPath(); ctx.moveTo(cx, cy+r*0.7); ctx.bezierCurveTo(cx-r*1.4, cy-r*0.2, cx-r*0.5, cy-r*1.1, cx, cy-r*0.3); ctx.bezierCurveTo(cx+r*0.5, cy-r*1.1, cx+r*1.4, cy-r*0.2, cx, cy+r*0.7); ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  star:     { icon: '<path d="M12 2 L15 9 L22 9 L16.5 13.5 L18.5 21 L12 16.5 L5.5 21 L7.5 13.5 L2 9 L9 9 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, o=s*0.42, i=o*0.5; ctx.beginPath(); for (let k=0; k<10; k++) { const a=(k/10)*Math.PI*2-Math.PI/2; const r=k%2===0?o:i; const x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r; k===0?ctx.moveTo(x,y):ctx.lineTo(x,y); } ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  shield:   { icon: '<path d="M12 2 L20 5 L20 12 C20 17 16 21 12 22 C8 21 4 17 4 12 L4 5 Z"/>', draw(ctx, s, c) { const cx=s/2, top=s*0.12, bot=s*0.88, w=s*0.4; ctx.beginPath(); ctx.moveTo(cx-w, top); ctx.lineTo(cx+w, top); ctx.quadraticCurveTo(cx+w, s*0.5, cx, bot); ctx.quadraticCurveTo(cx-w, s*0.5, cx-w, top); ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  hexagon:  { icon: '<polygon points="12,2 21,7 21,17 12,22 3,17 3,7"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42; ctx.beginPath(); for (let k=0; k<6; k++) { const a=(k/6)*Math.PI*2-Math.PI/2; const x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r; k===0?ctx.moveTo(x,y):ctx.lineTo(x,y); } ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  diamond:  { icon: '<polygon points="12,2 22,12 12,22 2,12"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42; ctx.beginPath(); ctx.moveTo(cx, cy-r); ctx.lineTo(cx+r, cy); ctx.lineTo(cx, cy+r); ctx.lineTo(cx-r, cy); ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  cloud:    { icon: '<path d="M6 18 C3 18 2 15 4 13 C3 10 5 7 8 7 C9 4 13 3 15 5 C18 4 21 6 21 9 C22 12 20 14 18 15 C18 17 16 18 14 18 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s*0.55, r=s*0.18; ctx.fillStyle=c; [[cx-r*1.3, cy, r*0.9], [cx-r*0.4, cy-r*0.5, r*1.1], [cx+r*0.6, cy-r*0.3, r*1], [cx+r*1.3, cy+r*0.15, r*0.85], [cx, cy+r*0.3, r*1.2]].forEach(([x,y,rr])=>{ ctx.beginPath(); ctx.arc(x,y,rr,0,Math.PI*2); ctx.fill(); }); } },
+  bubble:   { icon: '<path d="M12 3 C17 3 21 6 21 11 C21 16 17 19 12 19 C11 19 10 19 9 19 L4 22 L5.5 18 C3.5 16.5 3 14 3 11 C3 6 7 3 12 3 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle=c; ctx.fill(); ctx.beginPath(); ctx.moveTo(cx-r*0.6, cy+r*0.85); ctx.lineTo(cx-r*0.9, cy+r*1.15); ctx.lineTo(cx-r*0.35, cy+r*0.95); ctx.closePath(); ctx.fill(); } },
+  drop:     { icon: '<path d="M12 3 C15 8 18 12 18 15 C18 18.3 15.3 21 12 21 C8.7 21 6 18.3 6 15 C6 12 9 8 12 3 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s*0.55, r=s*0.35; ctx.beginPath(); ctx.moveTo(cx, cy-r*1.5); ctx.bezierCurveTo(cx+r*1.1, cy-r*0.3, cx+r, cy+r*0.8, cx, cy+r); ctx.bezierCurveTo(cx-r, cy+r*0.8, cx-r*1.1, cy-r*0.3, cx, cy-r*1.5); ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
 };
 
-// ---------- Глаза ----------
 const EYES = {
-  none: { svg: '<svg viewBox="0 0 24 24"><path d="M4 4 L20 20 M20 4 L4 20"/></svg>', draw() {} },
-  dots: {
-    svg: '<svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.arc(cx - size * 0.55, cy, size * 0.22, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx + size * 0.55, cy, size * 0.22, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  },
-  circles: {
-    svg: '<svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.13;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.arc(cx - size * 0.55, cy, size * 0.2, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(cx + size * 0.55, cy, size * 0.2, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-  },
-  happy: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 14 Q8 10 11 14"/><path d="M13 14 Q16 10 19 14"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.13;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.7, cy + size * 0.05);
-      ctx.quadraticCurveTo(cx - size * 0.55, cy - size * 0.2, cx - size * 0.4, cy + size * 0.05);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx + size * 0.4, cy + size * 0.05);
-      ctx.quadraticCurveTo(cx + size * 0.55, cy - size * 0.2, cx + size * 0.7, cy + size * 0.05);
-      ctx.stroke();
-    }
-  },
-  angry: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M4 8 L10 11"/><path d="M20 8 L14 11"/><circle cx="8" cy="14" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="14" r="1.6" fill="currentColor" stroke="none"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.12;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.85, cy - size * 0.35);
-      ctx.lineTo(cx - size * 0.35, cy - size * 0.15);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx + size * 0.85, cy - size * 0.35);
-      ctx.lineTo(cx + size * 0.35, cy - size * 0.15);
-      ctx.stroke();
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.arc(cx - size * 0.55, cy + size * 0.05, size * 0.13, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx + size * 0.55, cy + size * 0.05, size * 0.13, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  },
-  sad: {
-    svg: '<svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M5 8 L11 10"/><path d="M19 8 L13 10"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.12;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.85, cy - size * 0.35);
-      ctx.lineTo(cx - size * 0.35, cy - size * 0.15);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx + size * 0.85, cy - size * 0.35);
-      ctx.lineTo(cx + size * 0.35, cy - size * 0.15);
-      ctx.stroke();
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.arc(cx - size * 0.55, cy + size * 0.05, size * 0.13, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx + size * 0.55, cy + size * 0.05, size * 0.13, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  },
-  wink: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 12 L11 12"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.14;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.75, cy);
-      ctx.lineTo(cx - size * 0.4, cy);
-      ctx.stroke();
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.arc(cx + size * 0.55, cy, size * 0.15, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  },
-  heart: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M8 10 C7 8 4.5 8 4.5 10 C4.5 12 8 14 8 14 C8 14 11.5 12 11.5 10 C11.5 8 9 8 8 10 Z" fill="currentColor" stroke="none"/><path d="M16 10 C15 8 12.5 8 12.5 10 C12.5 12 16 14 16 14 C16 14 19.5 12 19.5 10 C19.5 8 17 8 16 10 Z" fill="currentColor" stroke="none"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      const heart = (x) => {
-        const s = size * 0.35;
-        ctx.beginPath();
-        ctx.moveTo(x, cy + s * 0.5);
-        ctx.bezierCurveTo(x - s * 1.1, cy - s * 0.3, x - s * 0.3, cy - s * 1.1, x, cy - s * 0.3);
-        ctx.bezierCurveTo(x + s * 0.3, cy - s * 1.1, x + s * 1.1, cy - s * 0.3, x, cy + s * 0.5);
-        ctx.closePath();
-        ctx.fill();
-      };
-      heart(cx - size * 0.55);
-      heart(cx + size * 0.55);
-    }
-  },
-  star: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M8 6 L9.5 10 L13.5 10 L10.3 12.4 L11.5 16.3 L8 13.9 L4.5 16.3 L5.7 12.4 L2.5 10 L6.5 10 Z" fill="currentColor" stroke="none"/><path d="M17 6 L18.5 10 L22.5 10 L19.3 12.4 L20.5 16.3 L17 13.9 L13.5 16.3 L14.7 12.4 L11.5 10 L15.5 10 Z" fill="currentColor" stroke="none"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      const star = (x, y) => {
-        const outer = size * 0.25, inner = outer * 0.45;
-        ctx.beginPath();
-        for (let i = 0; i < 10; i++) {
-          const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
-          const r = i % 2 === 0 ? outer : inner;
-          const px = x + Math.cos(a) * r;
-          const py = y + Math.sin(a) * r;
-          if (i === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-        ctx.closePath();
-        ctx.fill();
-      };
-      star(cx - size * 0.55, cy);
-      star(cx + size * 0.55, cy);
-    }
-  },
+  dots:    { icon: '<circle cx="8" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.arc(cx+s*0.55*d, cy, s*0.22, 0, Math.PI*2); ctx.fill(); }); } },
+  circles: { icon: '<circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.arc(cx+s*0.55*d, cy, s*0.2, 0, Math.PI*2); ctx.stroke(); }); } },
+  happy:   { icon: '<path d="M5 14 Q8 10 11 14"/><path d="M13 14 Q16 10 19 14"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.7*d, cy+s*0.05); ctx.quadraticCurveTo(cx+s*0.55*d, cy-s*0.2, cx+s*0.4*d, cy+s*0.05); ctx.stroke(); }); } },
+  angry:   { icon: '<path d="M4 8 L10 11"/><path d="M20 8 L14 11"/><circle cx="8" cy="14" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="14" r="1.6" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.12; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy-s*0.35); ctx.lineTo(cx+s*0.35*d, cy-s*0.15); ctx.stroke(); }); ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.arc(cx+s*0.55*d, cy+s*0.05, s*0.13, 0, Math.PI*2); ctx.fill(); }); } },
+  sad:     { icon: '<circle cx="8" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M5 8 L11 10"/><path d="M19 8 L13 10"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.12; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy-s*0.35); ctx.lineTo(cx+s*0.35*d, cy-s*0.15); ctx.stroke(); }); ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.arc(cx+s*0.55*d, cy+s*0.05, s*0.13, 0, Math.PI*2); ctx.fill(); }); } },
+  wink:    { icon: '<path d="M5 12 L11 12"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.14; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.75, cy); ctx.lineTo(cx-s*0.4, cy); ctx.stroke(); ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.arc(cx+s*0.55, cy, s*0.15, 0, Math.PI*2); ctx.fill(); } },
+  heart:   { icon: '<path d="M8 10 C7 8 4.5 8 4.5 10 C4.5 12 8 14 8 14 C8 14 11.5 12 11.5 10 C11.5 8 9 8 8 10 Z" fill="currentColor" stroke="none"/><path d="M16 10 C15 8 12.5 8 12.5 10 C12.5 12 16 14 16 14 C16 14 19.5 12 19.5 10 C19.5 8 17 8 16 10 Z" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ const x=cx+s*0.55*d, hs=s*0.35; ctx.beginPath(); ctx.moveTo(x, cy+hs*0.5); ctx.bezierCurveTo(x-hs*1.1, cy-hs*0.3, x-hs*0.3, cy-hs*1.1, x, cy-hs*0.3); ctx.bezierCurveTo(x+hs*0.3, cy-hs*1.1, x+hs*1.1, cy-hs*0.3, x, cy+hs*0.5); ctx.closePath(); ctx.fill(); }); } },
+  star:    { icon: '<path d="M8 6 L9.5 10 L13.5 10 L10.3 12.4 L11.5 16.3 L8 13.9 L4.5 16.3 L5.7 12.4 L2.5 10 L6.5 10 Z" fill="currentColor" stroke="none"/><path d="M17 6 L18.5 10 L22.5 10 L19.3 12.4 L20.5 16.3 L17 13.9 L13.5 16.3 L14.7 12.4 L11.5 10 L15.5 10 Z" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ const x=cx+s*0.55*d, o=s*0.25, i=o*0.45; ctx.beginPath(); for (let k=0; k<10; k++) { const a=(k/10)*Math.PI*2-Math.PI/2; const r=k%2===0?o:i; const px=x+Math.cos(a)*r, py=cy+Math.sin(a)*r; k===0?ctx.moveTo(px,py):ctx.lineTo(px,py); } ctx.closePath(); ctx.fill(); }); } },
+  closed:  { icon: '<path d="M5 12 Q8 15 11 12"/><path d="M13 12 Q16 15 19 12"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.7*d, cy); ctx.quadraticCurveTo(cx+s*0.55*d, cy+s*0.2, cx+s*0.4*d, cy); ctx.stroke(); }); } },
+  none:    { icon: '<path d="M4 4 L20 20 M20 4 L4 20" opacity="0.4"/>', draw() {} },
 };
 
-// ---------- Рот ----------
+const BROWS = {
+  none:        { icon: '<path d="M4 12 L20 12" opacity="0.3"/>', draw() {} },
+  flat:        { icon: '<path d="M5 12 L11 12"/><path d="M13 12 L19 12"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.14; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy); ctx.lineTo(cx+s*0.35*d, cy); ctx.stroke(); }); } },
+  raised:      { icon: '<path d="M5 10 Q8 7 11 10"/><path d="M13 10 Q16 7 19 10"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.14; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy); ctx.quadraticCurveTo(cx+s*0.6*d, cy-s*0.25, cx+s*0.35*d, cy); ctx.stroke(); }); } },
+  angry:       { icon: '<path d="M5 8 L11 11"/><path d="M19 8 L13 11"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.14; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy-s*0.2); ctx.lineTo(cx+s*0.35*d, cy+s*0.1); ctx.stroke(); }); } },
+  sad:         { icon: '<path d="M5 11 L11 8"/><path d="M19 11 L13 8"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.14; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy+s*0.1); ctx.lineTo(cx+s*0.35*d, cy-s*0.2); ctx.stroke(); }); } },
+  one_raised:  { icon: '<path d="M5 12 L11 12"/><path d="M13 10 Q16 7 19 10"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.14; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.85, cy); ctx.lineTo(cx-s*0.35, cy); ctx.stroke(); ctx.beginPath(); ctx.moveTo(cx+s*0.85, cy); ctx.quadraticCurveTo(cx+s*0.6, cy-s*0.25, cx+s*0.35, cy); ctx.stroke(); } },
+};
+
 const MOUTHS = {
-  smile: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 10 Q12 20 19 10"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.09;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.35, cy);
-      ctx.quadraticCurveTo(cx, cy + size * 0.4, cx + size * 0.35, cy);
-      ctx.stroke();
-    }
-  },
-  grin: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 10 Q12 22 19 10 Z" fill="currentColor"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.35, cy);
-      ctx.quadraticCurveTo(cx, cy + size * 0.5, cx + size * 0.35, cy);
-      ctx.closePath();
-      ctx.fill();
-    }
-  },
-  flat: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 12 L19 12"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.09;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.35, cy);
-      ctx.lineTo(cx + size * 0.35, cy);
-      ctx.stroke();
-    }
-  },
-  sad: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 16 Q12 6 19 16"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.09;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.35, cy + size * 0.15);
-      ctx.quadraticCurveTo(cx, cy - size * 0.3, cx + size * 0.35, cy + size * 0.15);
-      ctx.stroke();
-    }
-  },
-  o: {
-    svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="14" r="3"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.ellipse(cx, cy + size * 0.05, size * 0.14, size * 0.18, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  },
-  tongue: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 10 Q12 20 19 10"/><path d="M10 14 Q12 20 14 14 Z" fill="currentColor"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.strokeStyle = '#1e1e2e';
-      ctx.lineWidth = size * 0.09;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.35, cy);
-      ctx.quadraticCurveTo(cx, cy + size * 0.4, cx + size * 0.35, cy);
-      ctx.stroke();
-      ctx.fillStyle = '#ff5c8a';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.12, cy + size * 0.18);
-      ctx.quadraticCurveTo(cx, cy + size * 0.42, cx + size * 0.12, cy + size * 0.18);
-      ctx.closePath();
-      ctx.fill();
-    }
-  },
-  fang: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M5 10 L19 10 L17 16 L12 12 L7 16 Z" fill="currentColor"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.35, cy);
-      ctx.lineTo(cx + size * 0.35, cy);
-      ctx.lineTo(cx + size * 0.25, cy + size * 0.2);
-      ctx.lineTo(cx, cy + size * 0.08);
-      ctx.lineTo(cx - size * 0.25, cy + size * 0.2);
-      ctx.closePath();
-      ctx.fill();
-    }
-  },
-  kiss: {
-    svg: '<svg viewBox="0 0 24 24"><path d="M9 12 Q12 15 15 12 Q12 9 9 12 Z" fill="currentColor"/><path d="M9 12 Q12 15 15 12"/></svg>',
-    draw(ctx, cx, cy, size) {
-      ctx.fillStyle = '#1e1e2e';
-      ctx.beginPath();
-      ctx.ellipse(cx, cy + size * 0.05, size * 0.13, size * 0.1, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  },
+  smile:   { icon: '<path d="M5 10 Q12 20 19 10"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.09; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy); ctx.quadraticCurveTo(cx, cy+s*0.4, cx+s*0.35, cy); ctx.stroke(); } },
+  grin:    { icon: '<path d="M5 10 Q12 22 19 10 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy); ctx.quadraticCurveTo(cx, cy+s*0.5, cx+s*0.35, cy); ctx.closePath(); ctx.fill(); } },
+  flat:    { icon: '<path d="M5 12 L19 12"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.09; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy); ctx.lineTo(cx+s*0.35, cy); ctx.stroke(); } },
+  sad:     { icon: '<path d="M5 16 Q12 6 19 16"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.09; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy+s*0.15); ctx.quadraticCurveTo(cx, cy-s*0.3, cx+s*0.35, cy+s*0.15); ctx.stroke(); } },
+  o:       { icon: '<circle cx="12" cy="14" r="3"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.ellipse(cx, cy+s*0.05, s*0.14, s*0.18, 0, 0, Math.PI*2); ctx.fill(); } },
+  tongue:  { icon: '<path d="M5 10 Q12 20 19 10"/><path d="M10 14 Q12 20 14 14 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.09; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy); ctx.quadraticCurveTo(cx, cy+s*0.4, cx+s*0.35, cy); ctx.stroke(); ctx.fillStyle='#ff5c8a'; ctx.beginPath(); ctx.moveTo(cx-s*0.12, cy+s*0.18); ctx.quadraticCurveTo(cx, cy+s*0.42, cx+s*0.12, cy+s*0.18); ctx.closePath(); ctx.fill(); } },
+  fang:    { icon: '<path d="M5 10 L19 10 L17 16 L12 12 L7 16 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy); ctx.lineTo(cx+s*0.35, cy); ctx.lineTo(cx+s*0.25, cy+s*0.2); ctx.lineTo(cx, cy+s*0.08); ctx.lineTo(cx-s*0.25, cy+s*0.2); ctx.closePath(); ctx.fill(); } },
+  kiss:    { icon: '<ellipse cx="12" cy="14" rx="3" ry="2" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.ellipse(cx, cy+s*0.05, s*0.13, s*0.1, 0, 0, Math.PI*2); ctx.fill(); } },
+  laugh:   { icon: '<path d="M5 10 Q12 22 19 10 Z" fill="currentColor"/><path d="M7 12 Q12 18 17 12" stroke="#fff" stroke-width="1" fill="none"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.moveTo(cx-s*0.4, cy-s*0.05); ctx.quadraticCurveTo(cx, cy+s*0.6, cx+s*0.4, cy-s*0.05); ctx.closePath(); ctx.fill(); ctx.fillStyle='#ff5c8a'; ctx.beginPath(); ctx.ellipse(cx, cy+s*0.25, s*0.12, s*0.06, 0, 0, Math.PI*2); ctx.fill(); } },
+  wave:    { icon: '<path d="M5 12 Q8 9 11 12 T17 12"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.1; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy); ctx.quadraticCurveTo(cx-s*0.17, cy-s*0.15, cx, cy); ctx.quadraticCurveTo(cx+s*0.17, cy+s*0.15, cx+s*0.35, cy); ctx.stroke(); } },
+  none:    { icon: '<path d="M4 4 L20 20 M20 4 L4 20" opacity="0.4"/>', draw() {} },
 };
 
-// ---------- Состояние ----------
-const state = {
-  shape: 'circle',
-  color: '#a78bfa',
-  colorName: 'purple',
-  eyes: 'dots',
-  mouth: 'smile',
-  eyeSize: 100,
-  eyeDist: 100,
-  mouthSize: 100,
-  preset: 'twitch_emote',
+const BLUSH = {
+  none:   { icon: '<path d="M4 4 L20 20" opacity="0.3"/>', draw() {} },
+  soft:   { icon: '<ellipse cx="6" cy="14" rx="2.5" ry="1.5" fill="currentColor" opacity="0.6"/><ellipse cx="18" cy="14" rx="2.5" ry="1.5" fill="currentColor" opacity="0.6"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='rgba(255, 92, 138, 0.5)'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.ellipse(cx+s*0.9*d, cy, s*0.25, s*0.15, 0, 0, Math.PI*2); ctx.fill(); }); } },
+  strong: { icon: '<ellipse cx="6" cy="14" rx="3" ry="2" fill="currentColor"/><ellipse cx="18" cy="14" rx="3" ry="2" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='rgba(255, 92, 138, 0.75)'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.ellipse(cx+s*0.9*d, cy, s*0.28, s*0.18, 0, 0, Math.PI*2); ctx.fill(); }); } },
 };
+
+const ACCESSORIES = {
+  none:       { icon: '<path d="M4 4 L20 20" opacity="0.3"/>', draw() {} },
+  glasses:    { icon: '<circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/><path d="M11 12 L13 12"/><path d="M5 12 L3 12"/><path d="M19 12 L21 12"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.08; ctx.lineCap='round'; ctx.beginPath(); ctx.arc(cx-s*0.55, cy, s*0.28, 0, Math.PI*2); ctx.stroke(); ctx.beginPath(); ctx.arc(cx+s*0.55, cy, s*0.28, 0, Math.PI*2); ctx.stroke(); ctx.beginPath(); ctx.moveTo(cx-s*0.27, cy); ctx.lineTo(cx+s*0.27, cy); ctx.stroke(); } },
+  sunglasses: { icon: '<path d="M3 12 L7 10 L11 12 L7 15 Z" fill="currentColor"/><path d="M13 12 L17 10 L21 12 L17 15 Z" fill="currentColor"/><path d="M11 12 L13 12"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.85*d, cy-s*0.1); ctx.lineTo(cx+s*0.35*d, cy-s*0.2); ctx.lineTo(cx+s*0.35*d, cy+s*0.15); ctx.lineTo(cx+s*0.85*d, cy+s*0.05); ctx.closePath(); ctx.fill(); }); ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.05; ctx.beginPath(); ctx.moveTo(cx-s*0.35, cy-s*0.05); ctx.lineTo(cx+s*0.35, cy-s*0.05); ctx.stroke(); } },
+  hat:        { icon: '<path d="M6 8 L18 8 L19 6 L5 6 Z" fill="currentColor"/><rect x="4" y="8" width="16" height="2" rx="1" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.moveTo(cx-s*0.5, cy-s*0.55); ctx.lineTo(cx+s*0.5, cy-s*0.55); ctx.lineTo(cx+s*0.45, cy-s*0.9); ctx.lineTo(cx-s*0.45, cy-s*0.9); ctx.closePath(); ctx.fill(); ctx.fillRect(cx-s*0.65, cy-s*0.6, s*1.3, s*0.15); } },
+  crown:      { icon: '<path d="M4 16 L4 8 L8 12 L12 6 L16 12 L20 8 L20 16 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#fbbf24'; ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.05; ctx.beginPath(); ctx.moveTo(cx-s*0.55, cy-s*0.5); ctx.lineTo(cx-s*0.55, cy-s*0.95); ctx.lineTo(cx-s*0.28, cy-s*0.7); ctx.lineTo(cx, cy-s*1.05); ctx.lineTo(cx+s*0.28, cy-s*0.7); ctx.lineTo(cx+s*0.55, cy-s*0.95); ctx.lineTo(cx+s*0.55, cy-s*0.5); ctx.closePath(); ctx.fill(); ctx.stroke(); } },
+  mustache:   { icon: '<path d="M5 12 Q9 9 12 12 Q15 9 19 12 Q16 15 12 13 Q8 15 5 12 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.moveTo(cx-s*0.5, cy); ctx.quadraticCurveTo(cx-s*0.15, cy-s*0.25, cx, cy); ctx.quadraticCurveTo(cx+s*0.15, cy-s*0.25, cx+s*0.5, cy); ctx.quadraticCurveTo(cx+s*0.2, cy+s*0.2, cx, cy+s*0.05); ctx.quadraticCurveTo(cx-s*0.2, cy+s*0.2, cx-s*0.5, cy); ctx.closePath(); ctx.fill(); } },
+  bow:        { icon: '<path d="M6 10 L10 12 L6 14 Z" fill="currentColor"/><path d="M18 10 L14 12 L18 14 Z" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#ff5c8a'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.05*d, cy); ctx.lineTo(cx+s*0.35*d, cy-s*0.2); ctx.lineTo(cx+s*0.35*d, cy+s*0.2); ctx.closePath(); ctx.fill(); }); ctx.beginPath(); ctx.arc(cx, cy, s*0.08, 0, Math.PI*2); ctx.fill(); } },
+  headphones: { icon: '<path d="M4 14 L4 12 Q4 5 12 5 Q20 5 20 12 L20 14" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="12" width="4" height="6" rx="1" fill="currentColor"/><rect x="18" y="12" width="4" height="6" rx="1" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; ctx.beginPath(); ctx.arc(cx, cy+s*0.1, s*0.75, Math.PI*1.15, Math.PI*1.85); ctx.stroke(); ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.roundRect(cx+s*0.72*d-s*0.12, cy-s*0.15, s*0.24, s*0.4, s*0.08); ctx.fill(); }); } },
+  halo:       { icon: '<ellipse cx="12" cy="6" rx="6" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#fbbf24'; ctx.lineWidth=s*0.08; ctx.beginPath(); ctx.ellipse(cx, cy-s*0.85, s*0.35, s*0.08, 0, 0, Math.PI*2); ctx.stroke(); } },
+  horns:      { icon: '<path d="M6 8 Q5 4 8 4 L9 8 Z" fill="currentColor"/><path d="M18 8 Q19 4 16 4 L15 8 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#ef4444'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.35*d, cy-s*0.65); ctx.quadraticCurveTo(cx+s*0.7*d, cy-s*0.95, cx+s*0.55*d, cy-s*1.15); ctx.quadraticCurveTo(cx+s*0.4*d, cy-s*0.9, cx+s*0.25*d, cy-s*0.7); ctx.closePath(); ctx.fill(); }); } },
+};
+
+const MOODS = [
+  { id: 'happy',  emoji: '😊', state: { shape: 'circle',   color: '#fde047', colorName: 'yellow', eyes: 'happy',  brows: 'raised',     mouth: 'smile',  blush: 'soft',   accessory: 'none' } },
+  { id: 'love',   emoji: '😍', state: { shape: 'heart',    color: '#ff5c8a', colorName: 'pink',   eyes: 'heart',  brows: 'raised',     mouth: 'smile',  blush: 'strong', accessory: 'none' } },
+  { id: 'angry',  emoji: '😡', state: { shape: 'circle',   color: '#ef4444', colorName: 'red',    eyes: 'angry',  brows: 'angry',      mouth: 'fang',   blush: 'none',   accessory: 'none' } },
+  { id: 'cool',   emoji: '😎', state: { shape: 'squircle', color: '#3b82f6', colorName: 'blue',   eyes: 'dots',   brows: 'flat',       mouth: 'flat',   blush: 'none',   accessory: 'sunglasses' } },
+  { id: 'sad',    emoji: '😢', state: { shape: 'drop',     color: '#38bdf8', colorName: 'sky',    eyes: 'sad',    brows: 'sad',        mouth: 'sad',    blush: 'none',   accessory: 'none' } },
+  { id: 'wink',   emoji: '😉', state: { shape: 'circle',   color: '#a78bfa', colorName: 'purple', eyes: 'wink',   brows: 'one_raised', mouth: 'smile',  blush: 'soft',   accessory: 'none' } },
+  { id: 'laugh',  emoji: '😂', state: { shape: 'circle',   color: '#fbbf24', colorName: 'amber',  eyes: 'happy',  brows: 'raised',     mouth: 'laugh',  blush: 'strong', accessory: 'none' } },
+  { id: 'shy',    emoji: '😳', state: { shape: 'circle',   color: '#ff8fa3', colorName: 'rose',   eyes: 'circles',brows: 'raised',     mouth: 'o',      blush: 'strong', accessory: 'none' } },
+  { id: 'king',   emoji: '👑', state: { shape: 'hexagon',  color: '#fbbf24', colorName: 'amber',  eyes: 'dots',   brows: 'flat',       mouth: 'smile',  blush: 'none',   accessory: 'crown' } },
+  { id: 'nerd',   emoji: '🤓', state: { shape: 'circle',   color: '#4ade80', colorName: 'green',  eyes: 'dots',   brows: 'flat',       mouth: 'smile',  blush: 'soft',   accessory: 'glasses' } },
+  { id: 'star',   emoji: '🌟', state: { shape: 'star',     color: '#fde047', colorName: 'yellow', eyes: 'star',   brows: 'raised',     mouth: 'grin',   blush: 'none',   accessory: 'none' } },
+  { id: 'devil',  emoji: '😈', state: { shape: 'circle',   color: '#a78bfa', colorName: 'purple', eyes: 'angry',  brows: 'angry',      mouth: 'fang',   blush: 'none',   accessory: 'horns' } },
+];
 
 const PRESETS = [
   { id: 'twitch_emote', name: 'Twitch Emote', sizes: [112, 56, 28] },
   { id: 'twitch_badge', name: 'Twitch Badge', sizes: [72, 36, 18] },
-  { id: 'youtube', name: 'YouTube', sizes: [48, 24] },
-  { id: 'discord', name: 'Discord', sizes: [128, 64] },
-  { id: 'telegram', name: 'Telegram', sizes: [512] },
-  { id: 'custom', name: '512×512', sizes: [512] },
+  { id: 'youtube',      name: 'YouTube',      sizes: [48, 24] },
+  { id: 'discord',      name: 'Discord',      sizes: [128, 64] },
+  { id: 'telegram',     name: 'Telegram',     sizes: [512] },
+  { id: 'custom',       name: '512×512',      sizes: [512] },
 ];
 
+// ---------- Состояние ----------
+
+function defaultState() {
+  return {
+    shape: 'circle',
+    color: '#a78bfa',
+    colorName: 'purple',
+    eyes: 'dots',
+    brows: 'none',
+    mouth: 'smile',
+    blush: 'none',
+    accessory: 'none',
+    eyeSize: 100,
+    eyeDist: 100,
+    mouthSize: 100,
+    rotate: 0,
+    mirror: false,
+    stroke: { enabled: false, width: 12, color: '#000000' },
+    background: { enabled: false, color: '#ffffff' },
+    text: '',
+    textSize: 60,
+    preset: 'twitch_emote',
+  };
+}
+
+let state = defaultState();
+
 // ---------- DOM ----------
+
 const canvas = document.getElementById('emoteCanvas');
 const ctx = canvas.getContext('2d');
 const shapeGrid = document.getElementById('shapeGrid');
 const palette = document.getElementById('palette');
 const eyesRow = document.getElementById('eyesRow');
+const browsRow = document.getElementById('browsRow');
 const mouthRow = document.getElementById('mouthRow');
+const blushRow = document.getElementById('blushRow');
+const accessoryRow = document.getElementById('accessoryRow');
+const moodRow = document.getElementById('moodRow');
 const presetRow = document.getElementById('presetRow');
+const sizePreview = document.getElementById('sizePreview');
+const savedList = document.getElementById('savedList');
 const colorName = document.getElementById('colorName');
 const eyeSize = document.getElementById('eyeSize');
 const eyeSizeVal = document.getElementById('eyeSizeVal');
@@ -1287,14 +1191,23 @@ const eyeDist = document.getElementById('eyeDist');
 const eyeDistVal = document.getElementById('eyeDistVal');
 const mouthSize = document.getElementById('mouthSize');
 const mouthSizeVal = document.getElementById('mouthSizeVal');
+const rotate = document.getElementById('rotate');
+const rotateVal = document.getElementById('rotateVal');
+const strokeToggle = document.getElementById('strokeToggle');
+const strokeWidth = document.getElementById('strokeWidth');
+const strokeWidthVal = document.getElementById('strokeWidthVal');
+const strokeColor = document.getElementById('strokeColor');
+const strokeColorHex = document.getElementById('strokeColorHex');
+const bgToggle = document.getElementById('bgToggle');
+const bgColor = document.getElementById('bgColor');
+const bgColorHex = document.getElementById('bgColorHex');
+const textInput = document.getElementById('textInput');
+const textSize = document.getElementById('textSize');
+const textSizeVal = document.getElementById('textSizeVal');
 const statusEl = document.getElementById('status');
-const btnDownload = document.getElementById('btnDownload');
-const btnCopy = document.getElementById('btnCopy');
-const btnBatch = document.getElementById('btnBatch');
-const btnRandom = document.getElementById('btnRandom');
-const btnReset = document.getElementById('btnReset');
 
 // ---------- Статус ----------
+
 function setStatus(text, type = 'info') {
   statusEl.textContent = text || '';
   statusEl.classList.remove('success', 'error');
@@ -1303,73 +1216,155 @@ function setStatus(text, type = 'info') {
   if (type === 'error') statusEl.classList.add('error');
 }
 
-// ---------- Рендер ----------
-function drawEmote(targetCtx, targetSize) {
-  // Чистим
+// ---------- Рисование ----------
+
+function drawEmote(targetCtx, targetSize, overrides = {}) {
+  const s = Object.assign({}, state, overrides);
   targetCtx.clearRect(0, 0, targetSize, targetSize);
 
-  // Форма
-  const shapeFn = SHAPES[state.shape]?.draw;
-  if (shapeFn) shapeFn(targetCtx, targetSize, state.color);
+  // Фон
+  if (s.background.enabled) {
+    targetCtx.fillStyle = s.background.color;
+    targetCtx.fillRect(0, 0, targetSize, targetSize);
+  }
 
-  // Глаза
-  const eyeSizePx = targetSize * 0.12 * (state.eyeSize / 100);
-  const eyeDistPx = targetSize * 0.18 * (state.eyeDist / 100);
+  // Трансформации (поворот + зеркало)
+  targetCtx.save();
+  targetCtx.translate(targetSize / 2, targetSize / 2);
+  if (s.rotate) targetCtx.rotate(s.rotate * Math.PI / 180);
+  if (s.mirror) targetCtx.scale(-1, 1);
+  targetCtx.translate(-targetSize / 2, -targetSize / 2);
+
+  // Обводка
+  if (s.stroke.enabled && s.stroke.width > 0) {
+    drawStrokeLayer(targetCtx, targetSize, s);
+  }
+
+  // Форма
+  SHAPES[s.shape]?.draw(targetCtx, targetSize, s.color);
+
+  // Позиции элементов
+  const eyeSizePx = targetSize * 0.12 * (s.eyeSize / 100);
+  const eyeDistPx = targetSize * 0.18 * (s.eyeDist / 100);
   const eyeY = targetSize * 0.42;
   const eyeCx = targetSize / 2;
+  const eyesScale = eyeSizePx * 2.2 * (eyeDistPx / (targetSize * 0.18) / 1.0);
 
-  const eyesFn = EYES[state.eyes]?.draw;
-  if (eyesFn) {
-    // Левая и правая позиция вокруг центра
-    eyesFn(targetCtx, eyeCx, eyeY, eyeSizePx * 2.2 * (eyeDistPx / (targetSize * 0.18) / 1.0));
+  // Брови
+  if (s.brows && s.brows !== 'none') {
+    const browY = eyeY - targetSize * 0.16;
+    BROWS[s.brows]?.draw(targetCtx, eyeCx, browY, eyesScale);
+  }
+
+  // Глаза
+  if (s.eyes && s.eyes !== 'none') {
+    EYES[s.eyes]?.draw(targetCtx, eyeCx, eyeY, eyesScale);
+  }
+
+  // Румянец
+  if (s.blush && s.blush !== 'none') {
+    const blushY = targetSize * 0.58;
+    const blushScale = targetSize * 0.5;
+    BLUSH[s.blush]?.draw(targetCtx, targetSize / 2, blushY, blushScale);
   }
 
   // Рот
-  const mouthY = targetSize * 0.65;
-  const mouthSizePx = targetSize * 0.25 * (state.mouthSize / 100);
-  const mouthFn = MOUTHS[state.mouth]?.draw;
-  if (mouthFn) mouthFn(targetCtx, targetSize / 2, mouthY, mouthSizePx * 1.5);
+  if (s.mouth && s.mouth !== 'none') {
+    const mouthY = targetSize * 0.65;
+    const mouthSizePx = targetSize * 0.25 * (s.mouthSize / 100);
+    MOUTHS[s.mouth]?.draw(targetCtx, targetSize / 2, mouthY, mouthSizePx * 1.5);
+  }
+
+  // Аксессуар
+  if (s.accessory && s.accessory !== 'none') {
+    ACCESSORIES[s.accessory]?.draw(targetCtx, targetSize / 2, targetSize / 2, targetSize * 0.85);
+  }
+
+  targetCtx.restore();
+
+  // Текст поверх
+  if (s.text && s.text.trim()) {
+    const fontSize = targetSize * (s.textSize / 100) * 0.35;
+    targetCtx.font = `800 ${fontSize}px Inter, sans-serif`;
+    targetCtx.textAlign = 'center';
+    targetCtx.textBaseline = 'middle';
+    const textY = targetSize * 0.95;
+    targetCtx.lineWidth = fontSize * 0.15;
+    targetCtx.strokeStyle = '#ffffff';
+    targetCtx.strokeText(s.text, targetSize / 2, textY);
+    targetCtx.fillStyle = '#1e1e2e';
+    targetCtx.fillText(s.text, targetSize / 2, textY);
+  }
 }
 
-function render() {
-  drawEmote(ctx, 512);
+function drawStrokeLayer(targetCtx, targetSize, s) {
+  const steps = 24;
+  const offset = s.stroke.width;
+
+  // Временный canvas с силуэтом
+  const tmp = document.createElement('canvas');
+  tmp.width = targetSize;
+  tmp.height = targetSize;
+  const tctx = tmp.getContext('2d');
+
+  // Рисуем форму и все элементы лица
+  SHAPES[s.shape]?.draw(tctx, targetSize, s.color);
+
+  const eyeSizePx = targetSize * 0.12 * (s.eyeSize / 100);
+  const eyeDistPx = targetSize * 0.18 * (s.eyeDist / 100);
+  const eyeScale = eyeSizePx * 2.2 * (eyeDistPx / (targetSize * 0.18));
+  EYES[s.eyes]?.draw(tctx, targetSize / 2, targetSize * 0.42, eyeScale);
+  MOUTHS[s.mouth]?.draw(tctx, targetSize / 2, targetSize * 0.65, targetSize * 0.25 * (s.mouthSize / 100) * 1.5);
+
+  // Красим силуэт в цвет обводки
+  tctx.globalCompositeOperation = 'source-in';
+  tctx.fillStyle = s.stroke.color;
+  tctx.fillRect(0, 0, targetSize, targetSize);
+
+  // Рисуем силуэт много раз по кругу
+  for (let i = 0; i < steps; i++) {
+    const a = (i / steps) * Math.PI * 2;
+    const dx = Math.cos(a) * offset;
+    const dy = Math.sin(a) * offset;
+    targetCtx.drawImage(tmp, dx, dy);
+  }
 }
 
-// ---------- Интерфейс ----------
-function renderShapes() {
+// ---------- UI: сетки иконок ----------
+
+function renderFeatureGrid(container, items, activeKey, onSelect) {
+  container.innerHTML = '';
+  Object.keys(items).forEach(key => {
+    const item = items[key];
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'feature-btn' + (activeKey === key ? ' active' : '');
+    btn.title = key;
+    btn.innerHTML = `<svg viewBox="0 0 24 24">${item.icon}</svg>`;
+    btn.addEventListener('click', () => {
+      onSelect(key);
+      // Перерисовываем всю сетку для обновления активного класса
+      renderFeatureGrid(container, items, key, onSelect);
+    });
+    container.appendChild(btn);
+  });
+}
+
+function renderShapeGrid() {
   shapeGrid.innerHTML = '';
   Object.keys(SHAPES).forEach(key => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'shape-btn' + (state.shape === key ? ' active' : '');
     btn.title = key;
-    // Простая SVG-иконка для каждой формы
-    btn.innerHTML = shapeIcon(key);
+    btn.innerHTML = `<svg viewBox="0 0 24 24">${SHAPES[key].icon}</svg>`;
     btn.addEventListener('click', () => {
       state.shape = key;
-      renderShapes();
+      renderShapeGrid();
       render();
     });
     shapeGrid.appendChild(btn);
   });
-}
-
-function shapeIcon(key) {
-  const icons = {
-    circle: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>',
-    squircle: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="6"/></svg>',
-    blob: '<svg viewBox="0 0 24 24"><path d="M12 3 C18 3 22 7 22 12 C22 17 18 21 12 21 C6 21 2 17 2 12 C2 7 6 3 12 3 Z"/></svg>',
-    egg: '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8" ry="9.5"/></svg>',
-    heart: '<svg viewBox="0 0 24 24"><path d="M12 21 C12 21 3 15 3 9 C3 6 5 4 8 4 C10 4 12 6 12 6 C12 6 14 4 16 4 C19 4 21 6 21 9 C21 15 12 21 12 21 Z"/></svg>',
-    star: '<svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9 L16.5 13.5 L18.5 21 L12 16.5 L5.5 21 L7.5 13.5 L2 9 L9 9 Z"/></svg>',
-    shield: '<svg viewBox="0 0 24 24"><path d="M12 2 L20 5 L20 12 C20 17 16 21 12 22 C8 21 4 17 4 12 L4 5 Z"/></svg>',
-    hexagon: '<svg viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7"/></svg>',
-    diamond: '<svg viewBox="0 0 24 24"><polygon points="12,2 22,12 12,22 2,12"/></svg>',
-    cloud: '<svg viewBox="0 0 24 24"><path d="M6 18 C3 18 2 15 4 13 C3 10 5 7 8 7 C9 4 13 3 15 5 C18 4 21 6 21 9 C22 12 20 14 18 15 C18 17 16 18 14 18 Z"/></svg>',
-    bubble: '<svg viewBox="0 0 24 24"><path d="M12 3 C17 3 21 6 21 11 C21 16 17 19 12 19 C11 19 10 19 9 19 L4 22 L5.5 18 C3.5 16.5 3 14 3 11 C3 6 7 3 12 3 Z"/></svg>',
-    drop: '<svg viewBox="0 0 24 24"><path d="M12 3 C15 8 18 12 18 15 C18 18.3 15.3 21 12 21 C8.7 21 6 18.3 6 15 C6 12 9 8 12 3 Z"/></svg>',
-  };
-  return icons[key] || icons.circle;
 }
 
 function renderPalette() {
@@ -1391,38 +1386,35 @@ function renderPalette() {
   });
 }
 
-function renderEyes() {
-  eyesRow.innerHTML = '';
-  Object.keys(EYES).forEach(key => {
+function renderMoods() {
+  moodRow.innerHTML = '';
+  MOODS.forEach(m => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'feature-btn' + (state.eyes === key ? ' active' : '');
-    btn.title = key;
-    btn.innerHTML = EYES[key].svg;
-    btn.addEventListener('click', () => {
-      state.eyes = key;
-      renderEyes();
-      render();
-    });
-    eyesRow.appendChild(btn);
+    btn.className = 'mood-btn';
+    btn.innerHTML = `<span class="emoji">${m.emoji}</span><span>${m.id}</span>`;
+    btn.addEventListener('click', () => applyMood(m));
+    moodRow.appendChild(btn);
   });
 }
 
-function renderMouths() {
-  mouthRow.innerHTML = '';
-  Object.keys(MOUTHS).forEach(key => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'feature-btn' + (state.mouth === key ? ' active' : '');
-    btn.title = key;
-    btn.innerHTML = MOUTHS[key].svg;
-    btn.addEventListener('click', () => {
-      state.mouth = key;
-      renderMouths();
-      render();
-    });
-    mouthRow.appendChild(btn);
-  });
+function applyMood(m) {
+  // Копируем состояние настроения в state, не теряя настройки обводки/фона/текста
+  const keep = {
+    stroke: state.stroke,
+    background: state.background,
+    text: state.text,
+    textSize: state.textSize,
+    mirror: state.mirror,
+    rotate: state.rotate,
+    eyeSize: state.eyeSize,
+    eyeDist: state.eyeDist,
+    mouthSize: state.mouthSize,
+    preset: state.preset,
+  };
+  Object.assign(state, m.state, keep);
+  colorName.textContent = state.colorName;
+  renderAll();
 }
 
 function renderPresets() {
@@ -1435,31 +1427,131 @@ function renderPresets() {
     btn.addEventListener('click', () => {
       state.preset = p.id;
       renderPresets();
+      renderSizePreview();
     });
     presetRow.appendChild(btn);
   });
 }
 
+function renderSavedList() {
+  const list = JSON.parse(localStorage.getItem('emotelab_saves') || '[]');
+  savedList.innerHTML = '';
+  if (!list.length) {
+    const empty = document.createElement('div');
+    empty.className = 'saved-empty';
+    empty.textContent = 'Пока пусто. Нажми «Сохранить» слева.';
+    savedList.appendChild(empty);
+    return;
+  }
+  list.forEach((save, idx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'preset-chip';
+    btn.style.flexDirection = 'row';
+    btn.style.justifyContent = 'space-between';
+    btn.style.alignItems = 'center';
+    btn.innerHTML = `<span class="name">${save.name}</span><span style="font-size: 0.7rem; color: var(--text-mute);">загрузить</span>`;
+    btn.addEventListener('click', () => {
+      state = Object.assign(defaultState(), save.data);
+      syncUIFromState();
+      renderAll();
+      setStatus(`Загружено: ${save.name}`, 'success');
+    });
+    savedList.appendChild(btn);
+  });
+}
+
+function renderSizePreview() {
+  const p = PRESETS.find(x => x.id === state.preset) || PRESETS[0];
+  sizePreview.innerHTML = '';
+  const maxVis = 80;
+  p.sizes.slice(0, 4).forEach(size => {
+    const wrap = document.createElement('div');
+    wrap.className = 'size-preview-item';
+
+    const c = document.createElement('canvas');
+    const vis = Math.min(maxVis, Math.max(24, Math.round(size / 2)));
+    c.width = size;
+    c.height = size;
+    c.style.width = vis + 'px';
+    c.style.height = vis + 'px';
+    drawEmote(c.getContext('2d'), size);
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = size + 'px';
+
+    wrap.appendChild(c);
+    wrap.appendChild(label);
+    sizePreview.appendChild(wrap);
+  });
+}
+
+// ---------- Полный рендер ----------
+
+function render() {
+  drawEmote(ctx, 512);
+  renderSizePreview();
+}
+
+function syncUIFromState() {
+  // Ползунки и тумблеры
+  eyeSize.value = state.eyeSize;
+  eyeSizeVal.textContent = state.eyeSize + '%';
+  eyeDist.value = state.eyeDist;
+  eyeDistVal.textContent = state.eyeDist + '%';
+  mouthSize.value = state.mouthSize;
+  mouthSizeVal.textContent = state.mouthSize + '%';
+  rotate.value = state.rotate;
+  rotateVal.textContent = state.rotate + '°';
+  strokeToggle.checked = state.stroke.enabled;
+  strokeWidth.value = state.stroke.width;
+  strokeWidthVal.textContent = state.stroke.width + ' px';
+  strokeColor.value = state.stroke.color;
+  strokeColorHex.textContent = state.stroke.color;
+  bgToggle.checked = state.background.enabled;
+  bgColor.value = state.background.color;
+  bgColorHex.textContent = state.background.color;
+  textInput.value = state.text;
+  textSize.value = state.textSize;
+  textSizeVal.textContent = state.textSize + '%';
+  colorName.textContent = state.colorName;
+}
+
+function renderAll() {
+  renderMoods();
+  renderShapeGrid();
+  renderPalette();
+  renderFeatureGrid(eyesRow, EYES, state.eyes, (k) => { state.eyes = k; render(); });
+  renderFeatureGrid(browsRow, BROWS, state.brows, (k) => { state.brows = k; render(); });
+  renderFeatureGrid(mouthRow, MOUTHS, state.mouth, (k) => { state.mouth = k; render(); });
+  renderFeatureGrid(blushRow, BLUSH, state.blush, (k) => { state.blush = k; render(); });
+  renderFeatureGrid(accessoryRow, ACCESSORIES, state.accessory, (k) => { state.accessory = k; render(); });
+  renderPresets();
+  renderSavedList();
+  render();
+}
+
 // ---------- Экспорт ----------
+
+function exportPng(size) {
+  const c = document.createElement('canvas');
+  c.width = size;
+  c.height = size;
+  drawEmote(c.getContext('2d'), size);
+  return new Promise((resolve, reject) => {
+    c.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png');
+  });
+}
+
 function currentSizes() {
   const p = PRESETS.find(x => x.id === state.preset) || PRESETS[0];
   return p.sizes;
 }
 
-function exportPng(size) {
-  return new Promise((resolve, reject) => {
-    const c = document.createElement('canvas');
-    c.width = size;
-    c.height = size;
-    const cctx = c.getContext('2d');
-    drawEmote(cctx, size);
-    c.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png');
-  });
-}
-
 async function downloadPng() {
   const sizes = currentSizes();
-  const largest = Math.max(...sizes);
+  const largest = Math.max.apply(null, sizes);
   const blob = await exportPng(largest);
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -1473,33 +1565,32 @@ async function downloadPng() {
 
 async function copyToClipboard() {
   if (!navigator.clipboard || !window.ClipboardItem) {
-    setStatus('Копирование не поддерживается в этом браузере.', 'error');
+    setStatus('Копирование не поддерживается.', 'error');
     return;
   }
   try {
     const blob = await exportPng(512);
     await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-    setStatus('Скопировано в буфер обмена!', 'success');
+    setStatus('Скопировано!', 'success');
   } catch (e) {
     console.error(e);
     setStatus('Не удалось скопировать.', 'error');
   }
 }
 
-async function downloadBatch() {
+async function downloadZip() {
   setStatus('Собираю ZIP...', 'info');
   try {
     const JSZip = (await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm')).default;
     const zip = new JSZip();
     const sizes = currentSizes();
     const base = `emote-${state.shape}`;
-
-    for (const size of sizes) {
+    for (let i = 0; i < sizes.length; i++) {
+      const size = sizes[i];
       const blob = await exportPng(size);
       const buf = await blob.arrayBuffer();
       zip.file(`${base}-${size}.png`, buf);
     }
-
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(zipBlob);
@@ -1515,95 +1606,161 @@ async function downloadBatch() {
   }
 }
 
-// ---------- Случайный / Сброс ----------
-function randomEmote() {
-  const shapeKeys = Object.keys(SHAPES);
-  const eyeKeys = Object.keys(EYES);
-  const mouthKeys = Object.keys(MOUTHS);
+async function downloadGif() {
+  setStatus('Готовлю GIF...', 'info');
+  try {
+    const mod = await import('https://cdn.jsdelivr.net/npm/gifenc@1.0.3/+esm');
+    const GIFEncoder = mod.GIFEncoder;
+    const quantize = mod.quantize;
+    const applyPalette = mod.applyPalette;
 
-  state.shape = shapeKeys[Math.floor(Math.random() * shapeKeys.length)];
-  state.eyes = eyeKeys[Math.floor(Math.random() * eyeKeys.length)];
-  state.mouth = mouthKeys[Math.floor(Math.random() * mouthKeys.length)];
+    const size = 240;
+    const frames = 12;
+    const delay = 80;
+    const gif = GIFEncoder();
+
+    for (let f = 0; f < frames; f++) {
+      const c = document.createElement('canvas');
+      c.width = size;
+      c.height = size;
+      const cctx = c.getContext('2d');
+
+      const phase = (f / frames) * Math.PI * 2;
+      const offsetY = Math.sin(phase) * 6;
+      const scale = 1 + Math.sin(phase) * 0.03;
+
+      cctx.save();
+      cctx.translate(size / 2, size / 2 + offsetY);
+      cctx.scale(scale, scale);
+      cctx.translate(-size / 2, -size / 2);
+      drawEmote(cctx, size);
+      cctx.restore();
+
+      const data = cctx.getImageData(0, 0, size, size).data;
+      const palette = quantize(data, 256);
+      const index = applyPalette(data, palette);
+      gif.writeFrame(index, size, size, { palette: palette, delay: delay });
+    }
+
+    gif.finish();
+    const bytes = gif.bytes();
+    const blob = new Blob([bytes], { type: 'image/gif' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `emote-${state.shape}.gif`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    setStatus(`GIF готов: ${a.download}`, 'success');
+  } catch (e) {
+    console.error(e);
+    setStatus('Не удалось создать GIF.', 'error');
+  }
+}
+
+function downloadJson() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'emote-settings.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  setStatus('Настройки сохранены', 'success');
+}
+
+// ---------- Случайный / Сброс / Сохранение ----------
+
+function pickRandom(obj) {
+  const keys = Object.keys(obj);
+  return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function randomEmote() {
+  // Генерируем случайные значения
+  state.shape = pickRandom(SHAPES);
+  state.eyes = pickRandom(EYES);
+  state.brows = pickRandom(BROWS);
+  state.mouth = pickRandom(MOUTHS);
+  state.blush = pickRandom(BLUSH);
+  state.accessory = pickRandom(ACCESSORIES);
 
   const p = PALETTES[Math.floor(Math.random() * PALETTES.length)];
   state.color = p.color;
   state.colorName = p.name;
-  colorName.textContent = p.name;
 
   state.eyeSize = 70 + Math.floor(Math.random() * 60);
   state.eyeDist = 80 + Math.floor(Math.random() * 40);
   state.mouthSize = 70 + Math.floor(Math.random() * 60);
+  state.rotate = Math.floor(Math.random() * 21) - 10;
 
-  eyeSize.value = state.eyeSize;
-  eyeSizeVal.textContent = state.eyeSize + '%';
-  eyeDist.value = state.eyeDist;
-  eyeDistVal.textContent = state.eyeDist + '%';
-  mouthSize.value = state.mouthSize;
-  mouthSizeVal.textContent = state.mouthSize + '%';
-
-  renderShapes();
-  renderPalette();
-  renderEyes();
-  renderMouths();
-  render();
+  // Синхронизируем UI и перерисовываем
+  syncUIFromState();
+  renderAll();
+  setStatus('Случайный эмоут готов!', 'success');
 }
 
 function resetEmote() {
-  state.shape = 'circle';
-  state.color = '#a78bfa';
-  state.colorName = 'purple';
-  state.eyes = 'dots';
-  state.mouth = 'smile';
-  state.eyeSize = 100;
-  state.eyeDist = 100;
-  state.mouthSize = 100;
-
-  colorName.textContent = 'purple';
-  eyeSize.value = 100;
-  eyeSizeVal.textContent = '100%';
-  eyeDist.value = 100;
-  eyeDistVal.textContent = '100%';
-  mouthSize.value = 100;
-  mouthSizeVal.textContent = '100%';
-
-  renderShapes();
-  renderPalette();
-  renderEyes();
-  renderMouths();
-  render();
+  state = defaultState();
+  syncUIFromState();
+  renderAll();
   setStatus('');
 }
 
-// ---------- События ----------
-eyeSize.addEventListener('input', () => {
-  state.eyeSize = +eyeSize.value;
-  eyeSizeVal.textContent = state.eyeSize + '%';
-  render();
-});
-eyeDist.addEventListener('input', () => {
-  state.eyeDist = +eyeDist.value;
-  eyeDistVal.textContent = state.eyeDist + '%';
-  render();
-});
-mouthSize.addEventListener('input', () => {
-  state.mouthSize = +mouthSize.value;
-  mouthSizeVal.textContent = state.mouthSize + '%';
-  render();
+function saveToLocal() {
+  const name = prompt('Название для сохранения:', 'Мой эмоут ' + Date.now().toString().slice(-4));
+  if (!name) return;
+  const list = JSON.parse(localStorage.getItem('emotelab_saves') || '[]');
+  list.unshift({ name: name, data: JSON.parse(JSON.stringify(state)) });
+  localStorage.setItem('emotelab_saves', JSON.stringify(list.slice(0, 20)));
+  renderSavedList();
+  setStatus('Сохранено: ' + name, 'success');
+}
+
+// ---------- Табы ----------
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    const content = document.querySelector('[data-content="' + tab.dataset.tab + '"]');
+    if (content) content.classList.add('active');
+  });
 });
 
-btnDownload.addEventListener('click', downloadPng);
-btnCopy.addEventListener('click', copyToClipboard);
-btnBatch.addEventListener('click', downloadBatch);
-btnRandom.addEventListener('click', randomEmote);
-btnReset.addEventListener('click', resetEmote);
+// ---------- События ползунков и тумблеров ----------
 
-// ---------- Инициализация ----------
-renderShapes();
-renderPalette();
-renderEyes();
-renderMouths();
-renderPresets();
-render();
+eyeSize.addEventListener('input', () => { state.eyeSize = +eyeSize.value; eyeSizeVal.textContent = state.eyeSize + '%'; render(); });
+eyeDist.addEventListener('input', () => { state.eyeDist = +eyeDist.value; eyeDistVal.textContent = state.eyeDist + '%'; render(); });
+mouthSize.addEventListener('input', () => { state.mouthSize = +mouthSize.value; mouthSizeVal.textContent = state.mouthSize + '%'; render(); });
+rotate.addEventListener('input', () => { state.rotate = +rotate.value; rotateVal.textContent = state.rotate + '°'; render(); });
+strokeToggle.addEventListener('change', () => { state.stroke.enabled = strokeToggle.checked; render(); });
+strokeWidth.addEventListener('input', () => { state.stroke.width = +strokeWidth.value; strokeWidthVal.textContent = state.stroke.width + ' px'; render(); });
+strokeColor.addEventListener('input', () => { state.stroke.color = strokeColor.value; strokeColorHex.textContent = strokeColor.value; render(); });
+bgToggle.addEventListener('change', () => { state.background.enabled = bgToggle.checked; render(); });
+bgColor.addEventListener('input', () => { state.background.color = bgColor.value; bgColorHex.textContent = bgColor.value; render(); });
+textInput.addEventListener('input', () => { state.text = textInput.value; render(); });
+textSize.addEventListener('input', () => { state.textSize = +textSize.value; textSizeVal.textContent = state.textSize + '%'; render(); });
+
+// ---------- Кнопки ----------
+
+document.getElementById('btnDownload').addEventListener('click', downloadPng);
+document.getElementById('btnCopy').addEventListener('click', copyToClipboard);
+document.getElementById('btnZip').addEventListener('click', downloadZip);
+document.getElementById('btnGif').addEventListener('click', downloadGif);
+document.getElementById('btnJson').addEventListener('click', downloadJson);
+document.getElementById('btnRandom').addEventListener('click', randomEmote);
+document.getElementById('btnReset').addEventListener('click', resetEmote);
+document.getElementById('btnSave').addEventListener('click', saveToLocal);
+document.getElementById('btnMirror').addEventListener('click', () => { state.mirror = !state.mirror; render(); });
+
+// ---------- Запуск ----------
+
+syncUIFromState();
+renderAll();
 
 </script>
 
