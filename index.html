@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StickerCut — AI-генератор смайлов для Twitch и YouTube</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0f0f13;
+    color: #e8e8ed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 8px; }
+  h1 span {
+    background: linear-gradient(90deg, #9147ff, #ff4d6d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .sub { color: #8888a0; margin-bottom: 24px; text-align: center; font-size: 0.9rem; }
+
+  .upload-area {
+    width: 100%; max-width: 420px;
+    border: 2px dashed #33334a;
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: #17171f;
+  }
+  .upload-area:hover, .upload-area.dragover {
+    border-color: #9147ff;
+    background: #1c1c28;
+  }
+  .upload-area p { color: #8888a0; font-size: 0.9rem; }
+  .upload-area .icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+  #preview-section {
+    display: none;
+    width: 100%; max-width: 420px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  #preview-img {
+    max-width: 180px; max-height: 180px;
+    border-radius: 12px;
+    background: repeating-conic-gradient(#2a2a35 0% 25%, #1f1f28 0% 50%) 50% / 20px 20px;
+    display: block; margin: 0 auto 20px;
+  }
+  .btn-row { display: flex; flex-direction: column; gap: 12px; }
+  button {
+    padding: 14px 20px;
+    border: none; border-radius: 12px;
+    font-size: 1rem; font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+  }
+  button:active { transform: scale(0.97); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-twitch { background: #9147ff; color: #fff; }
+  .btn-youtube { background: #ff0000; color: #fff; }
+  .btn-reset { background: #2a2a35; color: #c0c0d0; }
+
+  #status {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: #8888a0;
+    min-height: 20px;
+    text-align: center;
+  }
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid #8888a0;
+    border-top-color: #9147ff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<h1><span>StickerCut</span></h1>
+<p class="sub">Загрузи фото — получи смайл для Twitch или YouTube</p>
+
+<div class="upload-area" id="uploadArea">
+  <div class="icon">🖼️</div>
+  <p>Нажми или перетащи изображение сюда</p>
+  <input type="file" id="fileInput" accept="image/*" hidden>
+</div>
+
+<div id="preview-section">
+  <img id="preview-img" alt="Результат">
+  <div class="btn-row">
+    <button class="btn-twitch" id="btnTwitch" disabled>Скачать для Twitch (112×112)</button>
+    <button class="btn-youtube" id="btnYouTube" disabled>Скачать для YouTube (48×48)</button>
+    <button class="btn-reset" id="btnReset">Загрузить другое фото</button>
+  </div>
+</div>
+
+<div id="status"></div>
+
+<script type="module">
+import removeBackground from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm';
+
+const uploadArea = document.getElementById('uploadArea');
+const fileInput = document.getElementById('fileInput');
+const previewSection = document.getElementById('preview-section');
+const previewImg = document.getElementById('preview-img');
+const btnTwitch = document.getElementById('btnTwitch');
+const btnYouTube = document.getElementById('btnYouTube');
+const btnReset = document.getElementById('btnReset');
+const statusEl = document.getElementById('status');
+
+let currentBlob = null;
+
+function setStatus(text, loading = false) {
+  statusEl.innerHTML = (loading ? '<span class="spinner"></span>' : '') + text;
+}
+
+uploadArea.addEventListener('click', () => fileInput.click());
+
+uploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadArea.classList.add('dragover');
+});
+uploadArea.addEventListener('dragleave', () => {
+  uploadArea.classList.remove('dragover');
+});
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+});
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) processFile(file);
+});
+
+async function processFile(file) {
+  if (!file.type.startsWith('image/')) {
+    setStatus('Пожалуйста, выбери изображение.');
+    return;
+  }
+
+  uploadArea.style.display = 'none';
+  previewSection.style.display = 'block';
+  btnTwitch.disabled = true;
+  btnYouTube.disabled = true;
+  setStatus('Удаляю фон... Первый раз может занять до 30 секунд.', true);
+
+  try {
+    const blob = await removeBackground(file, {
+      model: 'isnet_fp16',
+      output: { format: 'image/png', type: 'foreground' }
+    });
+
+    currentBlob = blob;
+    const url = URL.createObjectURL(blob);
+    previewImg.src = url;
+    setStatus('Готово! Выбери формат для скачивания.');
+    btnTwitch.disabled = false;
+    btnYouTube.disabled = false;
+  } catch (err) {
+    console.error(err);
+    setStatus('Ошибка при обработке. Попробуй другое фото.');
+    previewSection.style.display = 'none';
+    uploadArea.style.display = 'block';
+  }
+}
+
+async function resizeAndDownload(targetSize, filename) {
+  if (!currentBlob) return;
+
+  const img = new Image();
+  const url = URL.createObjectURL(currentBlob);
+  img.src = url;
+  await img.decode();
+
+  const canvas = document.createElement('canvas');
+  canvas.width = targetSize;
+  canvas.height = targetSize;
+  const ctx = canvas.getContext('2d');
+
+  // Центрируем и обрезаем в квадрат, потом масштабируем
+  const minSide = Math.min(img.naturalWidth, img.naturalHeight);
+  const sx = (img.naturalWidth - minSide) / 2;
+  const sy = (img.naturalHeight - minSide) / 2;
+
+  ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
+
+  canvas.toBlob((resultBlob) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(resultBlob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+}
+
+btnTwitch.addEventListener('click', () => resizeAndDownload(112, 'sticker-twitch-112.png'));
+btnYouTube.addEventListener('click', () => resizeAndDownload(48, 'sticker-youtube-48.png'));
+
+btnReset.addEventListener('click', () => {
+  currentBlob = null;
+  fileInput.value = '';
+  previewSection.style.display = 'none';
+  uploadArea.style.display = 'block';
+  setStatus('');
+});
+</script>
+
+</body>
+</html>
