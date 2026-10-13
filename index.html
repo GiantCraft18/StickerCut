@@ -10,28 +10,21 @@
 <style>
   :root {
     --bg: #08080d;
-    --bg-2: #0d0d14;
-    --surface: rgba(28, 28, 40, 0.55);
-    --surface-2: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.07);
-    --border-strong: rgba(255, 255, 255, 0.12);
     --text: #f5f5fa;
     --text-dim: #9a9ab0;
     --text-mute: #63637a;
     --purple: #9147ff;
     --purple-2: #b380ff;
-    --purple-glow: rgba(145, 71, 255, 0.45);
     --red: #ff2d55;
-    --red-2: #ff6680;
-    --red-glow: rgba(255, 45, 85, 0.4);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.14);
     --radius: 24px;
     --radius-sm: 14px;
-    --radius-xs: 10px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html, body { height: 100%; }
 
   body {
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -45,14 +38,13 @@
     position: relative;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ─────── ФОН ─────── */
-  .bg-layer {
+  /* ─────── ФОН (отдельным слоем, не перехватывает клики) ─────── */
+  .bg {
     position: fixed;
     inset: 0;
-    z-index: -2;
+    z-index: -1;
     overflow: hidden;
     pointer-events: none;
   }
@@ -60,61 +52,55 @@
   .bg-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.55;
-    animation: float 24s ease-in-out infinite;
+    filter: blur(90px);
+    opacity: 0.5;
   }
 
   .bg-blob.b1 {
     width: 520px; height: 520px;
     background: radial-gradient(circle, #9147ff, transparent 70%);
-    top: -120px; left: -120px;
-    animation-delay: 0s;
+    top: -140px; left: -140px;
+    animation: float1 24s ease-in-out infinite;
   }
 
   .bg-blob.b2 {
     width: 460px; height: 460px;
     background: radial-gradient(circle, #ff2d55, transparent 70%);
-    top: 20%; right: -140px;
-    animation-delay: -8s;
+    top: 15%; right: -160px;
+    animation: float2 28s ease-in-out infinite;
   }
 
   .bg-blob.b3 {
     width: 480px; height: 480px;
     background: radial-gradient(circle, #4d7cff, transparent 70%);
-    bottom: -160px; left: 30%;
-    animation-delay: -16s;
+    bottom: -180px; left: 25%;
+    animation: float3 32s ease-in-out infinite;
   }
 
-  @keyframes float {
+  @keyframes float1 {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    33%      { transform: translate(40px, -30px) scale(1.08); }
-    66%      { transform: translate(-30px, 30px) scale(0.96); }
+    50%      { transform: translate(50px, -40px) scale(1.1); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-60px, 40px) scale(0.95); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(40px, 30px) scale(1.05); }
   }
 
-  /* Сетка */
   .bg-grid {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
-  }
-
-  /* Шум */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* ─────── ШАПКА ─────── */
@@ -129,7 +115,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     padding: 8px 16px 8px 8px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border);
@@ -139,19 +125,18 @@
   }
 
   .logo-mark {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 8px;
     background: linear-gradient(135deg, #9147ff, #ff2d55);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     box-shadow: 0 4px 14px rgba(145, 71, 255, 0.4);
   }
 
   .logo-text {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--text-dim);
     letter-spacing: 0.02em;
@@ -207,13 +192,6 @@
     color: var(--text-dim);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    transition: all 0.25s;
-  }
-
-  .feature-pill:hover {
-    border-color: rgba(145, 71, 255, 0.35);
-    color: var(--text);
-    transform: translateY(-1px);
   }
 
   .feature-pill .dot {
@@ -238,48 +216,27 @@
     padding: 1px;
     background: linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.14) 0%,
       rgba(255, 255, 255, 0.03) 30%,
       rgba(255, 255, 255, 0.02) 70%,
-      rgba(255, 255, 255, 0.08) 100%
+      rgba(255, 255, 255, 0.1) 100%
     );
-    animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
     box-shadow:
       0 30px 80px rgba(0, 0, 0, 0.55),
       0 0 60px rgba(145, 71, 255, 0.1);
+    animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
   }
 
   .card-inner {
     background: linear-gradient(
       180deg,
-      rgba(24, 24, 34, 0.92) 0%,
-      rgba(16, 16, 24, 0.92) 100%
+      rgba(24, 24, 34, 0.94) 0%,
+      rgba(16, 16, 24, 0.94) 100%
     );
     border-radius: calc(var(--radius) - 1px);
     padding: 24px;
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Мягкий блик в углу */
-  .card-inner::before {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(145, 71, 255, 0.18), transparent 65%);
-    pointer-events: none;
-  }
-
-  .card-inner::after {
-    content: '';
-    position: absolute;
-    bottom: -100px; left: -60px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(255, 45, 85, 0.12), transparent 65%);
-    pointer-events: none;
   }
 
   @keyframes fadeUp {
@@ -295,13 +252,10 @@
     margin-bottom: 22px;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 1;
   }
 
   .card-header-icon {
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -311,22 +265,6 @@
     border: 1px solid rgba(145, 71, 255, 0.3);
     flex-shrink: 0;
     box-shadow: 0 4px 20px rgba(145, 71, 255, 0.2);
-    position: relative;
-  }
-
-  .card-header-icon::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(145, 71, 255, 0.6), transparent 50%);
-    opacity: 0.4;
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    padding: 1px;
-    pointer-events: none;
   }
 
   .card-header-text h2 {
@@ -344,6 +282,8 @@
 
   /* ─────── ЗОНА ЗАГРУЗКИ ─────── */
   .upload-area {
+    display: block;
+    width: 100%;
     border: 1.5px dashed var(--border-strong);
     border-radius: var(--radius-sm);
     padding: 48px 24px;
@@ -351,20 +291,9 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     background: rgba(255, 255, 255, 0.012);
+    color: inherit;
+    font-family: inherit;
     position: relative;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .upload-area::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(145, 71, 255, 0.15), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.35s;
-    pointer-events: none;
   }
 
   .upload-area:hover,
@@ -375,12 +304,8 @@
     box-shadow: 0 12px 40px rgba(145, 71, 255, 0.15);
   }
 
-  .upload-area:hover::before,
-  .upload-area.dragover::before { opacity: 1; }
-
   .upload-icon-wrap {
-    width: 64px;
-    height: 64px;
+    width: 64px; height: 64px;
     margin: 0 auto 16px;
     border-radius: 18px;
     background: linear-gradient(135deg, rgba(145, 71, 255, 0.18), rgba(255, 45, 85, 0.1));
@@ -390,29 +315,15 @@
     justify-content: center;
     font-size: 1.7rem;
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative;
   }
 
   .upload-area:hover .upload-icon-wrap {
     transform: scale(1.08) translateY(-4px);
   }
 
-  .upload-icon-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 18px;
-    box-shadow: 0 0 30px rgba(145, 71, 255, 0.4);
-    opacity: 0;
-    transition: opacity 0.35s;
-  }
-
-  .upload-area:hover .upload-icon-wrap::after { opacity: 1; }
-
   .upload-area p {
     color: var(--text-dim);
     font-size: 0.9rem;
-    position: relative;
     line-height: 1.5;
   }
 
@@ -433,8 +344,6 @@
     display: none;
     text-align: center;
     animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    position: relative;
-    z-index: 1;
   }
 
   .preview-label {
@@ -464,21 +373,11 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
     transition: border-color 0.3s;
   }
 
   .preview-wrap:hover {
     border-color: rgba(145, 71, 255, 0.25);
-  }
-
-  .preview-wrap::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(145, 71, 255, 0.1), transparent 70%);
-    pointer-events: none;
   }
 
   #preview-img {
@@ -488,7 +387,6 @@
     margin: 0 auto;
     border-radius: 10px;
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
   }
 
@@ -526,6 +424,7 @@
     background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
     transform: translateX(-100%);
     transition: transform 0.7s;
+    pointer-events: none;
   }
 
   button:hover:not(:disabled)::after { transform: translateX(100%); }
@@ -584,22 +483,16 @@
     color: var(--text-dim);
     min-height: 24px;
     text-align: center;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    transition: color 0.3s;
-    position: relative;
-    z-index: 1;
   }
 
-  #status:empty {
-    display: none;
-  }
+  #status.visible { display: flex; }
 
   .spinner {
-    width: 16px;
-    height: 16px;
+    width: 16px; height: 16px;
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-top-color: var(--purple);
     border-radius: 50%;
@@ -647,7 +540,7 @@
 </head>
 <body>
 
-<div class="bg-layer">
+<div class="bg">
   <div class="bg-blob b1"></div>
   <div class="bg-blob b2"></div>
   <div class="bg-blob b3"></div>
@@ -679,12 +572,12 @@
       </div>
     </div>
 
-    <div class="upload-area" id="uploadArea">
+    <button type="button" class="upload-area" id="uploadArea">
       <div class="upload-icon-wrap">🖼️</div>
       <p><strong>Нажми</strong> или перетащи изображение сюда</p>
       <span class="upload-hint">PNG, JPG, WEBP · до 10 МБ</span>
-      <input type="file" id="fileInput" accept="image/*" hidden>
-    </div>
+    </button>
+    <input type="file" id="fileInput" accept="image/*" hidden>
 
     <div id="preview-section">
       <div class="preview-label">Результат</div>
@@ -692,13 +585,13 @@
         <img id="preview-img" alt="Результат">
       </div>
       <div class="btn-row">
-        <button class="btn-twitch" id="btnTwitch" disabled>
+        <button type="button" class="btn-twitch" id="btnTwitch" disabled>
           <span>🎮</span> Скачать для Twitch (112×112)
         </button>
-        <button class="btn-youtube" id="btnYouTube" disabled>
+        <button type="button" class="btn-youtube" id="btnYouTube" disabled>
           <span>▶️</span> Скачать для YouTube (48×48)
         </button>
-        <button class="btn-reset" id="btnReset">
+        <button type="button" class="btn-reset" id="btnReset">
           <span>↺</span> Загрузить другое фото
         </button>
       </div>
@@ -731,6 +624,11 @@ let currentBlob = null;
 
 function setStatus(text, loading = false) {
   statusEl.innerHTML = '';
+  if (!text) {
+    statusEl.classList.remove('visible');
+    return;
+  }
+  statusEl.classList.add('visible');
   if (loading) {
     const sp = document.createElement('span');
     sp.className = 'spinner';
