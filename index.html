@@ -73,8 +73,8 @@
 
   header {
     text-align: center;
-    margin-bottom: 20px;
-    max-width: 560px;
+    margin-bottom: 18px;
+    max-width: 620px;
     animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
@@ -82,7 +82,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     padding: 7px 16px 7px 8px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border);
@@ -92,8 +92,7 @@
   }
 
   .logo-mark {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 8px;
     background: linear-gradient(135deg, #7c5cff, #ff5c8a);
     display: flex;
@@ -112,11 +111,11 @@
   }
 
   h1 {
-    font-size: clamp(1.7rem, 6vw, 2.5rem);
+    font-size: clamp(1.6rem, 5.5vw, 2.3rem);
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.05;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   h1 span {
@@ -135,9 +134,9 @@
 
   .sub {
     color: var(--text-dim);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     line-height: 1.55;
-    max-width: 460px;
+    max-width: 480px;
     margin: 0 auto;
   }
 
@@ -148,9 +147,9 @@
 
   .app {
     width: 100%;
-    max-width: 1120px;
+    max-width: 1180px;
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 420px;
     gap: 18px;
     animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
   }
@@ -242,7 +241,7 @@
   .controls {
     display: flex;
     flex-direction: column;
-    max-height: 820px;
+    max-height: 860px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
@@ -271,13 +270,13 @@
   .tab {
     flex: 1;
     min-width: fit-content;
-    padding: 8px 12px;
+    padding: 8px 10px;
     background: transparent;
     border: none;
     border-radius: 8px;
     color: var(--text-mute);
     font-family: inherit;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -339,6 +338,7 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     gap: 6px;
+    margin-bottom: 8px;
   }
 
   .color-swatch {
@@ -356,9 +356,37 @@
     box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(255, 255, 255, 0.3);
   }
 
+  .color-custom-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .color-custom-row label {
+    font-size: 0.75rem;
+    color: var(--text-mute);
+    flex: 1;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 42px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    padding: 2px;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 6px; }
+  input[type="color"]::-moz-color-swatch { border: none; border-radius: 6px; }
+
   .shape-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     gap: 6px;
   }
 
@@ -712,6 +740,7 @@
     border: 1px solid var(--border);
     justify-content: center;
     min-height: 120px;
+    flex-wrap: wrap;
   }
 
   .size-preview-item {
@@ -733,6 +762,32 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
+  .contrast-preview {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .contrast-box {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px;
+  }
+
+  .contrast-box.dark { background: #181820; }
+  .contrast-box.light { background: #f0f0f8; }
+  .contrast-box canvas {
+    max-width: 70px;
+    max-height: 70px;
+    image-rendering: auto;
+    display: block;
+  }
+
   .saved-empty {
     padding: 14px;
     text-align: center;
@@ -740,6 +795,138 @@
     color: var(--text-mute);
     border: 1px dashed var(--border);
     border-radius: 10px;
+  }
+
+  .save-item {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    align-items: center;
+  }
+
+  .save-item canvas {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+  }
+
+  .save-item-info {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.78rem;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .save-item-btn {
+    padding: 6px 10px;
+    background: rgba(124, 92, 255, 0.15);
+    border: 1px solid rgba(124, 92, 255, 0.3);
+    border-radius: 8px;
+    color: var(--accent-2);
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .save-item-btn:hover {
+    background: rgba(124, 92, 255, 0.25);
+  }
+
+  .save-item-btn.remove {
+    background: rgba(255, 92, 138, 0.1);
+    border-color: rgba(255, 92, 138, 0.25);
+    color: #ff8fa3;
+    padding: 6px 8px;
+  }
+
+  .save-item-btn.remove:hover {
+    background: rgba(255, 92, 138, 0.25);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .progress-bar.visible { display: block; }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #ff5c8a);
+    border-radius: 100px;
+    width: 0%;
+    transition: width 0.2s;
+  }
+
+  .upload-area {
+    display: block;
+    width: 100%;
+    border: 1.5px dashed var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: rgba(255, 255, 255, 0.012);
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 0.82rem;
+  }
+
+  .upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent);
+    background: rgba(124, 92, 255, 0.05);
+    color: var(--text);
+  }
+
+  .upload-area .big { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+
+  .photo-preview-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .photo-preview-mini img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%) 50% / 10px 10px;
+    flex-shrink: 0;
+  }
+
+  .photo-preview-mini .info {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.78rem;
+  }
+
+  .photo-preview-mini .info small {
+    color: var(--text-mute);
+    display: block;
+    margin-top: 2px;
+    font-size: 0.7rem;
   }
 
   footer {
@@ -764,22 +951,53 @@
 
   .sep { opacity: 0.4; }
 
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+
+  .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .icon-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
   @media (max-width: 980px) {
-    .app { grid-template-columns: 1fr; max-width: 540px; }
+    .app { grid-template-columns: 1fr; max-width: 560px; }
     .stage { position: static; }
     .controls { max-height: none; overflow: visible; }
   }
 
   @media (max-width: 480px) {
     body { padding: 16px 10px 40px; padding-top: max(16px, env(safe-area-inset-top)); }
-    header { margin-bottom: 14px; }
-    h1 { font-size: 1.6rem; }
-    .sub { font-size: 0.84rem; }
+    header { margin-bottom: 12px; }
+    h1 { font-size: 1.5rem; }
+    .sub { font-size: 0.8rem; }
     .panel { padding: 14px; }
     .palette { grid-template-columns: repeat(8, 1fr); }
     .shape-grid { grid-template-columns: repeat(5, 1fr); }
     .preset-row { grid-template-columns: 1fr; }
     .mood-row { grid-template-columns: repeat(3, 1fr); }
+    .stage-toolbar { grid-template-columns: repeat(4, 1fr); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -798,10 +1016,10 @@
 <header>
   <div class="logo">
     <div class="logo-mark">🧪</div>
-    <span class="logo-text">emotelab v2.0</span>
+    <span class="logo-text">emotelab v3.0</span>
   </div>
   <h1>Лаборатория <span>эмоутов</span></h1>
-  <p class="sub">Собери стикер из формы, цвета, глаз, рта и аксессуаров. Экспортируй под Twitch, YouTube, Discord и Telegram.</p>
+  <p class="sub">Рисуй с нуля или загружай фото. Экспорт под Twitch, YouTube, Discord и Telegram. Всё работает в браузере.</p>
 </header>
 
 <div class="app">
@@ -812,22 +1030,30 @@
     </div>
 
     <div class="stage-toolbar">
-      <button type="button" class="tool-btn" id="btnRandom">
+      <button type="button" class="tool-btn" id="btnRandom" title="R">
         <span class="icon">🎲</span>
         <span class="label">Случайно</span>
       </button>
-      <button type="button" class="tool-btn" id="btnMirror">
+      <button type="button" class="tool-btn" id="btnVariation" title="V">
+        <span class="icon">✨</span>
+        <span class="label">Вариация</span>
+      </button>
+      <button type="button" class="tool-btn" id="btnMirror" title="M">
         <span class="icon">↔️</span>
         <span class="label">Отразить</span>
       </button>
-      <button type="button" class="tool-btn" id="btnSave">
+      <button type="button" class="tool-btn" id="btnSave" title="S">
         <span class="icon">💾</span>
         <span class="label">Сохранить</span>
       </button>
-      <button type="button" class="tool-btn" id="btnReset">
-        <span class="icon">↺</span>
-        <span class="label">Сброс</span>
-      </button>
+    </div>
+
+    <div class="icon-row">
+      <button type="button" class="icon-btn" id="btnUndo" title="Ctrl+Z">↶</button>
+      <button type="button" class="icon-btn" id="btnRedo" title="Ctrl+Y">↷</button>
+      <button type="button" class="icon-btn" id="btnAnim" title="Анимация">▶</button>
+      <button type="button" class="icon-btn" id="btnReset" title="Сброс">↺</button>
+      <button type="button" class="icon-btn" id="btnShare" title="Поделиться">🔗</button>
     </div>
   </div>
 
@@ -837,9 +1063,11 @@
       <button type="button" class="tab active" data-tab="face">😊 Лицо</button>
       <button type="button" class="tab" data-tab="style">🎨 Стиль</button>
       <button type="button" class="tab" data-tab="extras">✨ Детали</button>
+      <button type="button" class="tab" data-tab="photo">📷 Из фото</button>
       <button type="button" class="tab" data-tab="export">📦 Экспорт</button>
     </div>
 
+    <!-- ЛИЦО -->
     <div class="tab-content active" data-content="face">
       <div class="section">
         <div class="section-title">Настроение <span class="badge">быстрый старт</span></div>
@@ -867,6 +1095,7 @@
       </div>
     </div>
 
+    <!-- СТИЛЬ -->
     <div class="tab-content" data-content="style">
       <div class="section">
         <div class="section-title">Форма</div>
@@ -876,6 +1105,42 @@
       <div class="section">
         <div class="section-title">Цвет <span class="badge" id="colorName">purple</span></div>
         <div class="palette" id="palette"></div>
+        <div class="color-custom-row">
+          <label for="colorCustom">Свой цвет</label>
+          <input type="color" id="colorCustom" value="#a78bfa">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Градиент</div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Градиентная заливка</span>
+            <small>Переход двух цветов</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="gradientToggle">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+        <div class="color-custom-row">
+          <label>Второй цвет</label>
+          <input type="color" id="gradientColor" value="#ff5c8a">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Тень под формой</div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Мягкая тень</span>
+            <small>Придаёт объём</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="shadowToggle">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
       </div>
 
       <div class="section">
@@ -897,12 +1162,9 @@
           </div>
           <input type="range" id="strokeWidth" min="2" max="40" value="12">
         </div>
-        <div class="slider-row">
-          <div class="slider-label">
-            <span>Цвет обводки</span>
-            <span class="val" id="strokeColorHex">#000000</span>
-          </div>
-          <input type="color" id="strokeColor" value="#000000" style="height: 36px; padding: 0; border: none; background: none; cursor: pointer; width: 100%; border-radius: 8px;">
+        <div class="color-custom-row">
+          <label>Цвет обводки</label>
+          <input type="color" id="strokeColor" value="#000000">
         </div>
       </div>
 
@@ -939,10 +1201,21 @@
       </div>
     </div>
 
+    <!-- ДЕТАЛИ -->
     <div class="tab-content" data-content="extras">
       <div class="section">
         <div class="section-title">Аксессуар</div>
         <div class="feature-row" id="accessoryRow"></div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Поверх лица</span>
+            <small>Выключи, чтобы был под глазами</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="accessoryOnTop" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </div>
       </div>
 
       <div class="section">
@@ -969,16 +1242,69 @@
             <span class="switch-slider"></span>
           </label>
         </div>
-        <div class="slider-row">
-          <div class="slider-label">
-            <span>Цвет фона</span>
-            <span class="val" id="bgColorHex">#ffffff</span>
-          </div>
-          <input type="color" id="bgColor" value="#ffffff" style="height: 36px; padding: 0; border: none; background: none; cursor: pointer; width: 100%; border-radius: 8px;">
+        <div class="color-custom-row">
+          <label>Цвет фона</label>
+          <input type="color" id="bgColor" value="#ffffff">
         </div>
       </div>
     </div>
 
+    <!-- ИЗ ФОТО -->
+    <div class="tab-content" data-content="photo">
+      <div class="section">
+        <div class="section-title">Загрузить фото <span class="badge">AI</span></div>
+        <label class="upload-area" id="photoUploadLabel" for="photoInput">
+          <span class="big">📷</span>
+          <strong>Нажми</strong> или перетащи фото сюда<br>
+          <small style="color: var(--text-mute); font-size: 0.7rem;">AI удалит фон прямо в браузере</small>
+        </label>
+        <input type="file" id="photoInput" accept="image/*" hidden>
+        <div id="photoPreview" style="display: none; margin-top: 10px;">
+          <div class="photo-preview-mini">
+            <img id="photoPreviewImg" alt="Фото">
+            <div class="info">
+              <div id="photoPreviewName">photo.jpg</div>
+              <small>Готово к использованию</small>
+            </div>
+            <button type="button" class="icon-btn" id="btnRemovePhoto" title="Удалить">×</button>
+          </div>
+        </div>
+        <div class="progress-bar" id="photoProgress"><div class="progress-fill" id="photoProgressFill"></div></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Как использовать</div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Показывать фото</span>
+            <small>Вместо формы</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="usePhotoToggle">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <span>Поверх фото — лицо</span>
+            <small>Глаза, рот, брови</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="photoOverlayToggle" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Размер фото</span>
+            <span class="val" id="photoScaleVal">100%</span>
+          </div>
+          <input type="range" id="photoScale" min="40" max="140" value="100">
+        </div>
+      </div>
+    </div>
+
+    <!-- ЭКСПОРТ -->
     <div class="tab-content" data-content="export">
       <div class="section">
         <div class="section-title">Платформа</div>
@@ -991,14 +1317,32 @@
       </div>
 
       <div class="section">
+        <div class="section-title">В контексте чата</div>
+        <div class="contrast-preview">
+          <div class="contrast-box dark"><canvas id="contrastDark" width="120" height="120"></canvas></div>
+          <div class="contrast-box light"><canvas id="contrastLight" width="120" height="120"></canvas></div>
+        </div>
+      </div>
+
+      <div class="section">
         <div class="section-title">Скачать</div>
         <div class="download-grid">
           <button type="button" class="dl-btn primary" id="btnDownload">⬇ PNG <span class="ext">текущий размер</span></button>
           <button type="button" class="dl-btn" id="btnCopy">📋 Копировать <span class="ext">в буфер</span></button>
           <button type="button" class="dl-btn" id="btnZip">📦 ZIP <span class="ext">все размеры</span></button>
           <button type="button" class="dl-btn" id="btnGif">🎞 GIF <span class="ext">анимация</span></button>
-          <button type="button" class="dl-btn" id="btnJson">💾 Настройки <span class="ext">JSON</span></button>
+          <button type="button" class="dl-btn" id="btnJson">💾 JSON <span class="ext">настройки</span></button>
+          <button type="button" class="dl-btn" id="btnPngStack">🖼️ PNG-стек <span class="ext">112+56</span></button>
         </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Набор эмоутов <span class="badge" id="kitCount">0</span></div>
+        <div class="icon-row" style="margin-bottom: 8px;">
+          <button type="button" class="dl-btn" id="btnAddToKit" style="flex:1;">＋ Добавить в набор</button>
+          <button type="button" class="dl-btn" id="btnDownloadKit" style="flex:1;" disabled>📦 Скачать набор</button>
+        </div>
+        <div id="kitList" style="display: flex; flex-direction: column; gap: 6px;"></div>
       </div>
 
       <div class="section">
@@ -1013,17 +1357,17 @@
 </div>
 
 <footer>
-  <span>EmoteLab v2.0</span>
+  <span>EmoteLab v3.0</span>
   <span class="sep">·</span>
   <span>всё работает в браузере, ничего не отправляется</span>
 </footer>
 
 <script type="module">
 /* ============================================================
-   EmoteLab v2.0 — конструктор эмоутов
+   EmoteLab v3.0 — полная версия
    ============================================================ */
 
-// ---------- Данные ----------
+// ============ ДАННЫЕ ============
 
 const PALETTES = [
   { name: 'purple', color: '#a78bfa' },
@@ -1061,6 +1405,9 @@ const SHAPES = {
   cloud:    { icon: '<path d="M6 18 C3 18 2 15 4 13 C3 10 5 7 8 7 C9 4 13 3 15 5 C18 4 21 6 21 9 C22 12 20 14 18 15 C18 17 16 18 14 18 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s*0.55, r=s*0.18; ctx.fillStyle=c; [[cx-r*1.3, cy, r*0.9], [cx-r*0.4, cy-r*0.5, r*1.1], [cx+r*0.6, cy-r*0.3, r*1], [cx+r*1.3, cy+r*0.15, r*0.85], [cx, cy+r*0.3, r*1.2]].forEach(([x,y,rr])=>{ ctx.beginPath(); ctx.arc(x,y,rr,0,Math.PI*2); ctx.fill(); }); } },
   bubble:   { icon: '<path d="M12 3 C17 3 21 6 21 11 C21 16 17 19 12 19 C11 19 10 19 9 19 L4 22 L5.5 18 C3.5 16.5 3 14 3 11 C3 6 7 3 12 3 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle=c; ctx.fill(); ctx.beginPath(); ctx.moveTo(cx-r*0.6, cy+r*0.85); ctx.lineTo(cx-r*0.9, cy+r*1.15); ctx.lineTo(cx-r*0.35, cy+r*0.95); ctx.closePath(); ctx.fill(); } },
   drop:     { icon: '<path d="M12 3 C15 8 18 12 18 15 C18 18.3 15.3 21 12 21 C8.7 21 6 18.3 6 15 C6 12 9 8 12 3 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s*0.55, r=s*0.35; ctx.beginPath(); ctx.moveTo(cx, cy-r*1.5); ctx.bezierCurveTo(cx+r*1.1, cy-r*0.3, cx+r, cy+r*0.8, cx, cy+r); ctx.bezierCurveTo(cx-r, cy+r*0.8, cx-r*1.1, cy-r*0.3, cx, cy-r*1.5); ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  donut:    { icon: '<path d="M12 3 C17 3 21 7 21 12 C21 17 17 21 12 21 C7 21 3 17 3 12 C3 7 7 3 12 3 Z M12 8 C9.8 8 8 9.8 8 12 C8 14.2 9.8 16 12 16 C14.2 16 16 14.2 16 12 C16 9.8 14.2 8 12 8 Z" fill-rule="evenodd"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42, ir=s*0.18; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.arc(cx, cy, ir, 0, Math.PI*2, true); ctx.fillStyle=c; ctx.fill('evenodd'); } },
+  lightning:{ icon: '<path d="M13 2 L4 14 L11 14 L10 22 L20 9 L13 9 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.45; ctx.beginPath(); ctx.moveTo(cx+r*0.2, cy-r); ctx.lineTo(cx-r*0.6, cy+r*0.1); ctx.lineTo(cx-r*0.05, cy+r*0.1); ctx.lineTo(cx-r*0.3, cy+r); ctx.lineTo(cx+r*0.6, cy-r*0.15); ctx.lineTo(cx+r*0.05, cy-r*0.15); ctx.closePath(); ctx.fillStyle=c; ctx.fill(); } },
+  moon:     { icon: '<path d="M20 14 C18 16 15 17 13 17 C8 17 5 13 5 9 C5 6 6 4 8 2 C5 4 4 7 4 10 C4 15 8 19 13 19 C16 19 18 18 20 14 Z"/>', draw(ctx, s, c) { const cx=s/2, cy=s/2, r=s*0.42; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle=c; ctx.fill(); ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(cx+r*0.35, cy-r*0.15, r*0.85, 0, Math.PI*2); ctx.fill(); ctx.globalCompositeOperation = 'source-over'; } },
 };
 
 const EYES = {
@@ -1073,6 +1420,7 @@ const EYES = {
   heart:   { icon: '<path d="M8 10 C7 8 4.5 8 4.5 10 C4.5 12 8 14 8 14 C8 14 11.5 12 11.5 10 C11.5 8 9 8 8 10 Z" fill="currentColor" stroke="none"/><path d="M16 10 C15 8 12.5 8 12.5 10 C12.5 12 16 14 16 14 C16 14 19.5 12 19.5 10 C19.5 8 17 8 16 10 Z" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ const x=cx+s*0.55*d, hs=s*0.35; ctx.beginPath(); ctx.moveTo(x, cy+hs*0.5); ctx.bezierCurveTo(x-hs*1.1, cy-hs*0.3, x-hs*0.3, cy-hs*1.1, x, cy-hs*0.3); ctx.bezierCurveTo(x+hs*0.3, cy-hs*1.1, x+hs*1.1, cy-hs*0.3, x, cy+hs*0.5); ctx.closePath(); ctx.fill(); }); } },
   star:    { icon: '<path d="M8 6 L9.5 10 L13.5 10 L10.3 12.4 L11.5 16.3 L8 13.9 L4.5 16.3 L5.7 12.4 L2.5 10 L6.5 10 Z" fill="currentColor" stroke="none"/><path d="M17 6 L18.5 10 L22.5 10 L19.3 12.4 L20.5 16.3 L17 13.9 L13.5 16.3 L14.7 12.4 L11.5 10 L15.5 10 Z" fill="currentColor" stroke="none"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ const x=cx+s*0.55*d, o=s*0.25, i=o*0.45; ctx.beginPath(); for (let k=0; k<10; k++) { const a=(k/10)*Math.PI*2-Math.PI/2; const r=k%2===0?o:i; const px=x+Math.cos(a)*r, py=cy+Math.sin(a)*r; k===0?ctx.moveTo(px,py):ctx.lineTo(px,py); } ctx.closePath(); ctx.fill(); }); } },
   closed:  { icon: '<path d="M5 12 Q8 15 11 12"/><path d="M13 12 Q16 15 19 12"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.7*d, cy); ctx.quadraticCurveTo(cx+s*0.55*d, cy+s*0.2, cx+s*0.4*d, cy); ctx.stroke(); }); } },
+  lashes:  { icon: '<circle cx="8" cy="13" r="3"/><path d="M5 10 L5.5 8"/><path d="M8 9 L8 7"/><path d="M11 10 L10.5 8"/><circle cx="16" cy="13" r="3"/><path d="M13 10 L13.5 8"/><path d="M16 9 L16 7"/><path d="M19 10 L18.5 8"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.arc(cx+s*0.55*d, cy, s*0.2, 0, Math.PI*2); ctx.stroke(); }); ctx.lineWidth=s*0.1; [-1,1].forEach(d=>{ [-0.15,0,0.15].forEach((off, i)=>{ const x=cx+s*0.55*d + s*off; ctx.beginPath(); ctx.moveTo(x, cy-s*0.2); ctx.lineTo(x + s*0.05*off*10, cy-s*0.35); ctx.stroke(); }); }); } },
   none:    { icon: '<path d="M4 4 L20 20 M20 4 L4 20" opacity="0.4"/>', draw() {} },
 };
 
@@ -1116,6 +1464,10 @@ const ACCESSORIES = {
   headphones: { icon: '<path d="M4 14 L4 12 Q4 5 12 5 Q20 5 20 12 L20 14" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="12" width="4" height="6" rx="1" fill="currentColor"/><rect x="18" y="12" width="4" height="6" rx="1" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.13; ctx.lineCap='round'; ctx.beginPath(); ctx.arc(cx, cy+s*0.1, s*0.75, Math.PI*1.15, Math.PI*1.85); ctx.stroke(); ctx.fillStyle='#1e1e2e'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.roundRect(cx+s*0.72*d-s*0.12, cy-s*0.15, s*0.24, s*0.4, s*0.08); ctx.fill(); }); } },
   halo:       { icon: '<ellipse cx="12" cy="6" rx="6" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#fbbf24'; ctx.lineWidth=s*0.08; ctx.beginPath(); ctx.ellipse(cx, cy-s*0.85, s*0.35, s*0.08, 0, 0, Math.PI*2); ctx.stroke(); } },
   horns:      { icon: '<path d="M6 8 Q5 4 8 4 L9 8 Z" fill="currentColor"/><path d="M18 8 Q19 4 16 4 L15 8 Z" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#ef4444'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.moveTo(cx+s*0.35*d, cy-s*0.65); ctx.quadraticCurveTo(cx+s*0.7*d, cy-s*0.95, cx+s*0.55*d, cy-s*1.15); ctx.quadraticCurveTo(cx+s*0.4*d, cy-s*0.9, cx+s*0.25*d, cy-s*0.7); ctx.closePath(); ctx.fill(); }); } },
+  mask:       { icon: '<path d="M4 10 Q12 8 20 10 L20 14 Q12 16 4 14 Z" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="#fff"/><circle cx="15" cy="12" r="1" fill="#fff"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.moveTo(cx-s*0.55, cy); ctx.quadraticCurveTo(cx, cy-s*0.15, cx+s*0.55, cy); ctx.lineTo(cx+s*0.5, cy+s*0.3); ctx.quadraticCurveTo(cx, cy+s*0.45, cx-s*0.5, cy+s*0.3); ctx.closePath(); ctx.fill(); ctx.fillStyle='#fff'; [-1,1].forEach(d=>{ ctx.beginPath(); ctx.ellipse(cx+s*0.25*d, cy+s*0.12, s*0.05, s*0.03, 0, 0, Math.PI*2); ctx.fill(); }); } },
+  eyePatch:   { icon: '<circle cx="8" cy="12" r="3" fill="currentColor"/><path d="M5 7 L11 17"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; ctx.beginPath(); ctx.arc(cx-s*0.55, cy, s*0.28, 0, Math.PI*2); ctx.fill(); ctx.strokeStyle='#1e1e2e'; ctx.lineWidth=s*0.04; ctx.beginPath(); ctx.moveTo(cx-s*0.85, cy-s*0.5); ctx.lineTo(cx-s*0.25, cy+s*0.5); ctx.stroke(); } },
+  scar:       { icon: '<path d="M4 8 L6 10 L5 12 L7 14"/>', draw(ctx, cx, cy, s) { ctx.strokeStyle='#ef4444'; ctx.lineWidth=s*0.06; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(cx-s*0.7, cy-s*0.4); ctx.lineTo(cx-s*0.6, cy-s*0.25); ctx.lineTo(cx-s*0.7, cy-s*0.1); ctx.lineTo(cx-s*0.55, cy+s*0.05); ctx.stroke(); } },
+  freckles:   { icon: '<circle cx="6" cy="14" r="0.8" fill="currentColor"/><circle cx="8" cy="15" r="0.8" fill="currentColor"/><circle cx="16" cy="14" r="0.8" fill="currentColor"/><circle cx="18" cy="15" r="0.8" fill="currentColor"/>', draw(ctx, cx, cy, s) { ctx.fillStyle='#1e1e2e'; const pts = [[-0.75, 0.15], [-0.65, 0.25], [-0.55, 0.15], [0.55, 0.15], [0.65, 0.25], [0.75, 0.15]]; pts.forEach(([x, y]) => { ctx.beginPath(); ctx.arc(cx+s*x, cy+s*y, s*0.03, 0, Math.PI*2); ctx.fill(); }); } },
 };
 
 const MOODS = [
@@ -1142,18 +1494,21 @@ const PRESETS = [
   { id: 'custom',       name: '512×512',      sizes: [512] },
 ];
 
-// ---------- Состояние ----------
+// ============ СОСТОЯНИЕ ============
 
 function defaultState() {
   return {
     shape: 'circle',
     color: '#a78bfa',
     colorName: 'purple',
+    gradient: { enabled: false, color2: '#ff5c8a' },
+    shadow: false,
     eyes: 'dots',
     brows: 'none',
     mouth: 'smile',
     blush: 'none',
     accessory: 'none',
+    accessoryOnTop: true,
     eyeSize: 100,
     eyeDist: 100,
     mouthSize: 100,
@@ -1164,59 +1519,143 @@ function defaultState() {
     text: '',
     textSize: 60,
     preset: 'twitch_emote',
+    photo: { blob: null, url: null, name: '', scale: 100, use: false, overlay: true },
   };
 }
 
 let state = defaultState();
 
-// ---------- DOM ----------
+// История для undo/redo
+const history = { stack: [], index: -1, limit: 30 };
 
-const canvas = document.getElementById('emoteCanvas');
+// Набор эмоутов
+let emoteKit = [];
+
+// Анимация превью
+let animationFrame = null;
+let animationPhase = 0;
+
+// ============ DOM ============
+
+const $ = (id) => document.getElementById(id);
+const canvas = $('emoteCanvas');
 const ctx = canvas.getContext('2d');
-const shapeGrid = document.getElementById('shapeGrid');
-const palette = document.getElementById('palette');
-const eyesRow = document.getElementById('eyesRow');
-const browsRow = document.getElementById('browsRow');
-const mouthRow = document.getElementById('mouthRow');
-const blushRow = document.getElementById('blushRow');
-const accessoryRow = document.getElementById('accessoryRow');
-const moodRow = document.getElementById('moodRow');
-const presetRow = document.getElementById('presetRow');
-const sizePreview = document.getElementById('sizePreview');
-const savedList = document.getElementById('savedList');
-const colorName = document.getElementById('colorName');
-const eyeSize = document.getElementById('eyeSize');
-const eyeSizeVal = document.getElementById('eyeSizeVal');
-const eyeDist = document.getElementById('eyeDist');
-const eyeDistVal = document.getElementById('eyeDistVal');
-const mouthSize = document.getElementById('mouthSize');
-const mouthSizeVal = document.getElementById('mouthSizeVal');
-const rotate = document.getElementById('rotate');
-const rotateVal = document.getElementById('rotateVal');
-const strokeToggle = document.getElementById('strokeToggle');
-const strokeWidth = document.getElementById('strokeWidth');
-const strokeWidthVal = document.getElementById('strokeWidthVal');
-const strokeColor = document.getElementById('strokeColor');
-const strokeColorHex = document.getElementById('strokeColorHex');
-const bgToggle = document.getElementById('bgToggle');
-const bgColor = document.getElementById('bgColor');
-const bgColorHex = document.getElementById('bgColorHex');
-const textInput = document.getElementById('textInput');
-const textSize = document.getElementById('textSize');
-const textSizeVal = document.getElementById('textSizeVal');
-const statusEl = document.getElementById('status');
 
-// ---------- Статус ----------
+const els = {
+  shapeGrid: $('shapeGrid'),
+  palette: $('palette'),
+  colorCustom: $('colorCustom'),
+  colorName: $('colorName'),
+  gradientToggle: $('gradientToggle'),
+  gradientColor: $('gradientColor'),
+  shadowToggle: $('shadowToggle'),
+  eyesRow: $('eyesRow'),
+  browsRow: $('browsRow'),
+  mouthRow: $('mouthRow'),
+  blushRow: $('blushRow'),
+  accessoryRow: $('accessoryRow'),
+  accessoryOnTop: $('accessoryOnTop'),
+  moodRow: $('moodRow'),
+  presetRow: $('presetRow'),
+  sizePreview: $('sizePreview'),
+  savedList: $('savedList'),
+  kitList: $('kitList'),
+  kitCount: $('kitCount'),
+  btnDownloadKit: $('btnDownloadKit'),
+  contrastDark: $('contrastDark'),
+  contrastLight: $('contrastLight'),
+  eyeSize: $('eyeSize'), eyeSizeVal: $('eyeSizeVal'),
+  eyeDist: $('eyeDist'), eyeDistVal: $('eyeDistVal'),
+  mouthSize: $('mouthSize'), mouthSizeVal: $('mouthSizeVal'),
+  rotate: $('rotate'), rotateVal: $('rotateVal'),
+  strokeToggle: $('strokeToggle'),
+  strokeWidth: $('strokeWidth'), strokeWidthVal: $('strokeWidthVal'),
+  strokeColor: $('strokeColor'),
+  bgToggle: $('bgToggle'),
+  bgColor: $('bgColor'),
+  textInput: $('textInput'),
+  textSize: $('textSize'), textSizeVal: $('textSizeVal'),
+  photoUploadLabel: $('photoUploadLabel'),
+  photoInput: $('photoInput'),
+  photoPreview: $('photoPreview'),
+  photoPreviewImg: $('photoPreviewImg'),
+  photoPreviewName: $('photoPreviewName'),
+  btnRemovePhoto: $('btnRemovePhoto'),
+  photoProgress: $('photoProgress'),
+  photoProgressFill: $('photoProgressFill'),
+  usePhotoToggle: $('usePhotoToggle'),
+  photoOverlayToggle: $('photoOverlayToggle'),
+  photoScale: $('photoScale'), photoScaleVal: $('photoScaleVal'),
+  status: $('status'),
+  btnUndo: $('btnUndo'),
+  btnRedo: $('btnRedo'),
+  btnAnim: $('btnAnim'),
+};
+
+// ============ СТАТУС ============
 
 function setStatus(text, type = 'info') {
-  statusEl.textContent = text || '';
-  statusEl.classList.remove('success', 'error');
-  statusEl.classList.toggle('visible', !!text);
-  if (type === 'success') statusEl.classList.add('success');
-  if (type === 'error') statusEl.classList.add('error');
+  els.status.textContent = text || '';
+  els.status.classList.remove('success', 'error');
+  els.status.classList.toggle('visible', !!text);
+  if (type === 'success') els.status.classList.add('success');
+  if (type === 'error') els.status.classList.add('error');
 }
 
-// ---------- Рисование ----------
+// ============ ИСТОРИЯ ============
+
+function snapshot() {
+  return JSON.parse(JSON.stringify({
+    shape: state.shape, color: state.color, colorName: state.colorName,
+    gradient: state.gradient, shadow: state.shadow,
+    eyes: state.eyes, brows: state.brows, mouth: state.mouth, blush: state.blush,
+    accessory: state.accessory, accessoryOnTop: state.accessoryOnTop,
+    eyeSize: state.eyeSize, eyeDist: state.eyeDist, mouthSize: state.mouthSize,
+    rotate: state.rotate, mirror: state.mirror,
+    stroke: state.stroke, background: state.background,
+    text: state.text, textSize: state.textSize, preset: state.preset,
+  }));
+}
+
+function pushHistory() {
+  const snap = snapshot();
+  const last = history.stack[history.index];
+  if (last && JSON.stringify(last) === JSON.stringify(snap)) return;
+  history.stack = history.stack.slice(0, history.index + 1);
+  history.stack.push(snap);
+  if (history.stack.length > history.limit) history.stack.shift();
+  history.index = history.stack.length - 1;
+  updateHistoryButtons();
+}
+
+function undo() {
+  if (history.index <= 0) return;
+  history.index--;
+  applySnapshot(history.stack[history.index]);
+  updateHistoryButtons();
+  setStatus('Отменено');
+}
+
+function redo() {
+  if (history.index >= history.stack.length - 1) return;
+  history.index++;
+  applySnapshot(history.stack[history.index]);
+  updateHistoryButtons();
+  setStatus('Повторено');
+}
+
+function applySnapshot(snap) {
+  Object.assign(state, snap);
+  syncUIFromState();
+  renderAll();
+}
+
+function updateHistoryButtons() {
+  els.btnUndo.disabled = history.index <= 0;
+  els.btnRedo.disabled = history.index >= history.stack.length - 1;
+}
+
+// ============ РИСОВАНИЕ ============
 
 function drawEmote(targetCtx, targetSize, overrides = {}) {
   const s = Object.assign({}, state, overrides);
@@ -1228,7 +1667,7 @@ function drawEmote(targetCtx, targetSize, overrides = {}) {
     targetCtx.fillRect(0, 0, targetSize, targetSize);
   }
 
-  // Трансформации (поворот + зеркало)
+  // Трансформации
   targetCtx.save();
   targetCtx.translate(targetSize / 2, targetSize / 2);
   if (s.rotate) targetCtx.rotate(s.rotate * Math.PI / 180);
@@ -1240,49 +1679,91 @@ function drawEmote(targetCtx, targetSize, overrides = {}) {
     drawStrokeLayer(targetCtx, targetSize, s);
   }
 
-  // Форма
-  SHAPES[s.shape]?.draw(targetCtx, targetSize, s.color);
-
-  // Позиции элементов
-  const eyeSizePx = targetSize * 0.12 * (s.eyeSize / 100);
-  const eyeDistPx = targetSize * 0.18 * (s.eyeDist / 100);
-  const eyeY = targetSize * 0.42;
-  const eyeCx = targetSize / 2;
-  const eyesScale = eyeSizePx * 2.2 * (eyeDistPx / (targetSize * 0.18) / 1.0);
-
-  // Брови
-  if (s.brows && s.brows !== 'none') {
-    const browY = eyeY - targetSize * 0.16;
-    BROWS[s.brows]?.draw(targetCtx, eyeCx, browY, eyesScale);
+  // Форма (с градиентом и тенью)
+  if (!s.photo.use) {
+    targetCtx.save();
+    if (s.shadow) {
+      targetCtx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+      targetCtx.shadowBlur = targetSize * 0.05;
+      targetCtx.shadowOffsetY = targetSize * 0.02;
+    }
+    let fill;
+    if (s.gradient.enabled) {
+      const g = targetCtx.createLinearGradient(0, 0, targetSize, targetSize);
+      g.addColorStop(0, s.color);
+      g.addColorStop(1, s.gradient.color2);
+      fill = g;
+    } else {
+      fill = s.color;
+    }
+    SHAPES[s.shape]?.draw(targetCtx, targetSize, fill);
+    targetCtx.restore();
   }
 
-  // Глаза
-  if (s.eyes && s.eyes !== 'none') {
-    EYES[s.eyes]?.draw(targetCtx, eyeCx, eyeY, eyesScale);
+  // Если фото включено — рисуем его вместо формы
+  if (s.photo.use && s.photo._imgEl) {
+    targetCtx.save();
+    if (s.shadow) {
+      targetCtx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+      targetCtx.shadowBlur = targetSize * 0.05;
+    }
+    const img = s.photo._imgEl;
+    const minSide = Math.min(img.naturalWidth, img.naturalHeight);
+    const sx = (img.naturalWidth - minSide) / 2;
+    const sy = (img.naturalHeight - minSide) / 2;
+    const scale = s.photo.scale / 100;
+    const drawSize = targetSize * scale;
+    const offset = (targetSize - drawSize) / 2;
+
+    // Маска формы
+    if (s.shape === 'circle') {
+      targetCtx.beginPath();
+      targetCtx.arc(targetSize / 2, targetSize / 2, drawSize * 0.4, 0, Math.PI * 2);
+      targetCtx.clip();
+    } else if (s.shape === 'squircle') {
+      targetCtx.beginPath();
+      targetCtx.roundRect(offset + drawSize * 0.1, offset + drawSize * 0.1, drawSize * 0.8, drawSize * 0.8, drawSize * 0.28);
+      targetCtx.clip();
+    }
+
+    targetCtx.drawImage(img, sx, sy, minSide, minSide, offset, offset, drawSize, drawSize);
+    targetCtx.restore();
   }
 
-  // Румянец
-  if (s.blush && s.blush !== 'none') {
-    const blushY = targetSize * 0.58;
-    const blushScale = targetSize * 0.5;
-    BLUSH[s.blush]?.draw(targetCtx, targetSize / 2, blushY, blushScale);
-  }
+  // Глаза, брови, рот, румянец — рисуем поверх (если фото включено, только если overlay=true)
+  const drawFace = !s.photo.use || s.photo.overlay;
+  if (drawFace) {
+    const eyeSizePx = targetSize * 0.12 * (s.eyeSize / 100);
+    const eyeDistPx = targetSize * 0.18 * (s.eyeDist / 100);
+    const eyeY = targetSize * 0.42;
+    const eyeCx = targetSize / 2;
+    const eyesScale = eyeSizePx * 2.2 * (eyeDistPx / (targetSize * 0.18));
 
-  // Рот
-  if (s.mouth && s.mouth !== 'none') {
-    const mouthY = targetSize * 0.65;
-    const mouthSizePx = targetSize * 0.25 * (s.mouthSize / 100);
-    MOUTHS[s.mouth]?.draw(targetCtx, targetSize / 2, mouthY, mouthSizePx * 1.5);
+    if (s.brows && s.brows !== 'none') {
+      const browY = eyeY - targetSize * 0.16;
+      BROWS[s.brows]?.draw(targetCtx, eyeCx, browY, eyesScale);
+    }
+    if (s.eyes && s.eyes !== 'none') {
+      EYES[s.eyes]?.draw(targetCtx, eyeCx, eyeY, eyesScale);
+    }
+    if (s.blush && s.blush !== 'none') {
+      BLUSH[s.blush]?.draw(targetCtx, targetSize / 2, targetSize * 0.58, targetSize * 0.5);
+    }
+    if (s.mouth && s.mouth !== 'none') {
+      const mouthY = targetSize * 0.65;
+      const mouthSizePx = targetSize * 0.25 * (s.mouthSize / 100);
+      MOUTHS[s.mouth]?.draw(targetCtx, targetSize / 2, mouthY, mouthSizePx * 1.5);
+    }
   }
 
   // Аксессуар
-  if (s.accessory && s.accessory !== 'none') {
+  if (s.accessory && s.accessory !== 'none' && (s.accessoryOnTop || !s.photo.use)) {
     ACCESSORIES[s.accessory]?.draw(targetCtx, targetSize / 2, targetSize / 2, targetSize * 0.85);
   }
 
   targetCtx.restore();
 
-  // Текст поверх
+  // Текст
   if (s.text && s.text.trim()) {
     const fontSize = targetSize * (s.textSize / 100) * 0.35;
     targetCtx.font = `800 ${fontSize}px Inter, sans-serif`;
@@ -1301,14 +1782,24 @@ function drawStrokeLayer(targetCtx, targetSize, s) {
   const steps = 24;
   const offset = s.stroke.width;
 
-  // Временный canvas с силуэтом
   const tmp = document.createElement('canvas');
   tmp.width = targetSize;
   tmp.height = targetSize;
   const tctx = tmp.getContext('2d');
 
-  // Рисуем форму и все элементы лица
-  SHAPES[s.shape]?.draw(tctx, targetSize, s.color);
+  // Форма или фото
+  if (s.photo.use && s.photo._imgEl) {
+    const img = s.photo._imgEl;
+    const minSide = Math.min(img.naturalWidth, img.naturalHeight);
+    const sx = (img.naturalWidth - minSide) / 2;
+    const sy = (img.naturalHeight - minSide) / 2;
+    const scale = s.photo.scale / 100;
+    const drawSize = targetSize * scale;
+    const off = (targetSize - drawSize) / 2;
+    tctx.drawImage(img, sx, sy, minSide, minSide, off, off, drawSize, drawSize);
+  } else {
+    SHAPES[s.shape]?.draw(tctx, targetSize, s.color);
+  }
 
   const eyeSizePx = targetSize * 0.12 * (s.eyeSize / 100);
   const eyeDistPx = targetSize * 0.18 * (s.eyeDist / 100);
@@ -1316,12 +1807,10 @@ function drawStrokeLayer(targetCtx, targetSize, s) {
   EYES[s.eyes]?.draw(tctx, targetSize / 2, targetSize * 0.42, eyeScale);
   MOUTHS[s.mouth]?.draw(tctx, targetSize / 2, targetSize * 0.65, targetSize * 0.25 * (s.mouthSize / 100) * 1.5);
 
-  // Красим силуэт в цвет обводки
   tctx.globalCompositeOperation = 'source-in';
   tctx.fillStyle = s.stroke.color;
   tctx.fillRect(0, 0, targetSize, targetSize);
 
-  // Рисуем силуэт много раз по кругу
   for (let i = 0; i < steps; i++) {
     const a = (i / steps) * Math.PI * 2;
     const dx = Math.cos(a) * offset;
@@ -1330,7 +1819,7 @@ function drawStrokeLayer(targetCtx, targetSize, s) {
   }
 }
 
-// ---------- UI: сетки иконок ----------
+// ============ UI ============
 
 function renderFeatureGrid(container, items, activeKey, onSelect) {
   container.innerHTML = '';
@@ -1343,15 +1832,15 @@ function renderFeatureGrid(container, items, activeKey, onSelect) {
     btn.innerHTML = `<svg viewBox="0 0 24 24">${item.icon}</svg>`;
     btn.addEventListener('click', () => {
       onSelect(key);
-      // Перерисовываем всю сетку для обновления активного класса
       renderFeatureGrid(container, items, key, onSelect);
+      pushHistory();
     });
     container.appendChild(btn);
   });
 }
 
 function renderShapeGrid() {
-  shapeGrid.innerHTML = '';
+  els.shapeGrid.innerHTML = '';
   Object.keys(SHAPES).forEach(key => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -1362,13 +1851,14 @@ function renderShapeGrid() {
       state.shape = key;
       renderShapeGrid();
       render();
+      pushHistory();
     });
-    shapeGrid.appendChild(btn);
+    els.shapeGrid.appendChild(btn);
   });
 }
 
 function renderPalette() {
-  palette.innerHTML = '';
+  els.palette.innerHTML = '';
   PALETTES.forEach(p => {
     const sw = document.createElement('button');
     sw.type = 'button';
@@ -1378,28 +1868,28 @@ function renderPalette() {
     sw.addEventListener('click', () => {
       state.color = p.color;
       state.colorName = p.name;
-      colorName.textContent = p.name;
+      els.colorName.textContent = p.name;
       renderPalette();
       render();
+      pushHistory();
     });
-    palette.appendChild(sw);
+    els.palette.appendChild(sw);
   });
 }
 
 function renderMoods() {
-  moodRow.innerHTML = '';
+  els.moodRow.innerHTML = '';
   MOODS.forEach(m => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'mood-btn';
     btn.innerHTML = `<span class="emoji">${m.emoji}</span><span>${m.id}</span>`;
     btn.addEventListener('click', () => applyMood(m));
-    moodRow.appendChild(btn);
+    els.moodRow.appendChild(btn);
   });
 }
 
 function applyMood(m) {
-  // Копируем состояние настроения в state, не теряя настройки обводки/фона/текста
   const keep = {
     stroke: state.stroke,
     background: state.background,
@@ -1411,14 +1901,20 @@ function applyMood(m) {
     eyeDist: state.eyeDist,
     mouthSize: state.mouthSize,
     preset: state.preset,
+    photo: state.photo,
+    gradient: state.gradient,
+    shadow: state.shadow,
+    accessoryOnTop: state.accessoryOnTop,
   };
   Object.assign(state, m.state, keep);
-  colorName.textContent = state.colorName;
+  els.colorName.textContent = state.colorName;
+  syncUIFromState();
   renderAll();
+  pushHistory();
 }
 
 function renderPresets() {
-  presetRow.innerHTML = '';
+  els.presetRow.innerHTML = '';
   PRESETS.forEach(p => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -1429,46 +1925,113 @@ function renderPresets() {
       renderPresets();
       renderSizePreview();
     });
-    presetRow.appendChild(btn);
+    els.presetRow.appendChild(btn);
   });
 }
 
 function renderSavedList() {
   const list = JSON.parse(localStorage.getItem('emotelab_saves') || '[]');
-  savedList.innerHTML = '';
+  els.savedList.innerHTML = '';
   if (!list.length) {
     const empty = document.createElement('div');
     empty.className = 'saved-empty';
     empty.textContent = 'Пока пусто. Нажми «Сохранить» слева.';
-    savedList.appendChild(empty);
+    els.savedList.appendChild(empty);
     return;
   }
   list.forEach((save, idx) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'preset-chip';
-    btn.style.flexDirection = 'row';
-    btn.style.justifyContent = 'space-between';
-    btn.style.alignItems = 'center';
-    btn.innerHTML = `<span class="name">${save.name}</span><span style="font-size: 0.7rem; color: var(--text-mute);">загрузить</span>`;
-    btn.addEventListener('click', () => {
+    const item = document.createElement('div');
+    item.className = 'save-item';
+
+    const c = document.createElement('canvas');
+    c.width = 80;
+    c.height = 80;
+    try {
+      drawEmote(c.getContext('2d'), 80, save.data);
+    } catch(e) { /* ignore */ }
+
+    const info = document.createElement('div');
+    info.className = 'save-item-info';
+    info.textContent = save.name;
+
+    const loadBtn = document.createElement('button');
+    loadBtn.type = 'button';
+    loadBtn.className = 'save-item-btn';
+    loadBtn.textContent = 'Загрузить';
+    loadBtn.addEventListener('click', () => {
       state = Object.assign(defaultState(), save.data);
       syncUIFromState();
       renderAll();
+      pushHistory();
       setStatus(`Загружено: ${save.name}`, 'success');
     });
-    savedList.appendChild(btn);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'save-item-btn remove';
+    removeBtn.textContent = '×';
+    removeBtn.addEventListener('click', () => {
+      const list = JSON.parse(localStorage.getItem('emotelab_saves') || '[]');
+      list.splice(idx, 1);
+      localStorage.setItem('emotelab_saves', JSON.stringify(list));
+      renderSavedList();
+    });
+
+    item.appendChild(c);
+    item.appendChild(info);
+    item.appendChild(loadBtn);
+    item.appendChild(removeBtn);
+    els.savedList.appendChild(item);
+  });
+}
+
+function renderKit() {
+  els.kitCount.textContent = emoteKit.length;
+  els.btnDownloadKit.disabled = emoteKit.length === 0;
+  els.kitList.innerHTML = '';
+  if (!emoteKit.length) {
+    const empty = document.createElement('div');
+    empty.className = 'saved-empty';
+    empty.textContent = 'Добавь эмоуты в набор, чтобы скачать их всех сразу.';
+    els.kitList.appendChild(empty);
+    return;
+  }
+  emoteKit.forEach((item, idx) => {
+    const row = document.createElement('div');
+    row.className = 'save-item';
+
+    const c = document.createElement('canvas');
+    c.width = 80;
+    c.height = 80;
+    try { drawEmote(c.getContext('2d'), 80, item.data); } catch(e) {}
+
+    const info = document.createElement('div');
+    info.className = 'save-item-info';
+    info.textContent = item.name;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'save-item-btn remove';
+    removeBtn.textContent = '×';
+    removeBtn.addEventListener('click', () => {
+      emoteKit.splice(idx, 1);
+      renderKit();
+    });
+
+    row.appendChild(c);
+    row.appendChild(info);
+    row.appendChild(removeBtn);
+    els.kitList.appendChild(row);
   });
 }
 
 function renderSizePreview() {
   const p = PRESETS.find(x => x.id === state.preset) || PRESETS[0];
-  sizePreview.innerHTML = '';
+  els.sizePreview.innerHTML = '';
   const maxVis = 80;
   p.sizes.slice(0, 4).forEach(size => {
     const wrap = document.createElement('div');
     wrap.className = 'size-preview-item';
-
     const c = document.createElement('canvas');
     const vis = Math.min(maxVis, Math.max(24, Math.round(size / 2)));
     c.width = size;
@@ -1476,69 +2039,78 @@ function renderSizePreview() {
     c.style.width = vis + 'px';
     c.style.height = vis + 'px';
     drawEmote(c.getContext('2d'), size);
-
     const label = document.createElement('div');
     label.className = 'label';
     label.textContent = size + 'px';
-
     wrap.appendChild(c);
     wrap.appendChild(label);
-    sizePreview.appendChild(wrap);
+    els.sizePreview.appendChild(wrap);
   });
 }
 
-// ---------- Полный рендер ----------
+function renderContrastPreview() {
+  drawEmote(els.contrastDark.getContext('2d'), 120);
+  drawEmote(els.contrastLight.getContext('2d'), 120);
+}
 
 function render() {
   drawEmote(ctx, 512);
   renderSizePreview();
+  renderContrastPreview();
 }
 
 function syncUIFromState() {
-  // Ползунки и тумблеры
-  eyeSize.value = state.eyeSize;
-  eyeSizeVal.textContent = state.eyeSize + '%';
-  eyeDist.value = state.eyeDist;
-  eyeDistVal.textContent = state.eyeDist + '%';
-  mouthSize.value = state.mouthSize;
-  mouthSizeVal.textContent = state.mouthSize + '%';
-  rotate.value = state.rotate;
-  rotateVal.textContent = state.rotate + '°';
-  strokeToggle.checked = state.stroke.enabled;
-  strokeWidth.value = state.stroke.width;
-  strokeWidthVal.textContent = state.stroke.width + ' px';
-  strokeColor.value = state.stroke.color;
-  strokeColorHex.textContent = state.stroke.color;
-  bgToggle.checked = state.background.enabled;
-  bgColor.value = state.background.color;
-  bgColorHex.textContent = state.background.color;
-  textInput.value = state.text;
-  textSize.value = state.textSize;
-  textSizeVal.textContent = state.textSize + '%';
-  colorName.textContent = state.colorName;
+  els.eyeSize.value = state.eyeSize;
+  els.eyeSizeVal.textContent = state.eyeSize + '%';
+  els.eyeDist.value = state.eyeDist;
+  els.eyeDistVal.textContent = state.eyeDist + '%';
+  els.mouthSize.value = state.mouthSize;
+  els.mouthSizeVal.textContent = state.mouthSize + '%';
+  els.rotate.value = state.rotate;
+  els.rotateVal.textContent = state.rotate + '°';
+  els.strokeToggle.checked = state.stroke.enabled;
+  els.strokeWidth.value = state.stroke.width;
+  els.strokeWidthVal.textContent = state.stroke.width + ' px';
+  els.strokeColor.value = state.stroke.color;
+  els.bgToggle.checked = state.background.enabled;
+  els.bgColor.value = state.background.color;
+  els.textInput.value = state.text;
+  els.textSize.value = state.textSize;
+  els.textSizeVal.textContent = state.textSize + '%';
+  els.colorName.textContent = state.colorName;
+  els.colorCustom.value = state.color;
+  els.gradientToggle.checked = state.gradient.enabled;
+  els.gradientColor.value = state.gradient.color2;
+  els.shadowToggle.checked = state.shadow;
+  els.accessoryOnTop.checked = state.accessoryOnTop;
+  els.usePhotoToggle.checked = state.photo.use;
+  els.photoOverlayToggle.checked = state.photo.overlay;
+  els.photoScale.value = state.photo.scale;
+  els.photoScaleVal.textContent = state.photo.scale + '%';
 }
 
 function renderAll() {
   renderMoods();
   renderShapeGrid();
   renderPalette();
-  renderFeatureGrid(eyesRow, EYES, state.eyes, (k) => { state.eyes = k; render(); });
-  renderFeatureGrid(browsRow, BROWS, state.brows, (k) => { state.brows = k; render(); });
-  renderFeatureGrid(mouthRow, MOUTHS, state.mouth, (k) => { state.mouth = k; render(); });
-  renderFeatureGrid(blushRow, BLUSH, state.blush, (k) => { state.blush = k; render(); });
-  renderFeatureGrid(accessoryRow, ACCESSORIES, state.accessory, (k) => { state.accessory = k; render(); });
+  renderFeatureGrid(els.eyesRow, EYES, state.eyes, (k) => { state.eyes = k; render(); });
+  renderFeatureGrid(els.browsRow, BROWS, state.brows, (k) => { state.brows = k; render(); });
+  renderFeatureGrid(els.mouthRow, MOUTHS, state.mouth, (k) => { state.mouth = k; render(); });
+  renderFeatureGrid(els.blushRow, BLUSH, state.blush, (k) => { state.blush = k; render(); });
+  renderFeatureGrid(els.accessoryRow, ACCESSORIES, state.accessory, (k) => { state.accessory = k; render(); });
   renderPresets();
   renderSavedList();
+  renderKit();
   render();
 }
 
-// ---------- Экспорт ----------
+// ============ ЭКСПОРТ ============
 
-function exportPng(size) {
+async function exportPng(size, overrideState) {
   const c = document.createElement('canvas');
   c.width = size;
   c.height = size;
-  drawEmote(c.getContext('2d'), size);
+  drawEmote(c.getContext('2d'), size, overrideState || {});
   return new Promise((resolve, reject) => {
     c.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png');
   });
@@ -1563,6 +2135,37 @@ async function downloadPng() {
   setStatus(`Скачано: ${a.download}`, 'success');
 }
 
+async function downloadPngStack() {
+  // Вертикальный стек 112+56 в одном файле
+  const sizes = [112, 56];
+  const totalH = sizes.reduce((sum, s) => sum + s, 0) + (sizes.length - 1) * 8;
+  const width = 112;
+  const c = document.createElement('canvas');
+  c.width = width;
+  c.height = totalH;
+  const cctx = c.getContext('2d');
+  let y = 0;
+  for (const size of sizes) {
+    const tmp = document.createElement('canvas');
+    tmp.width = size;
+    tmp.height = size;
+    drawEmote(tmp.getContext('2d'), size);
+    const x = (width - size) / 2;
+    cctx.drawImage(tmp, x, y);
+    y += size + 8;
+  }
+  c.toBlob((blob) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `emote-stack-112-56.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    setStatus(`Скачано: ${a.download}`, 'success');
+  }, 'image/png');
+}
+
 async function copyToClipboard() {
   if (!navigator.clipboard || !window.ClipboardItem) {
     setStatus('Копирование не поддерживается.', 'error');
@@ -1573,7 +2176,6 @@ async function copyToClipboard() {
     await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
     setStatus('Скопировано!', 'success');
   } catch (e) {
-    console.error(e);
     setStatus('Не удалось скопировать.', 'error');
   }
 }
@@ -1586,10 +2188,9 @@ async function downloadZip() {
     const sizes = currentSizes();
     const base = `emote-${state.shape}`;
     for (let i = 0; i < sizes.length; i++) {
-      const size = sizes[i];
-      const blob = await exportPng(size);
+      const blob = await exportPng(sizes[i]);
       const buf = await blob.arrayBuffer();
-      zip.file(`${base}-${size}.png`, buf);
+      zip.file(`${base}-${sizes[i]}.png`, buf);
     }
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     const a = document.createElement('a');
@@ -1601,8 +2202,37 @@ async function downloadZip() {
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     setStatus(`ZIP готов: ${a.download}`, 'success');
   } catch (e) {
-    console.error(e);
     setStatus('Не удалось собрать ZIP.', 'error');
+  }
+}
+
+async function downloadKitZip() {
+  if (!emoteKit.length) return;
+  setStatus('Собираю набор...', 'info');
+  try {
+    const JSZip = (await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm')).default;
+    const zip = new JSZip();
+    const sizes = currentSizes();
+    for (let i = 0; i < emoteKit.length; i++) {
+      const item = emoteKit[i];
+      const folder = zip.folder(`emote-${i + 1}-${sanitize(item.name)}`) || zip;
+      for (const size of sizes) {
+        const blob = await exportPng(size, item.data);
+        folder.file(`${size}.png`, await blob.arrayBuffer());
+      }
+    }
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(zipBlob);
+    a.download = `emotelab-kit.zip`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    setStatus(`Набор готов: ${a.download}`, 'success');
+  } catch (e) {
+    console.error(e);
+    setStatus('Не удалось собрать набор.', 'error');
   }
 }
 
@@ -1614,37 +2244,38 @@ async function downloadGif() {
     const quantize = mod.quantize;
     const applyPalette = mod.applyPalette;
 
-    const size = 240;
-    const frames = 12;
-    const delay = 80;
+    const size = 200;
+    const frames = 8;
+    const delay = 100;
     const gif = GIFEncoder();
+
+    // Если фон включён, отключаем его для GIF (прозрачность)
+    const gifState = { ...state, background: { ...state.background, enabled: false } };
 
     for (let f = 0; f < frames; f++) {
       const c = document.createElement('canvas');
       c.width = size;
       c.height = size;
       const cctx = c.getContext('2d');
-
       const phase = (f / frames) * Math.PI * 2;
-      const offsetY = Math.sin(phase) * 6;
+      const offsetY = Math.sin(phase) * 5;
       const scale = 1 + Math.sin(phase) * 0.03;
 
       cctx.save();
       cctx.translate(size / 2, size / 2 + offsetY);
       cctx.scale(scale, scale);
       cctx.translate(-size / 2, -size / 2);
-      drawEmote(cctx, size);
+      drawEmote(cctx, size, gifState);
       cctx.restore();
 
       const data = cctx.getImageData(0, 0, size, size).data;
       const palette = quantize(data, 256);
       const index = applyPalette(data, palette);
-      gif.writeFrame(index, size, size, { palette: palette, delay: delay });
+      gif.writeFrame(index, size, size, { palette, delay });
     }
 
     gif.finish();
-    const bytes = gif.bytes();
-    const blob = new Blob([bytes], { type: 'image/gif' });
+    const blob = new Blob([gif.bytes()], { type: 'image/gif' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `emote-${state.shape}.gif`;
@@ -1660,7 +2291,9 @@ async function downloadGif() {
 }
 
 function downloadJson() {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const data = snapshot();
+  data.photo = { name: state.photo.name, scale: state.photo.scale, use: state.photo.use, overlay: state.photo.overlay };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'emote-settings.json';
@@ -1671,7 +2304,11 @@ function downloadJson() {
   setStatus('Настройки сохранены', 'success');
 }
 
-// ---------- Случайный / Сброс / Сохранение ----------
+function sanitize(str) {
+  return (str || 'emote').replace(/[^\wа-яА-ЯёЁ\-]+/g, '_').slice(0, 30);
+}
+
+// ============ СЛУЧАЙНЫЙ / ВАРИАЦИЯ / СБРОС ============
 
 function pickRandom(obj) {
   const keys = Object.keys(obj);
@@ -1679,47 +2316,244 @@ function pickRandom(obj) {
 }
 
 function randomEmote() {
-  // Генерируем случайные значения
   state.shape = pickRandom(SHAPES);
   state.eyes = pickRandom(EYES);
   state.brows = pickRandom(BROWS);
   state.mouth = pickRandom(MOUTHS);
   state.blush = pickRandom(BLUSH);
   state.accessory = pickRandom(ACCESSORIES);
-
   const p = PALETTES[Math.floor(Math.random() * PALETTES.length)];
   state.color = p.color;
   state.colorName = p.name;
-
   state.eyeSize = 70 + Math.floor(Math.random() * 60);
   state.eyeDist = 80 + Math.floor(Math.random() * 40);
   state.mouthSize = 70 + Math.floor(Math.random() * 60);
   state.rotate = Math.floor(Math.random() * 21) - 10;
-
-  // Синхронизируем UI и перерисовываем
   syncUIFromState();
   renderAll();
+  pushHistory();
   setStatus('Случайный эмоут готов!', 'success');
+}
+
+function variationEmote() {
+  // Небольшие случайные изменения текущего
+  const shiftColor = (hex, amt) => {
+    const num = parseInt(hex.slice(1), 16);
+    let r = (num >> 16) + amt;
+    let g = ((num >> 8) & 0xff) + amt;
+    let b = (num & 0xff) + amt;
+    r = Math.max(0, Math.min(255, r));
+    g = Math.max(0, Math.min(255, g));
+    b = Math.max(0, Math.min(255, b));
+    return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+  };
+  state.color = shiftColor(state.color, (Math.random() - 0.5) * 60 | 0);
+  state.eyeSize = Math.max(40, Math.min(160, state.eyeSize + Math.floor((Math.random() - 0.5) * 30)));
+  state.mouthSize = Math.max(40, Math.min(160, state.mouthSize + Math.floor((Math.random() - 0.5) * 30)));
+  state.rotate = Math.max(-30, Math.min(30, state.rotate + Math.floor((Math.random() - 0.5) * 12)));
+  const mouthKeys = Object.keys(MOUTHS);
+  state.mouth = mouthKeys[Math.floor(Math.random() * mouthKeys.length)];
+  syncUIFromState();
+  renderAll();
+  pushHistory();
+  setStatus('Вариация готова!', 'success');
 }
 
 function resetEmote() {
   state = defaultState();
   syncUIFromState();
   renderAll();
+  pushHistory();
   setStatus('');
 }
 
 function saveToLocal() {
   const name = prompt('Название для сохранения:', 'Мой эмоут ' + Date.now().toString().slice(-4));
   if (!name) return;
-  const list = JSON.parse(localStorage.getItem('emotelab_saves') || '[]');
-  list.unshift({ name: name, data: JSON.parse(JSON.stringify(state)) });
-  localStorage.setItem('emotelab_saves', JSON.stringify(list.slice(0, 20)));
-  renderSavedList();
-  setStatus('Сохранено: ' + name, 'success');
+  try {
+    const list = JSON.parse(localStorage.getItem('emotelab_saves') || '[]');
+    list.unshift({ name: name, data: snapshot() });
+    localStorage.setItem('emotelab_saves', JSON.stringify(list.slice(0, 20)));
+    renderSavedList();
+    setStatus('Сохранено: ' + name, 'success');
+  } catch (e) {
+    setStatus('Ошибка сохранения (переполнено?)', 'error');
+  }
 }
 
-// ---------- Табы ----------
+function addToKit() {
+  const name = prompt('Название эмоута в наборе:', 'Emote ' + (emoteKit.length + 1));
+  if (!name) return;
+  emoteKit.push({ name, data: snapshot() });
+  renderKit();
+  setStatus(`Добавлено в набор: ${name}`, 'success');
+}
+
+// ============ ФОТО + AI ============
+
+let removeBgFn = null;
+let modelLoadingPromise = null;
+
+async function loadRemoveBackground() {
+  if (removeBgFn) return removeBgFn;
+  if (modelLoadingPromise) return modelLoadingPromise;
+
+  modelLoadingPromise = (async () => {
+    setStatus('Загружаю AI-модель (первый раз ~30-60 сек)...', 'info');
+    els.photoProgress.classList.add('visible');
+    els.photoProgressFill.style.width = '10%';
+    try {
+      const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm');
+      removeBgFn = mod.default || mod.removeBackground;
+      if (typeof removeBgFn !== 'function') throw new Error('Функция не найдена');
+      els.photoProgressFill.style.width = '100%';
+      setTimeout(() => { els.photoProgress.classList.remove('visible'); els.photoProgressFill.style.width = '0%'; }, 500);
+      return removeBgFn;
+    } catch (e) {
+      modelLoadingPromise = null;
+      els.photoProgress.classList.remove('visible');
+      throw new Error('Не удалось загрузить AI. Проверь интернет.');
+    }
+  })();
+  return modelLoadingPromise;
+}
+
+async function processPhoto(file) {
+  if (!file.type.startsWith('image/')) {
+    setStatus('Это не изображение.', 'error');
+    return;
+  }
+  setStatus('Удаляю фон через AI...', 'info');
+  els.photoProgress.classList.add('visible');
+  els.photoProgressFill.style.width = '30%';
+
+  try {
+    const removeBg = await loadRemoveBackground();
+    els.photoProgressFill.style.width = '60%';
+
+    const blob = await removeBg(file, {
+      model: 'isnet_fp16',
+      output: { format: 'image/png', type: 'foreground' }
+    });
+
+    els.photoProgressFill.style.width = '100%';
+
+    if (!(blob instanceof Blob) || blob.size === 0) throw new Error('Пустой результат');
+
+    // Очищаем старое
+    if (state.photo.url) URL.revokeObjectURL(state.photo.url);
+
+    state.photo.blob = blob;
+    state.photo.url = URL.createObjectURL(blob);
+    state.photo.name = file.name.replace(/\.[^.]+$/, '');
+
+    // Загружаем изображение в память для канваса
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = state.photo.url; });
+    state.photo._imgEl = img;
+
+    els.photoPreview.style.display = 'block';
+    els.photoPreviewImg.src = state.photo.url;
+    els.photoPreviewName.textContent = file.name;
+
+    setTimeout(() => {
+      els.photoProgress.classList.remove('visible');
+      els.photoProgressFill.style.width = '0%';
+    }, 500);
+
+    setStatus('Фото готово! Включи «Показывать фото»', 'success');
+  } catch (e) {
+    console.error(e);
+    els.photoProgress.classList.remove('visible');
+    els.photoProgressFill.style.width = '0%';
+    setStatus(e.message || 'Ошибка при обработке фото.', 'error');
+  }
+}
+
+function removePhoto() {
+  if (state.photo.url) URL.revokeObjectURL(state.photo.url);
+  state.photo = { blob: null, url: null, name: '', scale: 100, use: false, overlay: true };
+  els.photoPreview.style.display = 'none';
+  els.usePhotoToggle.checked = false;
+  syncUIFromState();
+  render();
+  setStatus('Фото удалено');
+}
+
+// ============ URL-ШЭРИНГ ============
+
+function shareUrl() {
+  try {
+    const data = snapshot();
+    const json = JSON.stringify(data);
+    const encoded = btoa(encodeURIComponent(json));
+    const url = `${location.origin}${location.pathname}#s=${encoded}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setStatus('Ссылка скопирована в буфер!', 'success');
+    }).catch(() => {
+      prompt('Скопируй ссылку:', url);
+    });
+  } catch (e) {
+    console.error(e);
+    setStatus('Не удалось создать ссылку.', 'error');
+  }
+}
+
+function loadFromUrl() {
+  if (!location.hash.startsWith('#s=')) return false;
+  try {
+    const encoded = location.hash.slice(3);
+    const json = decodeURIComponent(atob(encoded));
+    const data = JSON.parse(json);
+    state = Object.assign(defaultState(), data);
+    syncUIFromState();
+    renderAll();
+    pushHistory();
+    setStatus('Загружено из ссылки!', 'success');
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
+
+// ============ АНИМАЦИЯ ============
+
+let animating = false;
+let animStart = 0;
+
+function toggleAnimation() {
+  animating = !animating;
+  els.btnAnim.textContent = animating ? '⏸' : '▶';
+  els.btnAnim.style.color = animating ? 'var(--accent-2)' : '';
+  if (animating) {
+    animStart = performance.now();
+    animateLoop();
+  } else {
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+    render();
+  }
+}
+
+function animateLoop() {
+  if (!animating) return;
+  const t = (performance.now() - animStart) / 1000;
+  const offsetY = Math.sin(t * 3) * 8;
+  const scale = 1 + Math.sin(t * 3) * 0.03;
+
+  ctx.clearRect(0, 0, 512, 512);
+  ctx.save();
+  ctx.translate(256, 256 + offsetY);
+  ctx.scale(scale, scale);
+  ctx.translate(-256, -256);
+  drawEmote(ctx, 512);
+  ctx.restore();
+
+  animationFrame = requestAnimationFrame(animateLoop);
+}
+
+// ============ ТАБЫ ============
 
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -1731,36 +2565,116 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
-// ---------- События ползунков и тумблеров ----------
+// ============ СОБЫТИЯ ============
 
-eyeSize.addEventListener('input', () => { state.eyeSize = +eyeSize.value; eyeSizeVal.textContent = state.eyeSize + '%'; render(); });
-eyeDist.addEventListener('input', () => { state.eyeDist = +eyeDist.value; eyeDistVal.textContent = state.eyeDist + '%'; render(); });
-mouthSize.addEventListener('input', () => { state.mouthSize = +mouthSize.value; mouthSizeVal.textContent = state.mouthSize + '%'; render(); });
-rotate.addEventListener('input', () => { state.rotate = +rotate.value; rotateVal.textContent = state.rotate + '°'; render(); });
-strokeToggle.addEventListener('change', () => { state.stroke.enabled = strokeToggle.checked; render(); });
-strokeWidth.addEventListener('input', () => { state.stroke.width = +strokeWidth.value; strokeWidthVal.textContent = state.stroke.width + ' px'; render(); });
-strokeColor.addEventListener('input', () => { state.stroke.color = strokeColor.value; strokeColorHex.textContent = strokeColor.value; render(); });
-bgToggle.addEventListener('change', () => { state.background.enabled = bgToggle.checked; render(); });
-bgColor.addEventListener('input', () => { state.background.color = bgColor.value; bgColorHex.textContent = bgColor.value; render(); });
-textInput.addEventListener('input', () => { state.text = textInput.value; render(); });
-textSize.addEventListener('input', () => { state.textSize = +textSize.value; textSizeVal.textContent = state.textSize + '%'; render(); });
+// Слайдеры
+els.eyeSize.addEventListener('input', () => { state.eyeSize = +els.eyeSize.value; els.eyeSizeVal.textContent = state.eyeSize + '%'; render(); });
+els.eyeSize.addEventListener('change', pushHistory);
+els.eyeDist.addEventListener('input', () => { state.eyeDist = +els.eyeDist.value; els.eyeDistVal.textContent = state.eyeDist + '%'; render(); });
+els.eyeDist.addEventListener('change', pushHistory);
+els.mouthSize.addEventListener('input', () => { state.mouthSize = +els.mouthSize.value; els.mouthSizeVal.textContent = state.mouthSize + '%'; render(); });
+els.mouthSize.addEventListener('change', pushHistory);
+els.rotate.addEventListener('input', () => { state.rotate = +els.rotate.value; els.rotateVal.textContent = state.rotate + '°'; render(); });
+els.rotate.addEventListener('change', pushHistory);
+els.strokeWidth.addEventListener('input', () => { state.stroke.width = +els.strokeWidth.value; els.strokeWidthVal.textContent = state.stroke.width + ' px'; render(); });
+els.strokeWidth.addEventListener('change', pushHistory);
+els.textSize.addEventListener('input', () => { state.textSize = +els.textSize.value; els.textSizeVal.textContent = state.textSize + '%'; render(); });
+els.textSize.addEventListener('change', pushHistory);
+els.photoScale.addEventListener('input', () => { state.photo.scale = +els.photoScale.value; els.photoScaleVal.textContent = state.photo.scale + '%'; render(); });
+els.photoScale.addEventListener('change', pushHistory);
 
-// ---------- Кнопки ----------
+// Тумблеры
+els.strokeToggle.addEventListener('change', () => { state.stroke.enabled = els.strokeToggle.checked; render(); pushHistory(); });
+els.bgToggle.addEventListener('change', () => { state.background.enabled = els.bgToggle.checked; render(); pushHistory(); });
+els.gradientToggle.addEventListener('change', () => { state.gradient.enabled = els.gradientToggle.checked; render(); pushHistory(); });
+els.shadowToggle.addEventListener('change', () => { state.shadow = els.shadowToggle.checked; render(); pushHistory(); });
+els.accessoryOnTop.addEventListener('change', () => { state.accessoryOnTop = els.accessoryOnTop.checked; render(); pushHistory(); });
+els.usePhotoToggle.addEventListener('change', () => { state.photo.use = els.usePhotoToggle.checked; render(); pushHistory(); });
+els.photoOverlayToggle.addEventListener('change', () => { state.photo.overlay = els.photoOverlayToggle.checked; render(); pushHistory(); });
 
-document.getElementById('btnDownload').addEventListener('click', downloadPng);
-document.getElementById('btnCopy').addEventListener('click', copyToClipboard);
-document.getElementById('btnZip').addEventListener('click', downloadZip);
-document.getElementById('btnGif').addEventListener('click', downloadGif);
-document.getElementById('btnJson').addEventListener('click', downloadJson);
-document.getElementById('btnRandom').addEventListener('click', randomEmote);
-document.getElementById('btnReset').addEventListener('click', resetEmote);
-document.getElementById('btnSave').addEventListener('click', saveToLocal);
-document.getElementById('btnMirror').addEventListener('click', () => { state.mirror = !state.mirror; render(); });
+// Цвета
+els.colorCustom.addEventListener('input', () => {
+  state.color = els.colorCustom.value;
+  state.colorName = 'custom';
+  els.colorName.textContent = 'custom';
+  render();
+  pushHistory();
+});
+els.gradientColor.addEventListener('input', () => { state.gradient.color2 = els.gradientColor.value; render(); });
+els.gradientColor.addEventListener('change', pushHistory);
+els.strokeColor.addEventListener('input', () => { state.stroke.color = els.strokeColor.value; render(); });
+els.strokeColor.addEventListener('change', pushHistory);
+els.bgColor.addEventListener('input', () => { state.background.color = els.bgColor.value; render(); });
+els.bgColor.addEventListener('change', pushHistory);
 
-// ---------- Запуск ----------
+// Текст
+els.textInput.addEventListener('input', () => { state.text = els.textInput.value; render(); });
+els.textInput.addEventListener('change', pushHistory);
 
-syncUIFromState();
-renderAll();
+// Фото
+els.photoUploadLabel.addEventListener('click', () => els.photoInput.click());
+els.photoInput.addEventListener('change', (e) => {
+  if (e.target.files[0]) processPhoto(e.target.files[0]);
+  e.target.value = '';
+});
+els.photoUploadLabel.addEventListener('dragover', (e) => { e.preventDefault(); els.photoUploadLabel.classList.add('dragover'); });
+els.photoUploadLabel.addEventListener('dragleave', () => els.photoUploadLabel.classList.remove('dragover'));
+els.photoUploadLabel.addEventListener('drop', (e) => {
+  e.preventDefault();
+  els.photoUploadLabel.classList.remove('dragover');
+  if (e.dataTransfer.files[0]) processPhoto(e.dataTransfer.files[0]);
+});
+els.btnRemovePhoto.addEventListener('click', removePhoto);
+
+// Кнопки
+$('btnDownload').addEventListener('click', downloadPng);
+$('btnCopy').addEventListener('click', copyToClipboard);
+$('btnZip').addEventListener('click', downloadZip);
+$('btnGif').addEventListener('click', downloadGif);
+$('btnJson').addEventListener('click', downloadJson);
+$('btnPngStack').addEventListener('click', downloadPngStack);
+$('btnAddToKit').addEventListener('click', addToKit);
+$('btnDownloadKit').addEventListener('click', downloadKitZip);
+$('btnRandom').addEventListener('click', randomEmote);
+$('btnVariation').addEventListener('click', variationEmote);
+$('btnReset').addEventListener('click', resetEmote);
+$('btnSave').addEventListener('click', saveToLocal);
+$('btnMirror').addEventListener('click', () => { state.mirror = !state.mirror; render(); pushHistory(); });
+$('btnUndo').addEventListener('click', undo);
+$('btnRedo').addEventListener('click', redo);
+$('btnAnim').addEventListener('click', toggleAnimation);
+$('btnShare').addEventListener('click', shareUrl);
+
+// ============ ГОРЯЧИЕ КЛАВИШИ ============
+
+document.addEventListener('keydown', (e) => {
+  // Не срабатывают при вводе в input
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if (e.ctrlKey && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+    if (e.ctrlKey && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); }
+    return;
+  }
+
+  if (e.ctrlKey && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); return; }
+  if (e.ctrlKey && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); return; }
+  if (e.ctrlKey) return;
+
+  const k = e.key.toLowerCase();
+  if (k === 'r') randomEmote();
+  else if (k === 'v') variationEmote();
+  else if (k === 'm') { state.mirror = !state.mirror; render(); pushHistory(); }
+  else if (k === 's') { e.preventDefault(); saveToLocal(); }
+});
+
+// ============ ЗАПУСК ============
+
+if (!loadFromUrl()) {
+  syncUIFromState();
+  renderAll();
+  pushHistory();
+} else {
+  updateHistoryButtons();
+}
 
 </script>
 
