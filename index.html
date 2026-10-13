@@ -26,6 +26,17 @@
     --yellow: #fbbf24;
     --radius: 16px;
     --radius-sm: 10px;
+
+    --pad-x: 20px;
+    --pad-y: 16px;
+    --panel-left: 280px;
+    --panel-right: 340px;
+    --gap: 14px;
+    --font-base: 14px;
+    --btn-pad: 9px 16px;
+    --icon-btn: 34px;
+    --topbar-pad: 12px 20px;
+    --ruler-size: 26px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -35,15 +46,16 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
+    font-size: var(--font-base);
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    padding-top: max(16px, env(safe-area-inset-top));
-    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    padding: var(--pad-y) var(--pad-x);
+    padding-top: max(var(--pad-y), env(safe-area-inset-top));
+    padding-bottom: max(var(--pad-y), env(safe-area-inset-bottom));
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -64,41 +76,47 @@
     -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 30%, transparent 90%);
   }
 
-  /* ШАПКА */
   .topbar {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: var(--topbar-pad);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    margin-bottom: 14px; flex-wrap: wrap;
+    margin-bottom: var(--gap);
+    flex-wrap: nowrap;
+    flex-shrink: 0;
   }
 
-  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 
   .brand-mark {
-    width: 32px; height: 32px; border-radius: 9px;
+    width: 38px; height: 38px; border-radius: 10px;
     background: linear-gradient(135deg, #9147ff, #ff5c8a);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; box-shadow: 0 4px 16px rgba(145, 71, 255, 0.5);
+    font-size: 1.15rem;
+    box-shadow: 0 4px 16px rgba(145, 71, 255, 0.5);
+    flex-shrink: 0;
   }
 
   .brand-text { display: flex; flex-direction: column; }
-  .brand-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
-  .brand-sub { font-size: 0.68rem; color: var(--text-mute); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+  .brand-name { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .brand-sub { font-size: 0.72rem; color: var(--text-mute); font-family: 'JetBrains Mono', monospace; margin-top: 3px; }
 
-  .topbar-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .topbar-actions { display: flex; gap: 8px; flex-wrap: nowrap; }
 
   .btn {
-    padding: 8px 14px;
+    padding: var(--btn-pad);
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text-dim);
-    font-family: inherit; font-size: 0.78rem; font-weight: 600;
+    font-family: inherit; font-size: 0.85rem; font-weight: 600;
     cursor: pointer; transition: all 0.2s;
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 7px;
     white-space: nowrap;
   }
 
@@ -119,13 +137,13 @@
   .btn.danger { color: #ff8fa3; border-color: rgba(255, 92, 138, 0.3); }
   .btn.danger:hover:not(:disabled) { background: rgba(255, 92, 138, 0.1); }
 
-  /* ОСНОВНОЙ LAYOUT */
   .app {
     display: grid;
-    grid-template-columns: 260px 1fr 320px;
-    gap: 12px;
+    grid-template-columns: var(--panel-left) 1fr var(--panel-right);
+    gap: var(--gap);
     flex: 1;
     min-height: 0;
+    overflow: hidden;
   }
 
   .panel {
@@ -133,43 +151,54 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 14px;
-    display: flex; flex-direction: column; gap: 8px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
     overflow-y: auto;
-    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    overflow-x: hidden;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
   }
 
-  .panel::-webkit-scrollbar { width: 6px; }
-  .panel::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
+  .panel::-webkit-scrollbar { width: 8px; }
+  .panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .panel::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); background-clip: content-box; }
 
   .panel-title {
-    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--text-mute);
-    padding: 4px 0 8px;
+    padding: 6px 0 10px;
     display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
   }
 
   .panel-title .badge {
-    font-size: 0.65rem; padding: 2px 7px;
+    font-size: 0.68rem; padding: 3px 9px;
     background: rgba(145, 71, 255, 0.15);
     color: var(--accent-2); border-radius: 100px;
     text-transform: none; letter-spacing: 0.02em;
+    font-weight: 600;
   }
 
-  /* Табы слева */
   .side-tabs {
-    display: flex; gap: 4px; padding: 3px;
+    display: flex; gap: 4px; padding: 4px;
     background: rgba(0, 0, 0, 0.25);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
   }
 
   .side-tab {
-    flex: 1; padding: 6px 8px;
+    flex: 1; padding: 8px 6px;
     background: transparent; border: none;
     border-radius: 7px; color: var(--text-mute);
-    font-family: inherit; font-size: 0.72rem; font-weight: 600;
+    font-family: inherit; font-size: 0.76rem; font-weight: 600;
     cursor: pointer; transition: all 0.2s;
     white-space: nowrap;
   }
@@ -180,42 +209,41 @@
     color: var(--text);
   }
 
-  .side-content { display: none; flex-direction: column; gap: 8px; }
+  .side-content { display: none; flex-direction: column; gap: 10px; }
   .side-content.active { display: flex; }
 
-  .element-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .element-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .element-btn {
-    padding: 10px 6px;
+    padding: 14px 8px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text-dim);
-    font-family: inherit; font-size: 0.68rem; font-weight: 500;
+    font-family: inherit; font-size: 0.78rem; font-weight: 500;
     cursor: pointer; transition: all 0.2s;
     display: flex; flex-direction: column; align-items: center;
-    gap: 4px; text-align: center; line-height: 1.15;
+    gap: 6px; text-align: center; line-height: 1.2;
   }
 
-  .element-btn .icon { font-size: 1.1rem; }
+  .element-btn .icon { font-size: 1.35rem; }
   .element-btn:hover {
     background: rgba(145, 71, 255, 0.08);
     border-color: rgba(145, 71, 255, 0.3);
     color: var(--text); transform: translateY(-2px);
   }
 
-  /* Пресеты */
-  .preset-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .preset-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
 
   .preset-card {
-    padding: 10px 12px;
+    padding: 12px 14px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     cursor: pointer; transition: all 0.2s;
     color: var(--text-dim);
     font-family: inherit;
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: center; gap: 12px;
     text-align: left;
   }
 
@@ -225,39 +253,43 @@
     color: var(--text); transform: translateY(-1px);
   }
 
-  .preset-card .icon { font-size: 1.4rem; }
-  .preset-card .info { display: flex; flex-direction: column; gap: 2px; }
-  .preset-card .name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
-  .preset-card .desc { font-size: 0.68rem; color: var(--text-mute); }
+  .preset-card .icon { font-size: 1.5rem; }
+  .preset-card .info { display: flex; flex-direction: column; gap: 3px; }
+  .preset-card .name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+  .preset-card .desc { font-size: 0.72rem; color: var(--text-mute); }
 
-  /* Центральный редактор */
-  .editor { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+  .editor { display: flex; flex-direction: column; gap: 10px; min-height: 0; overflow: hidden; }
 
   .editor-toolbar {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 12px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
+  .editor-toolbar::-webkit-scrollbar { display: none; }
 
   .toolbar-group {
-    display: flex; align-items: center; gap: 4px;
-    padding-right: 8px; margin-right: 4px;
+    display: flex; align-items: center; gap: 5px;
+    padding-right: 10px; margin-right: 6px;
     border-right: 1px solid var(--border);
+    flex-shrink: 0;
   }
   .toolbar-group:last-child { border-right: none; padding-right: 0; margin-right: 0; }
 
   .icon-btn {
-    width: 32px; height: 32px; border-radius: 8px;
+    width: var(--icon-btn); height: var(--icon-btn); border-radius: 8px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     color: var(--text-dim);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0;
+    font-size: 0.9rem; transition: all 0.2s; flex-shrink: 0;
   }
 
   .icon-btn:hover:not(:disabled) {
@@ -273,8 +305,8 @@
 
   .zoom-display {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem; color: var(--text-dim);
-    min-width: 48px; text-align: center;
+    font-size: 0.78rem; color: var(--text-dim);
+    min-width: 54px; text-align: center;
   }
 
   .canvas-area {
@@ -285,33 +317,39 @@
     overflow: auto;
     position: relative;
     display: flex; align-items: center; justify-content: center;
-    padding: 20px;
-    min-height: 300px;
-    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    padding: 40px;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
     background-image: repeating-conic-gradient(#0e0e18 0% 25%, #0a0a12 0% 50%);
     background-size: 40px 40px;
   }
 
-  .canvas-area::-webkit-scrollbar { width: 8px; height: 8px; }
-  .canvas-area::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
+  .canvas-area::-webkit-scrollbar { width: 10px; height: 10px; }
+  .canvas-area::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .canvas-area::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); background-clip: content-box; }
 
-  /* Линейки */
   .ruler-h, .ruler-v {
     position: absolute;
     background: rgba(20, 20, 30, 0.9);
     border: 1px solid var(--border);
     z-index: 5;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     color: var(--text-mute);
     pointer-events: none;
   }
   .ruler-h {
-    top: 0; left: 24px; right: 0; height: 22px;
+    top: 0; left: var(--ruler-size); right: 0; height: var(--ruler-size);
     border-left: none; border-right: none; border-top: none;
   }
   .ruler-v {
-    top: 22px; left: 0; bottom: 0; width: 24px;
+    top: var(--ruler-size); left: 0; bottom: 0; width: var(--ruler-size);
     border-left: none; border-right: none; border-bottom: none;
   }
 
@@ -328,7 +366,6 @@
     cursor: default;
   }
 
-  /* Направляющие */
   .guide-line {
     position: absolute;
     background: #ff5c8a;
@@ -340,36 +377,41 @@
   .guide-h { height: 1px; left: 0; right: 0; }
   .guide-v { width: 1px; top: 0; bottom: 0; }
 
-  /* Правая панель */
   .properties {
     display: flex; flex-direction: column; gap: 10px;
     overflow-y: auto;
-    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
   }
-  .properties::-webkit-scrollbar { width: 6px; }
-  .properties::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
+  .properties::-webkit-scrollbar { width: 8px; }
+  .properties::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
 
-  .prop-section { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .prop-section { padding: 14px 0; border-bottom: 1px solid var(--border); }
   .prop-section:last-child { border-bottom: none; }
 
   .prop-title {
-    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--text-mute);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     display: flex; align-items: center; justify-content: space-between;
     gap: 8px;
   }
 
-  .prop-title .actions { display: flex; gap: 4px; }
+  .prop-title .actions { display: flex; gap: 5px; }
 
   .mini-btn {
-    width: 22px; height: 22px; border-radius: 6px;
+    width: 26px; height: 26px; border-radius: 6px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border);
     color: var(--text-dim);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; transition: all 0.2s;
+    font-size: 0.75rem; transition: all 0.2s;
   }
 
   .mini-btn:hover {
@@ -377,29 +419,29 @@
     color: var(--text);
   }
 
-  .slider-row { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+  .slider-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
   .slider-row:last-child { margin-bottom: 0; }
 
   .slider-label {
     display: flex; justify-content: space-between;
-    font-size: 0.75rem; color: var(--text-dim);
+    font-size: 0.8rem; color: var(--text-dim);
   }
   .slider-label .val {
     color: var(--accent-2);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   input[type="range"] {
     -webkit-appearance: none; appearance: none;
-    width: 100%; height: 4px;
+    width: 100%; height: 5px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 100px; outline: none; cursor: pointer;
   }
 
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
-    width: 14px; height: 14px; border-radius: 50%;
+    width: 16px; height: 16px; border-radius: 50%;
     background: linear-gradient(135deg, #9147ff, #b380ff);
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(145, 71, 255, 0.5);
@@ -407,7 +449,7 @@
   }
 
   input[type="range"]::-moz-range-thumb {
-    width: 14px; height: 14px; border: 2px solid var(--bg);
+    width: 16px; height: 16px; border: 2px solid var(--bg);
     border-radius: 50%;
     background: linear-gradient(135deg, #9147ff, #b380ff);
     cursor: pointer;
@@ -415,14 +457,14 @@
 
   .color-row {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 8px; margin-bottom: 8px;
+    gap: 10px; margin-bottom: 10px;
   }
   .color-row:last-child { margin-bottom: 0; }
-  .color-row label { font-size: 0.75rem; color: var(--text-dim); flex: 1; }
+  .color-row label { font-size: 0.8rem; color: var(--text-dim); flex: 1; }
 
   input[type="color"] {
     -webkit-appearance: none; appearance: none;
-    width: 40px; height: 28px;
+    width: 44px; height: 30px;
     border: 1px solid var(--border); border-radius: 6px;
     background: transparent; cursor: pointer; padding: 2px; flex-shrink: 0;
   }
@@ -432,12 +474,12 @@
 
   .toggle-row {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 6px 0; font-size: 0.78rem; color: var(--text-dim); gap: 8px;
+    padding: 8px 0; font-size: 0.82rem; color: var(--text-dim); gap: 10px;
   }
   .toggle-label { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-  .toggle-label small { font-size: 0.65rem; color: var(--text-mute); }
+  .toggle-label small { font-size: 0.7rem; color: var(--text-mute); }
 
-  .switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+  .switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
   .switch input { opacity: 0; width: 0; height: 0; }
   .switch-slider {
     position: absolute; cursor: pointer; inset: 0;
@@ -447,23 +489,23 @@
   }
   .switch-slider::before {
     content: ''; position: absolute;
-    height: 12px; width: 12px; left: 3px; top: 3px;
+    height: 14px; width: 14px; left: 3px; top: 3px;
     background: #fff; border-radius: 50%; transition: transform 0.25s;
   }
   .switch input:checked + .switch-slider {
     background: linear-gradient(135deg, #9147ff, #a970ff);
     border-color: transparent;
   }
-  .switch input:checked + .switch-slider::before { transform: translateX(16px); }
+  .switch input:checked + .switch-slider::before { transform: translateX(18px); }
 
   .text-input {
-    width: 100%; padding: 8px 10px;
+    width: 100%; padding: 10px 12px;
     background: rgba(0, 0, 0, 0.25);
     border: 1px solid var(--border);
     border-radius: 8px; color: var(--text);
-    font-family: inherit; font-size: 0.82rem;
+    font-family: inherit; font-size: 0.85rem;
     outline: none; transition: border-color 0.2s;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .text-input:focus {
     border-color: var(--accent);
@@ -473,24 +515,23 @@
   select.text-input { cursor: pointer; }
 
   .empty-state {
-    padding: 40px 20px; text-align: center;
-    font-size: 0.8rem; color: var(--text-mute);
+    padding: 60px 20px; text-align: center;
+    font-size: 0.85rem; color: var(--text-mute);
     display: flex; flex-direction: column;
-    align-items: center; gap: 10px;
+    align-items: center; gap: 12px;
   }
-  .empty-state .big { font-size: 2rem; opacity: 0.5; }
+  .empty-state .big { font-size: 2.5rem; opacity: 0.5; }
 
-  /* Слои */
-  .layers-list { display: flex; flex-direction: column; gap: 4px; max-height: 320px; overflow-y: auto; }
+  .layers-list { display: flex; flex-direction: column; gap: 5px; max-height: none; overflow-y: visible; }
 
   .layer-item {
-    display: flex; align-items: center; gap: 8px;
-    padding: 7px 9px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px;
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
     border-radius: 8px; cursor: pointer;
     transition: all 0.15s;
-    font-size: 0.75rem; color: var(--text-dim);
+    font-size: 0.8rem; color: var(--text-dim);
   }
 
   .layer-item:hover {
@@ -503,28 +544,27 @@
     border-color: var(--accent); color: var(--text);
   }
 
-  .layer-icon { font-size: 0.9rem; flex-shrink: 0; }
+  .layer-icon { font-size: 1rem; flex-shrink: 0; }
   .layer-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .layer-vis {
-    width: 20px; height: 20px; border-radius: 5px;
+    width: 24px; height: 24px; border-radius: 5px;
     background: rgba(255, 255, 255, 0.04); border: none;
     color: var(--text-dim); cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; flex-shrink: 0;
+    font-size: 0.8rem; flex-shrink: 0;
   }
   .layer-vis:hover { background: rgba(255, 255, 255, 0.1); color: var(--text); }
 
-  /* Статус */
   #status {
-    position: fixed; bottom: 20px; left: 50%;
+    position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(100px);
-    padding: 10px 18px;
+    padding: 12px 22px;
     background: var(--surface);
     border: 1px solid var(--border-strong);
     border-radius: 100px;
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    font-size: 0.82rem; color: var(--text);
+    font-size: 0.88rem; color: var(--text);
     opacity: 0; transition: all 0.3s ease;
     pointer-events: none; z-index: 100;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -534,7 +574,6 @@
   #status.success { border-color: rgba(74, 222, 128, 0.5); color: var(--green); }
   #status.error { border-color: rgba(255, 92, 138, 0.5); color: #ff8fa3; }
 
-  /* Модалка */
   .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0, 0, 0, 0.8);
@@ -549,25 +588,24 @@
     background: linear-gradient(180deg, #1a1a26 0%, #12121a 100%);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
-    padding: 24px; max-width: 480px; width: 100%;
+    padding: 28px; max-width: 520px; width: 100%;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
     max-height: 90vh; overflow-y: auto;
   }
 
-  .modal h3 { font-size: 1rem; margin-bottom: 12px; }
-  .modal p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
-  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .modal h3 { font-size: 1.1rem; margin-bottom: 14px; }
+  .modal p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 18px; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
-  /* Размер холста */
-  .canvas-presets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-bottom: 8px; }
+  .canvas-presets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px; }
   .canvas-preset {
-    padding: 7px 4px;
+    padding: 9px 6px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 6px;
     color: var(--text-mute);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
@@ -579,32 +617,30 @@
     color: var(--accent-2);
   }
 
-  /* Углы */
   .corners-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     margin-top: 6px;
   }
 
   .corner-input {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 0.7rem; color: var(--text-mute);
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; color: var(--text-mute);
   }
 
   .corner-input input {
-    flex: 1; padding: 4px 6px;
+    flex: 1; padding: 6px 8px;
     background: rgba(0, 0, 0, 0.25);
     border: 1px solid var(--border);
     border-radius: 6px; color: var(--text);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem; outline: none;
+    font-size: 0.75rem; outline: none;
     width: 100%;
   }
 
-  /* Рамки шаблонов */
-  .frames-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .frames-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .frame-btn {
     aspect-ratio: 1/1;
-    padding: 6px;
+    padding: 8px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -620,42 +656,90 @@
   .frame-btn svg { width: 100%; height: 100%; stroke: var(--text-dim); fill: none; stroke-width: 2; }
   .frame-btn:hover svg { stroke: var(--accent-2); }
 
-  /* Анимации */
-  .anim-preview {
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    text-align: center;
-  }
-  .anim-preview canvas {
-    max-width: 100%;
-    border-radius: 6px;
+  @media (min-width: 1800px) {
+    :root {
+      --panel-left: 320px;
+      --panel-right: 380px;
+      --pad-x: 28px;
+      --pad-y: 22px;
+      --gap: 18px;
+      --font-base: 15px;
+      --icon-btn: 36px;
+      --topbar-pad: 14px 24px;
+    }
+    .brand-mark { width: 42px; height: 42px; font-size: 1.25rem; }
+    .brand-name { font-size: 1.15rem; }
+    .element-btn { padding: 16px 10px; font-size: 0.82rem; }
+    .element-btn .icon { font-size: 1.5rem; }
   }
 
-  /* Адаптация */
-  @media (max-width: 1200px) {
-    .app { grid-template-columns: 220px 1fr 280px; }
+  @media (max-width: 1400px) {
+    :root {
+      --panel-left: 240px;
+      --panel-right: 300px;
+      --pad-x: 14px;
+      --pad-y: 14px;
+      --gap: 10px;
+    }
+    .element-list { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .element-btn { padding: 10px 6px; font-size: 0.72rem; }
+    .element-btn .icon { font-size: 1.15rem; }
+    .btn { padding: 7px 12px; font-size: 0.78rem; }
+    .brand-name { font-size: 0.92rem; }
+    .brand-sub { font-size: 0.66rem; }
+  }
+
+  @media (max-width: 1100px) {
+    :root {
+      --panel-left: 200px;
+      --panel-right: 260px;
+    }
+    .topbar-actions .btn span:not([data-keep]) { display: none; }
+    .topbar-actions .btn { padding: 8px 10px; }
   }
 
   @media (max-width: 900px) {
+    body { overflow: auto; padding: 12px; }
+
     .app {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto auto;
-      gap: 10px;
+      gap: 12px;
+      overflow: visible;
     }
-    .panel { max-height: 320px; }
-    .canvas-area { min-height: 400px; }
+
+    .topbar {
+      flex-wrap: wrap;
+      padding: 10px 14px;
+    }
+
+    .topbar-actions .btn { font-size: 0.78rem; padding: 7px 12px; }
+    .topbar-actions .btn span { display: inline; }
+
+    .panel, .properties { max-height: 380px; }
+
+    .editor-toolbar {
+      overflow-x: auto;
+      padding: 8px 12px;
+    }
+
+    .canvas-area { min-height: 380px; padding: 20px; }
+
     .ruler-h, .ruler-v { display: none; }
+
+    .element-list { grid-template-columns: 1fr 1fr 1fr; }
   }
 
   @media (max-width: 480px) {
-    body { padding: 10px; padding-top: max(10px, env(safe-area-inset-top)); }
-    .topbar { padding: 8px 12px; gap: 10px; }
+    body { padding: 8px; }
+    .topbar { padding: 8px 10px; gap: 8px; }
+    .brand-mark { width: 30px; height: 30px; font-size: 0.95rem; }
     .brand-name { font-size: 0.85rem; }
     .brand-sub { display: none; }
     .btn { padding: 6px 10px; font-size: 0.72rem; }
-    .element-list { grid-template-columns: 1fr 1fr 1fr; }
     .icon-btn { width: 28px; height: 28px; font-size: 0.78rem; }
+    .element-list { grid-template-columns: 1fr 1fr; }
+    .canvas-area { min-height: 300px; padding: 10px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -680,18 +764,17 @@
     </div>
   </div>
   <div class="topbar-actions">
-    <button type="button" class="btn ghost" id="btnUndo" title="Ctrl+Z">↶ Отменить</button>
-    <button type="button" class="btn ghost" id="btnRedo" title="Ctrl+Y">↷ Повторить</button>
-    <button type="button" class="btn" id="btnImport">📂 Открыть</button>
-    <button type="button" class="btn" id="btnExport">💾 Сохранить</button>
-    <button type="button" class="btn" id="btnExportHtml">📄 HTML</button>
-    <button type="button" class="btn primary" id="btnDownload">⬇ PNG</button>
+    <button type="button" class="btn ghost" id="btnUndo" title="Ctrl+Z"><span>↶</span> Отменить</button>
+    <button type="button" class="btn ghost" id="btnRedo" title="Ctrl+Y"><span>↷</span> Повторить</button>
+    <button type="button" class="btn" id="btnImport"><span>📂</span> Открыть</button>
+    <button type="button" class="btn" id="btnExport"><span>💾</span> Сохранить</button>
+    <button type="button" class="btn" id="btnExportHtml"><span>📄</span> HTML</button>
+    <button type="button" class="btn primary" id="btnDownload"><span>⬇</span> Скачать</button>
   </div>
 </div>
 
 <div class="app">
 
-  <!-- ЛЕВАЯ ПАНЕЛЬ -->
   <div class="panel">
     <div class="side-tabs">
       <button type="button" class="side-tab active" data-side="add">➕ Добавить</button>
@@ -700,7 +783,6 @@
       <button type="button" class="side-tab" data-side="layers">📚 Слои</button>
     </div>
 
-    <!-- ДОБАВИТЬ -->
     <div class="side-content active" data-content="add">
       <div class="panel-title">Элементы <span class="badge">нажми</span></div>
       <div class="element-list">
@@ -719,13 +801,11 @@
       </div>
     </div>
 
-    <!-- ПРЕСЕТЫ -->
     <div class="side-content" data-content="presets">
       <div class="panel-title">Компоновка</div>
       <div class="preset-grid" id="layoutPresets"></div>
     </div>
 
-    <!-- ХОЛСТ -->
     <div class="side-content" data-content="canvas">
       <div class="panel-title">Размер холста</div>
       <div class="canvas-presets" id="canvasPresets"></div>
@@ -754,14 +834,12 @@
       </div>
     </div>
 
-    <!-- СЛОИ -->
     <div class="side-content" data-content="layers">
       <div class="panel-title">Слои <span class="badge" id="layersCount">0</span></div>
       <div class="layers-list" id="layersList"></div>
     </div>
   </div>
 
-  <!-- ЦЕНТР -->
   <div class="editor">
     <div class="editor-toolbar">
       <div class="toolbar-group">
@@ -805,19 +883,17 @@
     </div>
   </div>
 
-  <!-- ПРАВАЯ ПАНЕЛЬ -->
   <div class="panel properties" id="propertiesPanel">
     <div class="empty-state" id="emptyState">
       <span class="big">🎨</span>
       <span>Выбери элемент, чтобы настроить</span>
-      <span style="font-size: 0.7rem; color: var(--text-mute);">или добавь новый слева</span>
+      <span style="font-size: 0.75rem; color: var(--text-mute);">или добавь новый слева</span>
     </div>
     <div id="propsContent" style="display: none;"></div>
   </div>
 
 </div>
 
-<!-- Модалки -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modalContent"></div>
 </div>
@@ -826,16 +902,14 @@
 
 <script>
 /* ============================================================
-   OverlayForge v2.0 — полная версия
+   OverlayForge v2.0 — полная версия (PC-first layout)
    ============================================================ */
-
-// ============ СОСТОЯНИЕ ============
 
 const state = {
   canvas: { width: 1920, height: 1080 },
   background: { visible: false, color: '#1a1a2e', image: null, imageEl: null },
   elements: [],
-  selectedIds: [],  // мультивыделение
+  selectedIds: [],
   zoom: 1,
   showGrid: true,
   showSafe: true,
@@ -844,7 +918,6 @@ const state = {
 };
 
 const history = { stack: [], index: -1, limit: 40 };
-
 let uid = 0;
 const nextId = () => ++uid;
 
@@ -1000,7 +1073,6 @@ const ELEMENT_TYPES = {
   },
 };
 
-// Рамки для вебкамеры
 const FRAMES = {
   none: { icon: '<rect x="3" y="3" width="18" height="18" rx="2"/>', draw(ctx, el) {} },
   corners: {
@@ -1100,8 +1172,6 @@ function roundRectCustom(ctx, el) {
   ctx.quadraticCurveTo(x, y, x + c.tl, y);
   ctx.closePath();
 }
-
-// ============ ПРЕСЕТЫ КОМПОНОВКИ ============
 
 const LAYOUT_PRESETS = [
   {
@@ -1212,8 +1282,6 @@ const guideV = document.getElementById('guideV');
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 
-// ============ СТАТУС ============
-
 let statusTimeout;
 function setStatus(text, type = 'info') {
   const el = document.getElementById('status');
@@ -1225,8 +1293,6 @@ function setStatus(text, type = 'info') {
   clearTimeout(statusTimeout);
   if (text) statusTimeout = setTimeout(() => el.classList.remove('visible'), 2500);
 }
-
-// ============ МОДАЛКА ============
 
 function showModal(html) {
   modalContent.innerHTML = html;
@@ -1251,9 +1317,6 @@ function snapshot() {
       const c = { ...e };
       delete c.imageEl;
       delete c.videoEl;
-      if (c.image && typeof c.image === 'string') {
-        // оставляем data URL или blob URL (для сессии)
-      }
       return c;
     }),
     selectedIds: [...state.selectedIds],
@@ -1330,7 +1393,6 @@ function updateHistoryButtons() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Фон
   if (state.background.visible) {
     if (state.background.imageEl) {
       const img = state.background.imageEl;
@@ -1344,18 +1406,14 @@ function draw() {
     }
   }
 
-  // Сетка
   if (state.showGrid) drawGrid();
 
-  // Элементы
   state.elements.forEach(el => {
     if (!el.hidden) drawElement(el);
   });
 
-  // Safe-зона
   if (state.showSafe) drawSafeZone();
 
-  // Выделение
   state.selectedIds.forEach(id => {
     const el = state.elements.find(e => e.id === id);
     if (el) drawSelection(el);
@@ -1399,7 +1457,6 @@ function drawSafeZone() {
 function drawElement(el) {
   ctx.save();
 
-  // Картинка
   if (el.type === 'image' && el.imageEl && el.imageEl.complete) {
     roundRectCustom(ctx, el);
     ctx.clip();
@@ -1415,7 +1472,6 @@ function drawElement(el) {
     return;
   }
 
-  // Видео
   if (el.type === 'video' && el.videoEl) {
     roundRectCustom(ctx, el);
     ctx.clip();
@@ -1447,7 +1503,6 @@ function drawElement(el) {
     return;
   }
 
-  // Форма
   roundRectCustom(ctx, el);
 
   if (el.fillAlpha > 0) {
@@ -1455,7 +1510,6 @@ function drawElement(el) {
     ctx.fill();
   }
 
-  // Прогресс цели
   if (el.type === 'goal' && typeof el.progress === 'number') {
     ctx.save();
     roundRectCustom(ctx, el);
@@ -1465,7 +1519,6 @@ function drawElement(el) {
     ctx.restore();
   }
 
-  // Специфика
   if (el.type === 'webcam') {
     ctx.save();
     ctx.globalAlpha = 0.4;
@@ -1479,7 +1532,6 @@ function drawElement(el) {
     ctx.textBaseline = 'middle';
     ctx.fillText('📹 WEBCAM', el.x + el.w / 2, el.y + el.h / 2);
     ctx.restore();
-    // Рамка
     if (el.frame && FRAMES[el.frame]) {
       FRAMES[el.frame].draw(ctx, el);
     }
@@ -1522,7 +1574,6 @@ function drawElement(el) {
     ctx.restore();
   }
 
-  // Обводка
   if (el.stroke.enabled && el.stroke.width > 0) {
     roundRectCustom(ctx, el);
     ctx.strokeStyle = el.stroke.color;
@@ -1594,7 +1645,7 @@ function renderLayers() {
   layersList.innerHTML = '';
   if (!state.elements.length) {
     const empty = document.createElement('div');
-    empty.style.cssText = 'padding: 12px; font-size: 0.72rem; color: var(--text-mute); text-align: center;';
+    empty.style.cssText = 'padding: 12px; font-size: 0.75rem; color: var(--text-mute); text-align: center;';
     empty.textContent = 'Пока пусто';
     layersList.appendChild(empty);
     return;
@@ -1725,7 +1776,6 @@ function renderProperties() {
   const typeInfo = ELEMENT_TYPES[el.type];
   let html = '';
 
-  // Заголовок
   html += `<div class="prop-section" style="padding-top: 0;">
     <div class="prop-title">
       <span>${typeInfo?.icon || ''} ${typeInfo?.name || el.type}</span>
@@ -1737,7 +1787,6 @@ function renderProperties() {
     <input type="text" class="text-input" id="propLabel" value="${escapeAttr(el.label || '')}" placeholder="Название слоя">
   </div>`;
 
-  // Позиция
   html += `<div class="prop-section">
     <div class="prop-title">Позиция и размер</div>
     <div class="slider-row">
@@ -1758,7 +1807,6 @@ function renderProperties() {
     </div>
   </div>`;
 
-  // Скругление
   if (el.type !== 'line' && el.type !== 'label' && el.type !== 'social') {
     const c = el.corners || { tl: el.radius, tr: el.radius, br: el.radius, bl: el.radius };
     html += `<div class="prop-section">
@@ -1772,7 +1820,6 @@ function renderProperties() {
     </div>`;
   }
 
-  // Рамка для вебкамеры
   if (el.type === 'webcam') {
     html += `<div class="prop-section">
       <div class="prop-title">Рамка</div>
@@ -1780,7 +1827,6 @@ function renderProperties() {
     </div>`;
   }
 
-  // Заливка
   if (el.type !== 'label' && el.type !== 'social' && el.type !== 'line' && el.type !== 'image' && el.type !== 'video') {
     html += `<div class="prop-section">
       <div class="prop-title">Заливка</div>
@@ -1795,7 +1841,6 @@ function renderProperties() {
     </div>`;
   }
 
-  // Прогресс для цели
   if (el.type === 'goal') {
     html += `<div class="prop-section">
       <div class="prop-title">Прогресс</div>
@@ -1810,7 +1855,6 @@ function renderProperties() {
     </div>`;
   }
 
-  // Картинка
   if (el.type === 'image') {
     html += `<div class="prop-section">
       <div class="prop-title">Изображение</div>
@@ -1818,7 +1862,6 @@ function renderProperties() {
     </div>`;
   }
 
-  // Видео
   if (el.type === 'video') {
     html += `<div class="prop-section">
       <div class="prop-title">Видео</div>
@@ -1826,7 +1869,6 @@ function renderProperties() {
     </div>`;
   }
 
-  // Обводка
   html += `<div class="prop-section">
     <div class="prop-title">Обводка</div>
     <div class="toggle-row">
@@ -1847,7 +1889,6 @@ function renderProperties() {
     </div>
   </div>`;
 
-  // Текст
   html += `<div class="prop-section">
     <div class="prop-title">Текст</div>
     <div class="toggle-row">
@@ -1865,7 +1906,6 @@ function renderProperties() {
     </div>
   </div>`;
 
-  // Действия
   html += `<div class="prop-section">
     <div class="prop-title">Действия</div>
     <button type="button" class="btn" id="propDup" style="width:100%; justify-content:center; margin-bottom:6px;">⧉ Дублировать</button>
@@ -1875,7 +1915,6 @@ function renderProperties() {
 
   propsContent.innerHTML = html;
 
-  // Привязка
   bindProp('propLabel', 'input', v => { el.label = v; renderLayers(); });
   bindProp('propLabel', 'change', () => pushHistory());
   bindSlider('propX', 'valX', v => { el.x = v; draw(); });
@@ -1894,7 +1933,6 @@ function renderProperties() {
     input.addEventListener('change', pushHistory);
   });
 
-  // Рамки вебкамеры
   if (document.getElementById('framesGrid')) {
     const grid = document.getElementById('framesGrid');
     Object.keys(FRAMES).forEach(key => {
@@ -1914,7 +1952,6 @@ function renderProperties() {
     });
   }
 
-  // Картинка
   if (document.getElementById('propUploadImage')) {
     document.getElementById('propUploadImage').addEventListener('click', () => {
       const input = document.createElement('input');
@@ -1980,7 +2017,6 @@ function renderProperties() {
     });
   }
 
-  // Заливка
   if (document.getElementById('propFill')) {
     document.getElementById('propFill').addEventListener('input', (e) => {
       el.fill = e.target.value;
@@ -1990,21 +2026,18 @@ function renderProperties() {
     bindSlider('propFillA', 'valFillA', v => { el.fillAlpha = v / 100; draw(); }, '%');
   }
 
-  // Прогресс
   if (document.getElementById('propProgress')) {
     bindSlider('propProgress', 'valProgress', v => { el.progress = v / 100; draw(); }, '%');
     document.getElementById('propProgressColor').addEventListener('input', e => { el.progressColor = e.target.value; draw(); });
     document.getElementById('propProgressColor').addEventListener('change', pushHistory);
   }
 
-  // Обводка
   bindProp('propStroke', 'change', (e) => { el.stroke.enabled = e.target.checked; draw(); pushHistory(); }, true);
   bindSlider('propStrokeW', 'valStrokeW', v => { el.stroke.width = v; draw(); }, ' px');
   bindProp('propStrokeColor', 'input', e => { el.stroke.color = e.target.value; draw(); }, true);
   bindProp('propStrokeColor', 'change', () => pushHistory());
   bindProp('propStrokeTop', 'change', (e) => { el.stroke.topOnly = e.target.checked; draw(); pushHistory(); }, true);
 
-  // Текст
   bindProp('propLabelEnabled', 'change', (e) => { el.labelStyle.enabled = e.target.checked; draw(); pushHistory(); }, true);
   bindProp('propLabelText', 'input', e => { el.labelStyle.text = e.target.value; draw(); }, true);
   bindProp('propLabelText', 'change', () => pushHistory());
@@ -2012,7 +2045,6 @@ function renderProperties() {
   bindProp('propLabelColor', 'change', () => pushHistory());
   bindSlider('propLabelSize', 'valLabelSize', v => { el.labelStyle.size = v; draw(); }, ' px');
 
-  // Действия
   bindProp('propDup', 'click', () => duplicateElement(el.id));
   bindProp('propUp', 'click', () => bringToFront(el.id));
   bindProp('propDelete', 'click', () => deleteElement(el.id));
@@ -2026,7 +2058,7 @@ function renderMultiProperties() {
   propsContent.innerHTML = `
     <div class="prop-section" style="padding-top:0;">
       <div class="prop-title">Выбрано: ${state.selectedIds.length}</div>
-      <p style="font-size: 0.78rem; color: var(--text-mute); margin-bottom: 10px;">Shift+клик для мультивыбора</p>
+      <p style="font-size: 0.8rem; color: var(--text-mute); margin-bottom: 10px;">Shift+клик для мультивыбора</p>
     </div>
     <div class="prop-section">
       <div class="prop-title">Общие настройки</div>
@@ -2085,7 +2117,6 @@ function renderMultiProperties() {
   });
 }
 
-// Копирование стиля
 let styleClipboard = null;
 
 function copyStyle(el) {
@@ -2185,8 +2216,6 @@ function bringToFront(id) {
   pushHistory();
 }
 
-// ============ МАСШТАБ ============
-
 function setZoom(z) {
   state.zoom = clamp(z, 0.1, 3);
   canvasWrap.style.transform = `scale(${state.zoom})`;
@@ -2201,29 +2230,24 @@ function fitZoom() {
   setZoom(Math.min(zx, zy, 1));
 }
 
-// ============ ЛИНЕЙКИ ============
-
 function updateRulers() {
   const rh = document.getElementById('rulerH');
   const rv = document.getElementById('rulerV');
   if (!rh || !rv) return;
 
-  // Горизонтальная
   let hHtml = '';
   const step = 200;
-  const pxPerUnit = (canvasWidth => 1)(canvas.width);
   for (let x = 0; x <= canvas.width; x += step) {
     const percent = (x / canvas.width) * 100;
-    hHtml += `<span style="position:absolute;left:${percent}%;top:2px;transform:translateX(-50%);font-size:0.6rem;">${x}</span>`;
+    hHtml += `<span style="position:absolute;left:${percent}%;top:2px;transform:translateX(-50%);font-size:0.62rem;">${x}</span>`;
     hHtml += `<span style="position:absolute;left:${percent}%;bottom:0;width:1px;height:6px;background:var(--text-mute);"></span>`;
   }
   rh.innerHTML = hHtml;
 
-  // Вертикальная
   let vHtml = '';
   for (let y = 0; y <= canvas.height; y += step) {
     const percent = (y / canvas.height) * 100;
-    vHtml += `<span style="position:absolute;top:${percent}%;left:2px;writing-mode:vertical-rl;font-size:0.6rem;">${y}</span>`;
+    vHtml += `<span style="position:absolute;top:${percent}%;left:2px;writing-mode:vertical-rl;font-size:0.62rem;">${y}</span>`;
     vHtml += `<span style="position:absolute;top:${percent}%;right:0;height:1px;width:6px;background:var(--text-mute);"></span>`;
   }
   rv.innerHTML = vHtml;
@@ -2255,7 +2279,6 @@ function downloadPng() {
 }
 
 function downloadSvg() {
-  // Простой SVG-экспорт через эмуляцию canvas
   const svgParts = [`<svg xmlns="http://www.w3.org/2000/svg" width="${state.canvas.width}" height="${state.canvas.height}" viewBox="0 0 ${state.canvas.width} ${state.canvas.height}">`];
   state.elements.forEach(el => {
     if (el.hidden) return;
@@ -2381,14 +2404,16 @@ function rr(el) {
   ctx.quadraticCurveTo(x, y, x + c.tl, y);
   ctx.closePath();
 }
-function draw() {
+function drawAll(t) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   elements.forEach(el => {
     if (el.hidden) return;
-    if (el.type === 'line') { ctx.fillStyle = hexToRgba(el.fill, el.fillAlpha); ctx.fillRect(el.x, el.y, el.w, el.h); }
+    let alpha = el.fillAlpha ?? 1;
+    if (el.type === 'alert') alpha = alpha * (0.85 + 0.15 * Math.sin((t || 0) / 500));
+    if (el.type === 'line') { ctx.fillStyle = hexToRgba(el.fill, alpha); ctx.fillRect(el.x, el.y, el.w, el.h); }
     else {
       rr(el);
-      if (el.fillAlpha > 0) { ctx.fillStyle = hexToRgba(el.fill, el.fillAlpha); ctx.fill(); }
+      if (alpha > 0) { ctx.fillStyle = hexToRgba(el.fill, alpha); ctx.fill(); }
       if (el.type === 'goal' && el.progress) { ctx.save(); rr(el); ctx.clip(); ctx.fillStyle = el.progressColor || '#9147ff'; ctx.fillRect(el.x, el.y, el.w * el.progress, el.h); ctx.restore(); }
       if (el.stroke && el.stroke.enabled) { rr(el); ctx.strokeStyle = el.stroke.color; ctx.lineWidth = el.stroke.width; ctx.stroke(); }
     }
@@ -2400,36 +2425,9 @@ function draw() {
       ctx.fillText(el.labelStyle.text, el.x + el.w/2, el.y + el.h/2);
     }
   });
+  if (elements.some(e => e.type === 'alert' && !e.hidden)) requestAnimationFrame(drawAll);
 }
-draw();
-// Пульсация для alert
-function animate(t) {
-  const alerts = elements.filter(e => e.type === 'alert');
-  if (alerts.length) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    elements.forEach(el => {
-      if (el.hidden) return;
-      let alpha = el.fillAlpha ?? 1;
-      if (el.type === 'alert') alpha = alpha * (0.85 + 0.15 * Math.sin(t / 500));
-      if (el.type === 'line') { ctx.fillStyle = hexToRgba(el.fill, alpha); ctx.fillRect(el.x, el.y, el.w, el.h); }
-      else {
-        rr(el);
-        if (alpha > 0) { ctx.fillStyle = hexToRgba(el.fill, alpha); ctx.fill(); }
-        if (el.type === 'goal' && el.progress) { ctx.save(); rr(el); ctx.clip(); ctx.fillStyle = el.progressColor || '#9147ff'; ctx.fillRect(el.x, el.y, el.w * el.progress, el.h); ctx.restore(); }
-        if (el.stroke && el.stroke.enabled) { rr(el); ctx.strokeStyle = el.stroke.color; ctx.lineWidth = el.stroke.width; ctx.stroke(); }
-      }
-      if (el.labelStyle && el.labelStyle.enabled && el.labelStyle.text) {
-        ctx.fillStyle = el.labelStyle.color;
-        ctx.font = \`700 \${el.labelStyle.size}px Inter, sans-serif\`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(el.labelStyle.text, el.x + el.w/2, el.y + el.h/2);
-      }
-    });
-    requestAnimationFrame(animate);
-  }
-}
-requestAnimationFrame(animate);
+requestAnimationFrame(drawAll);
 <\/script>
 </body></html>`;
 
@@ -2463,15 +2461,14 @@ async function downloadGif() {
 
     for (let f = 0; f < frames; f++) {
       const phase = (f / frames) * Math.PI * 2;
-      // Пульсация алертов
       const pulse = 0.85 + 0.15 * Math.sin(phase);
 
       const c = document.createElement('canvas');
       c.width = size;
       c.height = Math.round(size * canvas.height / canvas.width);
       const cctx = c.getContext('2d');
+      cctx.clearRect(0, 0, c.width, c.height);
 
-      // Отрисовываем каждый элемент вручную (для анимации алертов)
       state.elements.forEach(el => {
         if (el.hidden) return;
         const sa = cctx.globalAlpha;
@@ -2519,16 +2516,10 @@ function drawElementOnCtx(c, el, scale) {
     stroke: { ...el.stroke, width: (el.stroke?.width || 0) * scale },
     labelStyle: el.labelStyle ? { ...el.labelStyle, size: el.labelStyle.size * scale } : undefined,
   };
-  const origCtx = ctx;
-  // Временно подменяем ctx
-  const saveCtx = window._ctxRef;
-  window._ctxRef = c;
-  // Используем локальную отрисовку
   drawElementWith(c, scaled);
 }
 
 function drawElementWith(c, el) {
-  // Мини-версия drawElement для конкретного контекста
   if (el.type === 'line') {
     c.fillStyle = hexToRgba(el.fill, el.fillAlpha);
     c.fillRect(el.x, el.y, el.w, el.h);
@@ -2577,13 +2568,6 @@ function roundRectOnCtx(c, el) {
   c.quadraticCurveTo(x, y, x + cc.tl, y);
   c.closePath();
 }
-
-function exportWebm() {
-  // Заглушка: вместо реального MediaRecorder показываем сообщение
-  setStatus('WebM требует записи в реальном времени. Используй GIF.', 'error');
-}
-
-// ============ ВЫРАВНИВАНИЕ ============
 
 function alignSelected(action) {
   if (!state.selectedIds.length) return;
@@ -2640,7 +2624,6 @@ function mirrorHorizontal() {
 
 // ============ СОБЫТИЯ ============
 
-// Табы
 document.querySelectorAll('.side-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.side-tab').forEach(t => t.classList.remove('active'));
@@ -2650,12 +2633,10 @@ document.querySelectorAll('.side-tab').forEach(tab => {
   });
 });
 
-// Добавление
 document.querySelectorAll('[data-add]').forEach(btn => {
   btn.addEventListener('click', () => addElement(btn.dataset.add));
 });
 
-// Верхние кнопки
 document.getElementById('btnUndo').addEventListener('click', undo);
 document.getElementById('btnRedo').addEventListener('click', redo);
 document.getElementById('btnImport').addEventListener('click', importJson);
@@ -2690,7 +2671,6 @@ document.getElementById('btnDownload').addEventListener('click', () => {
   });
 });
 
-// Toolbar
 document.getElementById('btnZoomIn').addEventListener('click', () => setZoom(state.zoom + 0.1));
 document.getElementById('btnZoomOut').addEventListener('click', () => setZoom(state.zoom - 0.1));
 document.getElementById('btnFit').addEventListener('click', fitZoom);
@@ -2746,7 +2726,6 @@ document.getElementById('btnDelete').addEventListener('click', () => {
   setStatus('Удалено');
 });
 
-// Размер холста
 document.getElementById('canvasW').addEventListener('input', (e) => {
   state.canvas.width = +e.target.value;
   document.getElementById('canvasWVal').textContent = state.canvas.width;
@@ -2766,7 +2745,6 @@ document.getElementById('canvasH').addEventListener('input', (e) => {
 });
 document.getElementById('canvasH').addEventListener('change', pushHistory);
 
-// Фон
 document.getElementById('bgVisible').addEventListener('change', (e) => {
   state.background.visible = e.target.checked;
   draw();
@@ -2796,8 +2774,6 @@ document.getElementById('bgImageInput').addEventListener('change', (e) => {
   reader.readAsDataURL(file);
 });
 
-// ============ Горячие клавиши ============
-
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
     if (e.ctrlKey && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
@@ -2808,7 +2784,6 @@ document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); return; }
   if (e.ctrlKey && e.key === 'd') { e.preventDefault(); document.getElementById('btnDup').click(); return; }
   if (e.ctrlKey && e.key === 's') { e.preventDefault(); exportJson(); return; }
-  if (e.ctrlKey && e.key === 'g') { e.preventDefault(); /* группировка не поддерживается */ return; }
   if (e.ctrlKey) return;
 
   if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedIds.length) {
@@ -2840,12 +2815,9 @@ document.addEventListener('keyup', (e) => {
   if (e.key.startsWith('Arrow') && state.selectedIds.length) pushHistory();
 });
 
-// Ресайз
 window.addEventListener('resize', () => {
   if (window.innerWidth < 900) setZoom(1);
 });
-
-// ============ CANVAS КЛИКИ И DRAG ============
 
 function canvasToLocal(clientX, clientY) {
   const rect = canvas.getBoundingClientRect();
@@ -2868,12 +2840,10 @@ function snapValue(v, exclude = []) {
   if (!state.snap) return Math.round(v);
   const gridStep = 20;
   let snapped = Math.round(v / gridStep) * gridStep;
-  // Привязка к краям и центрам
   const targets = [0, state.canvas.width / 2, state.canvas.width];
   targets.forEach(t => {
     if (Math.abs(v - t) < 8) snapped = t;
   });
-  // Привязка к другим элементам
   state.elements.forEach(other => {
     if (exclude.includes(other.id) || other.hidden) return;
     [other.x, other.x + other.w / 2, other.x + other.w].forEach(t => {
@@ -2946,7 +2916,6 @@ canvas.addEventListener('mousedown', (e) => {
         el.y = newY;
       });
 
-      // Показываем направляющие
       if (state.guides) {
         const first = state.elements.find(x => x.id === state.selectedIds[0]);
         if (first) {
@@ -2983,7 +2952,6 @@ canvas.addEventListener('mousedown', (e) => {
   }
 });
 
-// Touch
 canvas.addEventListener('touchstart', (e) => {
   if (e.touches.length !== 1) return;
   const t = e.touches[0];
@@ -3027,14 +2995,11 @@ canvas.addEventListener('touchstart', (e) => {
   document.addEventListener('touchend', onEnd);
 }, { passive: false });
 
-// Плавная анимация видео
 setInterval(() => {
   if (state.elements.some(el => el.type === 'video' && el.videoEl)) {
     draw();
   }
 }, 33);
-
-// ============ СТАРТ ============
 
 canvas.width = state.canvas.width;
 canvas.height = state.canvas.height;
