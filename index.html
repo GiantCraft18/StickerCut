@@ -7,26 +7,9 @@
 <title>OverlayForge — конструктор оверлеев для стрима</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a12;
-    --bg-2: #0e0e18;
-    --surface: rgba(24, 24, 36, 0.75);
-    --surface-2: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.16);
-    --text: #f5f5fa;
-    --text-dim: #9a9ab0;
-    --text-mute: #5f5f78;
-    --accent: #9147ff;
-    --accent-2: #b380ff;
-    --pink: #ff5c8a;
-    --green: #4ade80;
-    --yellow: #fbbf24;
-    --radius: 16px;
-    --radius-sm: 10px;
-
     --pad-x: 20px;
     --pad-y: 16px;
     --panel-left: 280px;
@@ -37,6 +20,51 @@
     --icon-btn: 34px;
     --topbar-pad: 12px 20px;
     --ruler-size: 26px;
+    --radius: 16px;
+    --radius-sm: 10px;
+
+    /* Dark theme (default) */
+    --bg: #0a0a12;
+    --bg-2: #0e0e18;
+    --surface: rgba(24, 24, 36, 0.75);
+    --surface-2: rgba(255, 255, 255, 0.03);
+    --surface-hover: rgba(255, 255, 255, 0.06);
+    --surface-strong: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --text: #f5f5fa;
+    --text-dim: #9a9ab0;
+    --text-mute: #5f5f78;
+    --accent: #9147ff;
+    --accent-2: #b380ff;
+    --pink: #ff5c8a;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --canvas-bg: #08080e;
+    --canvas-check-1: #0e0e18;
+    --canvas-check-2: #0a0a12;
+  }
+
+  [data-theme="light"] {
+    --bg: #f5f5fa;
+    --bg-2: #ececf2;
+    --surface: rgba(255, 255, 255, 0.85);
+    --surface-2: rgba(0, 0, 0, 0.03);
+    --surface-hover: rgba(0, 0, 0, 0.05);
+    --surface-strong: rgba(0, 0, 0, 0.07);
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --text: #1a1a24;
+    --text-dim: #5f5f78;
+    --text-mute: #9a9ab0;
+    --accent: #7c3aed;
+    --accent-2: #9147ff;
+    --pink: #e11d5f;
+    --green: #16a34a;
+    --yellow: #d97706;
+    --canvas-bg: #f0f0f5;
+    --canvas-check-1: #e8e8ee;
+    --canvas-check-2: #f5f5fa;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -57,6 +85,7 @@
     position: relative;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   .bg {
@@ -64,18 +93,22 @@
     background:
       radial-gradient(ellipse 60% 50% at 20% 0%, rgba(145, 71, 255, 0.15), transparent 60%),
       radial-gradient(ellipse 50% 40% at 90% 100%, rgba(255, 92, 138, 0.08), transparent 60%);
+    transition: opacity 0.3s;
   }
+  [data-theme="light"] .bg { opacity: 0.5; }
 
   .bg-grid {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 40px 40px;
+    opacity: 0.5;
     mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 30%, transparent 90%);
     -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 30%, transparent 90%);
   }
 
+  /* ─── TOPBAR ─── */
   .topbar {
     display: flex;
     align-items: center;
@@ -106,7 +139,7 @@
   .brand-name { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   .brand-sub { font-size: 0.72rem; color: var(--text-mute); font-family: 'JetBrains Mono', monospace; margin-top: 3px; }
 
-  .topbar-actions { display: flex; gap: 8px; flex-wrap: nowrap; }
+  .topbar-actions { display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; }
 
   .btn {
     padding: var(--btn-pad);
@@ -121,7 +154,7 @@
   }
 
   .btn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--surface-hover);
     border-color: var(--border-strong);
     color: var(--text); transform: translateY(-1px);
   }
@@ -137,6 +170,26 @@
   .btn.danger { color: #ff8fa3; border-color: rgba(255, 92, 138, 0.3); }
   .btn.danger:hover:not(:disabled) { background: rgba(255, 92, 138, 0.1); }
 
+  .theme-toggle {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: all 0.25s;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+    border-color: var(--border-strong);
+    transform: rotate(15deg) scale(1.05);
+  }
+
+  /* ─── APP GRID ─── */
   .app {
     display: grid;
     grid-template-columns: var(--panel-left) 1fr var(--panel-right);
@@ -157,17 +210,16 @@
     overflow-x: hidden;
     min-height: 0;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+    scrollbar-color: var(--border-strong) transparent;
   }
 
   .panel::-webkit-scrollbar { width: 8px; }
   .panel::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--border-strong);
     border-radius: 100px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
-  .panel::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); background-clip: content-box; }
 
   .panel-title {
     font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
@@ -187,18 +239,19 @@
 
   .side-tabs {
     display: flex; gap: 4px; padding: 4px;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
     margin-bottom: 8px;
     flex-shrink: 0;
   }
+  [data-theme="light"] .side-tabs { background: rgba(0, 0, 0, 0.04); }
 
   .side-tab {
-    flex: 1; padding: 8px 6px;
+    flex: 1; padding: 8px 4px;
     background: transparent; border: none;
     border-radius: 7px; color: var(--text-mute);
-    font-family: inherit; font-size: 0.76rem; font-weight: 600;
+    font-family: inherit; font-size: 0.72rem; font-weight: 600;
     cursor: pointer; transition: all 0.2s;
     white-space: nowrap;
   }
@@ -258,6 +311,7 @@
   .preset-card .name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
   .preset-card .desc { font-size: 0.72rem; color: var(--text-mute); }
 
+  /* ─── EDITOR ─── */
   .editor { display: flex; flex-direction: column; gap: 10px; min-height: 0; overflow: hidden; }
 
   .editor-toolbar {
@@ -293,7 +347,7 @@
   }
 
   .icon-btn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--surface-hover);
     color: var(--text); border-color: var(--border-strong);
   }
   .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
@@ -311,7 +365,7 @@
 
   .canvas-area {
     flex: 1;
-    background: #08080e;
+    background: var(--canvas-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: auto;
@@ -320,29 +374,30 @@
     padding: 40px;
     min-height: 0;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
-    background-image: repeating-conic-gradient(#0e0e18 0% 25%, #0a0a12 0% 50%);
+    scrollbar-color: var(--border-strong) transparent;
+    background-image: repeating-conic-gradient(var(--canvas-check-1) 0% 25%, var(--canvas-check-2) 0% 50%);
     background-size: 40px 40px;
+    transition: background-color 0.25s;
   }
 
   .canvas-area::-webkit-scrollbar { width: 10px; height: 10px; }
   .canvas-area::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--border-strong);
     border-radius: 100px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
-  .canvas-area::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); background-clip: content-box; }
 
   .ruler-h, .ruler-v {
     position: absolute;
-    background: rgba(20, 20, 30, 0.9);
+    background: var(--surface);
     border: 1px solid var(--border);
     z-index: 5;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.62rem;
     color: var(--text-mute);
     pointer-events: none;
+    backdrop-filter: blur(10px);
   }
   .ruler-h {
     top: 0; left: var(--ruler-size); right: 0; height: var(--ruler-size);
@@ -357,8 +412,10 @@
     position: relative;
     transform-origin: center center;
     transition: transform 0.15s ease;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     flex-shrink: 0;
+    background-image: repeating-conic-gradient(#1a1a24 0% 25%, #14141c 0% 50%);
+    background-size: 20px 20px;
   }
 
   #overlayCanvas {
@@ -372,20 +429,41 @@
     pointer-events: none;
     z-index: 10;
     display: none;
+    box-shadow: 0 0 8px rgba(255, 92, 138, 0.6);
   }
   .guide-line.visible { display: block; }
   .guide-h { height: 1px; left: 0; right: 0; }
   .guide-v { width: 1px; top: 0; bottom: 0; }
 
+  /* Resize handles */
+  .resize-handle {
+    position: absolute;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border: 2px solid #fff;
+    border-radius: 3px;
+    z-index: 20;
+    display: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s;
+  }
+  .resize-handle:hover { transform: scale(1.3); }
+  .resize-handle.visible { display: block; }
+  .resize-handle.tl { cursor: nwse-resize; }
+  .resize-handle.tr { cursor: nesw-resize; }
+  .resize-handle.bl { cursor: nesw-resize; }
+  .resize-handle.br { cursor: nwse-resize; }
+
+  /* ─── PROPERTIES ─── */
   .properties {
     display: flex; flex-direction: column; gap: 10px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+    scrollbar-color: var(--border-strong) transparent;
   }
   .properties::-webkit-scrollbar { width: 8px; }
   .properties::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--border-strong);
     border-radius: 100px;
     border: 2px solid transparent;
     background-clip: content-box;
@@ -406,7 +484,7 @@
 
   .mini-btn {
     width: 26px; height: 26px; border-radius: 6px;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--surface-2);
     border: 1px solid var(--border);
     color: var(--text-dim);
     cursor: pointer;
@@ -415,7 +493,7 @@
   }
 
   .mini-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--surface-hover);
     color: var(--text);
   }
 
@@ -435,7 +513,7 @@
   input[type="range"] {
     -webkit-appearance: none; appearance: none;
     width: 100%; height: 5px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--surface-strong);
     border-radius: 100px; outline: none; cursor: pointer;
   }
 
@@ -483,7 +561,7 @@
   .switch input { opacity: 0; width: 0; height: 0; }
   .switch-slider {
     position: absolute; cursor: pointer; inset: 0;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--surface-strong);
     border: 1px solid var(--border);
     border-radius: 100px; transition: all 0.25s;
   }
@@ -491,6 +569,7 @@
     content: ''; position: absolute;
     height: 14px; width: 14px; left: 3px; top: 3px;
     background: #fff; border-radius: 50%; transition: transform 0.25s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   .switch input:checked + .switch-slider {
     background: linear-gradient(135deg, #9147ff, #a970ff);
@@ -500,13 +579,14 @@
 
   .text-input {
     width: 100%; padding: 10px 12px;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
     border-radius: 8px; color: var(--text);
     font-family: inherit; font-size: 0.85rem;
     outline: none; transition: border-color 0.2s;
     margin-bottom: 8px;
   }
+  [data-theme="light"] .text-input { background: rgba(0, 0, 0, 0.03); }
   .text-input:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.15);
@@ -522,20 +602,21 @@
   }
   .empty-state .big { font-size: 2.5rem; opacity: 0.5; }
 
-  .layers-list { display: flex; flex-direction: column; gap: 5px; max-height: none; overflow-y: visible; }
+  .layers-list { display: flex; flex-direction: column; gap: 5px; }
 
   .layer-item {
     display: flex; align-items: center; gap: 10px;
     padding: 9px 12px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.15);
     border: 1px solid var(--border);
     border-radius: 8px; cursor: pointer;
     transition: all 0.15s;
     font-size: 0.8rem; color: var(--text-dim);
   }
+  [data-theme="light"] .layer-item { background: rgba(0, 0, 0, 0.03); }
 
   .layer-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface-hover);
     border-color: var(--border-strong); color: var(--text);
   }
 
@@ -549,12 +630,12 @@
 
   .layer-vis {
     width: 24px; height: 24px; border-radius: 5px;
-    background: rgba(255, 255, 255, 0.04); border: none;
+    background: transparent; border: none;
     color: var(--text-dim); cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.8rem; flex-shrink: 0;
+    font-size: 0.85rem; flex-shrink: 0;
   }
-  .layer-vis:hover { background: rgba(255, 255, 255, 0.1); color: var(--text); }
+  .layer-vis:hover { background: var(--surface-hover); color: var(--text); }
 
   #status {
     position: fixed; bottom: 24px; left: 50%;
@@ -567,7 +648,7 @@
     font-size: 0.88rem; color: var(--text);
     opacity: 0; transition: all 0.3s ease;
     pointer-events: none; z-index: 100;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     max-width: 90vw; text-align: center;
   }
   #status.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -576,26 +657,32 @@
 
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     z-index: 1000;
     display: none; align-items: center; justify-content: center;
     padding: 20px;
   }
-  .modal-overlay.visible { display: flex; }
+  .modal-overlay.visible { display: flex; animation: fadeIn 0.2s; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   .modal {
-    background: linear-gradient(180deg, #1a1a26 0%, #12121a 100%);
+    background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     padding: 28px; max-width: 520px; width: 100%;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
     max-height: 90vh; overflow-y: auto;
+    animation: modalIn 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   .modal h3 { font-size: 1.1rem; margin-bottom: 14px; }
   .modal p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 18px; }
-  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
 
   .canvas-presets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px; }
   .canvas-preset {
@@ -610,7 +697,7 @@
     transition: all 0.2s;
     text-align: center;
   }
-  .canvas-preset:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
+  .canvas-preset:hover { background: var(--surface-hover); color: var(--text); }
   .canvas-preset.active {
     background: rgba(145, 71, 255, 0.2);
     border-color: var(--accent);
@@ -629,13 +716,14 @@
 
   .corner-input input {
     flex: 1; padding: 6px 8px;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
     border-radius: 6px; color: var(--text);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem; outline: none;
     width: 100%;
   }
+  [data-theme="light"] .corner-input input { background: rgba(0, 0, 0, 0.03); }
 
   .frames-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .frame-btn {
@@ -653,9 +741,14 @@
     border-color: rgba(145, 71, 255, 0.3);
     transform: translateY(-2px);
   }
+  .frame-btn.active {
+    background: rgba(145, 71, 255, 0.15);
+    border-color: var(--accent);
+  }
   .frame-btn svg { width: 100%; height: 100%; stroke: var(--text-dim); fill: none; stroke-width: 2; }
-  .frame-btn:hover svg { stroke: var(--accent-2); }
+  .frame-btn:hover svg, .frame-btn.active svg { stroke: var(--accent-2); }
 
+  /* ─── RESPONSIVE ─── */
   @media (min-width: 1800px) {
     :root {
       --panel-left: 320px;
@@ -694,39 +787,24 @@
       --panel-left: 200px;
       --panel-right: 260px;
     }
-    .topbar-actions .btn span:not([data-keep]) { display: none; }
+    .topbar-actions .btn span:not(.keep) { display: none; }
     .topbar-actions .btn { padding: 8px 10px; }
   }
 
   @media (max-width: 900px) {
     body { overflow: auto; padding: 12px; }
-
     .app {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto auto;
       gap: 12px;
       overflow: visible;
     }
-
-    .topbar {
-      flex-wrap: wrap;
-      padding: 10px 14px;
-    }
-
-    .topbar-actions .btn { font-size: 0.78rem; padding: 7px 12px; }
+    .topbar { flex-wrap: wrap; padding: 10px 14px; }
     .topbar-actions .btn span { display: inline; }
-
     .panel, .properties { max-height: 380px; }
-
-    .editor-toolbar {
-      overflow-x: auto;
-      padding: 8px 12px;
-    }
-
+    .editor-toolbar { overflow-x: auto; padding: 8px 12px; }
     .canvas-area { min-height: 380px; padding: 20px; }
-
     .ruler-h, .ruler-v { display: none; }
-
     .element-list { grid-template-columns: 1fr 1fr 1fr; }
   }
 
@@ -740,6 +818,7 @@
     .icon-btn { width: 28px; height: 28px; font-size: 0.78rem; }
     .element-list { grid-template-columns: 1fr 1fr; }
     .canvas-area { min-height: 300px; padding: 10px; }
+    .theme-toggle { width: 32px; height: 32px; font-size: 0.9rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -760,16 +839,17 @@
     <div class="brand-mark">⚒️</div>
     <div class="brand-text">
       <div class="brand-name">OverlayForge</div>
-      <div class="brand-sub">overlay builder v2.0</div>
+      <div class="brand-sub">overlay builder v2.1</div>
     </div>
   </div>
   <div class="topbar-actions">
-    <button type="button" class="btn ghost" id="btnUndo" title="Ctrl+Z"><span>↶</span> Отменить</button>
-    <button type="button" class="btn ghost" id="btnRedo" title="Ctrl+Y"><span>↷</span> Повторить</button>
-    <button type="button" class="btn" id="btnImport"><span>📂</span> Открыть</button>
-    <button type="button" class="btn" id="btnExport"><span>💾</span> Сохранить</button>
-    <button type="button" class="btn" id="btnExportHtml"><span>📄</span> HTML</button>
-    <button type="button" class="btn primary" id="btnDownload"><span>⬇</span> Скачать</button>
+    <button type="button" class="btn ghost" id="btnUndo" title="Ctrl+Z"><span>↶</span><span> Отменить</span></button>
+    <button type="button" class="btn ghost" id="btnRedo" title="Ctrl+Y"><span>↷</span><span> Повторить</span></button>
+    <button type="button" class="btn" id="btnImport"><span>📂</span><span> Открыть</span></button>
+    <button type="button" class="btn" id="btnExport"><span>💾</span><span> Сохранить</span></button>
+    <button type="button" class="btn" id="btnExportHtml"><span>📄</span><span> HTML</span></button>
+    <button type="button" class="btn primary" id="btnDownload"><span>⬇</span><span> Скачать</span></button>
+    <button type="button" class="theme-toggle" id="btnTheme" title="Сменить тему">🌙</button>
   </div>
 </div>
 
@@ -777,10 +857,10 @@
 
   <div class="panel">
     <div class="side-tabs">
-      <button type="button" class="side-tab active" data-side="add">➕ Добавить</button>
-      <button type="button" class="side-tab" data-side="presets">🎬 Пресеты</button>
-      <button type="button" class="side-tab" data-side="canvas">📐 Холст</button>
-      <button type="button" class="side-tab" data-side="layers">📚 Слои</button>
+      <button type="button" class="side-tab active" data-side="add">➕<br>Добавить</button>
+      <button type="button" class="side-tab" data-side="presets">🎬<br>Пресеты</button>
+      <button type="button" class="side-tab" data-side="canvas">📐<br>Холст</button>
+      <button type="button" class="side-tab" data-side="layers">📚<br>Слои</button>
     </div>
 
     <div class="side-content active" data-content="add">
@@ -830,7 +910,7 @@
       <div class="color-row">
         <label>Скриншот игры</label>
         <input type="file" id="bgImageInput" accept="image/*" hidden>
-        <button type="button" class="btn" id="btnBgImage" style="padding: 4px 10px; font-size: 0.7rem;">Загрузить</button>
+        <button type="button" class="btn" id="btnBgImage" style="padding: 6px 12px; font-size: 0.72rem;">Загрузить</button>
       </div>
     </div>
 
@@ -879,6 +959,10 @@
         <canvas id="overlayCanvas" width="1920" height="1080"></canvas>
         <div class="guide-line guide-h" id="guideH"></div>
         <div class="guide-line guide-v" id="guideV"></div>
+        <div class="resize-handle tl" data-corner="tl"></div>
+        <div class="resize-handle tr" data-corner="tr"></div>
+        <div class="resize-handle bl" data-corner="bl"></div>
+        <div class="resize-handle br" data-corner="br"></div>
       </div>
     </div>
   </div>
@@ -902,9 +986,10 @@
 
 <script>
 /* ============================================================
-   OverlayForge v2.0 — полная версия (PC-first layout)
+   OverlayForge v2.1
    ============================================================ */
 
+// ─── STATE ─────────────────────────────────────────────
 const state = {
   canvas: { width: 1920, height: 1080 },
   background: { visible: false, color: '#1a1a2e', image: null, imageEl: null },
@@ -915,14 +1000,14 @@ const state = {
   showSafe: true,
   snap: true,
   guides: true,
+  theme: 'dark',
 };
 
 const history = { stack: [], index: -1, limit: 40 };
 let uid = 0;
 const nextId = () => ++uid;
 
-// ============ ТИПЫ ЭЛЕМЕНТОВ ============
-
+// ─── ELEMENT TYPES ─────────────────────────────────────
 const ELEMENT_TYPES = {
   webcam: {
     icon: '📹', name: 'Камера',
@@ -1240,8 +1325,7 @@ const LAYOUT_PRESETS = [
   },
 ];
 
-// ============ УТИЛИТЫ ============
-
+// ─── UTILS ─────────────────────────────────────────────
 function hexToRgba(hex, alpha = 1) {
   if (!hex || hex === 'transparent') return 'rgba(0,0,0,0)';
   if (hex.startsWith('rgba') || hex.startsWith('rgb')) return hex;
@@ -1266,8 +1350,7 @@ function escapeAttr(str) {
 
 function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
-// ============ DOM ============
-
+// ─── DOM ───────────────────────────────────────────────
 const canvas = document.getElementById('overlayCanvas');
 const ctx = canvas.getContext('2d');
 const canvasWrap = document.getElementById('canvasWrap');
@@ -1281,7 +1364,23 @@ const guideH = document.getElementById('guideH');
 const guideV = document.getElementById('guideV');
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
+const resizeHandles = document.querySelectorAll('.resize-handle');
 
+// ─── THEME ─────────────────────────────────────────────
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  state.theme = theme;
+  document.getElementById('btnTheme').textContent = theme === 'dark' ? '🌙' : '☀️';
+  try { localStorage.setItem('overlayforge-theme', theme); } catch(e) {}
+}
+
+function toggleTheme() {
+  applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+}
+
+document.getElementById('btnTheme').addEventListener('click', toggleTheme);
+
+// ─── STATUS ────────────────────────────────────────────
 let statusTimeout;
 function setStatus(text, type = 'info') {
   const el = document.getElementById('status');
@@ -1307,8 +1406,7 @@ modalOverlay.addEventListener('click', (e) => {
   if (e.target === modalOverlay) closeModal();
 });
 
-// ============ ИСТОРИЯ ============
-
+// ─── HISTORY ───────────────────────────────────────────
 function snapshot() {
   return JSON.parse(JSON.stringify({
     canvas: state.canvas,
@@ -1388,8 +1486,7 @@ function updateHistoryButtons() {
   document.getElementById('btnRedo').disabled = history.index >= history.stack.length - 1;
 }
 
-// ============ РИСОВАНИЕ ============
-
+// ─── DRAWING ───────────────────────────────────────────
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1418,12 +1515,14 @@ function draw() {
     const el = state.elements.find(e => e.id === id);
     if (el) drawSelection(el);
   });
+
+  updateResizeHandles();
 }
 
 function drawGrid() {
   const step = 100;
   ctx.save();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+  ctx.strokeStyle = 'rgba(128, 128, 160, 0.08)';
   ctx.lineWidth = 1;
   ctx.beginPath();
   for (let x = 0; x <= canvas.width; x += step) {
@@ -1446,7 +1545,7 @@ function drawGrid() {
 function drawSafeZone() {
   const padding = Math.round(canvas.width * 0.05);
   ctx.save();
-  ctx.strokeStyle = 'rgba(255, 200, 0, 0.2)';
+  ctx.strokeStyle = 'rgba(255, 200, 0, 0.3)';
   ctx.lineWidth = 2;
   ctx.setLineDash([10, 10]);
   ctx.strokeRect(padding, padding, canvas.width - padding * 2, canvas.height - padding * 2);
@@ -1457,7 +1556,7 @@ function drawSafeZone() {
 function drawElement(el) {
   ctx.save();
 
-  if (el.type === 'image' && el.imageEl && el.imageEl.complete) {
+  if (el.type === 'image' && el.imageEl && el.imageEl.complete && el.imageEl.naturalWidth) {
     roundRectCustom(ctx, el);
     ctx.clip();
     ctx.drawImage(el.imageEl, el.x, el.y, el.w, el.h);
@@ -1553,6 +1652,7 @@ function drawElement(el) {
       ctx.fillStyle = line.color;
       ctx.font = `700 13px Inter, sans-serif`;
       ctx.textBaseline = 'top';
+      ctx.textAlign = 'left';
       ctx.fillText(line.name + ':', el.x + 14, y);
       const nameWidth = ctx.measureText(line.name + ': ').width;
       ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
@@ -1616,20 +1716,28 @@ function drawSelection(el) {
   ctx.setLineDash([8, 4]);
   ctx.strokeRect(el.x - 2, el.y - 2, el.w + 4, el.h + 4);
   ctx.setLineDash([]);
-
-  const corners = [
-    [el.x - 4, el.y - 4],
-    [el.x + el.w - 4, el.y - 4],
-    [el.x - 4, el.y + el.h - 4],
-    [el.x + el.w - 4, el.y + el.h - 4],
-  ];
-  ctx.fillStyle = '#9147ff';
-  corners.forEach(([x, y]) => ctx.fillRect(x, y, 10, 10));
   ctx.restore();
 }
 
-// ============ РЕНДЕР UI ============
+function updateResizeHandles() {
+  const visible = state.selectedIds.length === 1;
+  const el = visible ? state.elements.find(e => e.id === state.selectedIds[0]) : null;
 
+  resizeHandles.forEach(handle => {
+    if (!el) {
+      handle.classList.remove('visible');
+      return;
+    }
+    handle.classList.add('visible');
+    const corner = handle.dataset.corner;
+    const cx = (corner === 'tl' || corner === 'bl') ? el.x : el.x + el.w;
+    const cy = (corner === 'tl' || corner === 'tr') ? el.y : el.y + el.h;
+    handle.style.left = (cx * state.zoom - 6) + 'px';
+    handle.style.top = (cy * state.zoom - 6) + 'px';
+  });
+}
+
+// ─── RENDER UI ─────────────────────────────────────────
 function renderAll() {
   draw();
   renderLayers();
@@ -1672,6 +1780,7 @@ function renderLayers() {
     vis.type = 'button';
     vis.className = 'layer-vis';
     vis.textContent = el.hidden ? '◌' : '◉';
+    vis.title = el.hidden ? 'Показать' : 'Скрыть';
     vis.addEventListener('click', (e) => {
       e.stopPropagation();
       el.hidden = !el.hidden;
@@ -1751,8 +1860,7 @@ function applyLayoutPreset(preset) {
   setStatus(`Применён пресет: ${preset.name}`, 'success');
 }
 
-// ============ СВОЙСТВА ============
-
+// ─── PROPERTIES ────────────────────────────────────────
 function renderProperties() {
   if (!state.selectedIds.length) {
     emptyState.style.display = 'flex';
@@ -1790,20 +1898,20 @@ function renderProperties() {
   html += `<div class="prop-section">
     <div class="prop-title">Позиция и размер</div>
     <div class="slider-row">
-      <div class="slider-label"><span>X</span><span class="val" id="valX">${el.x}</span></div>
-      <input type="range" id="propX" min="${-el.w}" max="${state.canvas.width}" value="${el.x}">
+      <div class="slider-label"><span>X</span><span class="val" id="valX">${Math.round(el.x)}</span></div>
+      <input type="range" id="propX" min="${-el.w}" max="${state.canvas.width}" value="${Math.round(el.x)}">
     </div>
     <div class="slider-row">
-      <div class="slider-label"><span>Y</span><span class="val" id="valY">${el.y}</span></div>
-      <input type="range" id="propY" min="${-el.h}" max="${state.canvas.height}" value="${el.y}">
+      <div class="slider-label"><span>Y</span><span class="val" id="valY">${Math.round(el.y)}</span></div>
+      <input type="range" id="propY" min="${-el.h}" max="${state.canvas.height}" value="${Math.round(el.y)}">
     </div>
     <div class="slider-row">
-      <div class="slider-label"><span>Ширина</span><span class="val" id="valW">${el.w}</span></div>
-      <input type="range" id="propW" min="10" max="${state.canvas.width}" value="${el.w}">
+      <div class="slider-label"><span>Ширина</span><span class="val" id="valW">${Math.round(el.w)}</span></div>
+      <input type="range" id="propW" min="10" max="${state.canvas.width}" value="${Math.round(el.w)}">
     </div>
     <div class="slider-row">
-      <div class="slider-label"><span>Высота</span><span class="val" id="valH">${el.h}</span></div>
-      <input type="range" id="propH" min="2" max="${state.canvas.height}" value="${el.h}">
+      <div class="slider-label"><span>Высота</span><span class="val" id="valH">${Math.round(el.h)}</span></div>
+      <input type="range" id="propH" min="2" max="${state.canvas.height}" value="${Math.round(el.h)}">
     </div>
   </div>`;
 
@@ -1812,10 +1920,10 @@ function renderProperties() {
     html += `<div class="prop-section">
       <div class="prop-title">Скругление</div>
       <div class="corners-grid">
-        <div class="corner-input">↖ <input type="number" id="cornerTL" value="${c.tl}" min="0" max="200"></div>
-        <div class="corner-input">↗ <input type="number" id="cornerTR" value="${c.tr}" min="0" max="200"></div>
-        <div class="corner-input">↙ <input type="number" id="cornerBL" value="${c.bl}" min="0" max="200"></div>
-        <div class="corner-input">↘ <input type="number" id="cornerBR" value="${c.br}" min="0" max="200"></div>
+        <div class="corner-input">↖ <input type="number" id="cornerTL" value="${Math.round(c.tl)}" min="0" max="200"></div>
+        <div class="corner-input">↗ <input type="number" id="cornerTR" value="${Math.round(c.tr)}" min="0" max="200"></div>
+        <div class="corner-input">↙ <input type="number" id="cornerBL" value="${Math.round(c.bl)}" min="0" max="200"></div>
+        <div class="corner-input">↘ <input type="number" id="cornerBR" value="${Math.round(c.br)}" min="0" max="200"></div>
       </div>
     </div>`;
   }
@@ -1883,10 +1991,6 @@ function renderProperties() {
       <label for="propStrokeColor">Цвет</label>
       <input type="color" id="propStrokeColor" value="${el.stroke?.color || '#9147ff'}">
     </div>
-    <div class="toggle-row">
-      <div class="toggle-label"><span>Только верхняя линия</span><small>Для чата</small></div>
-      <label class="switch"><input type="checkbox" id="propStrokeTop" ${el.stroke?.topOnly ? 'checked' : ''}><span class="switch-slider"></span></label>
-    </div>
   </div>`;
 
   html += `<div class="prop-section">
@@ -1917,10 +2021,10 @@ function renderProperties() {
 
   bindProp('propLabel', 'input', v => { el.label = v; renderLayers(); });
   bindProp('propLabel', 'change', () => pushHistory());
-  bindSlider('propX', 'valX', v => { el.x = v; draw(); });
-  bindSlider('propY', 'valY', v => { el.y = v; draw(); });
-  bindSlider('propW', 'valW', v => { el.w = v; draw(); });
-  bindSlider('propH', 'valH', v => { el.h = v; draw(); });
+  bindSlider('propX', 'valX', v => { el.x = v; draw(); updateResizeHandles(); });
+  bindSlider('propY', 'valY', v => { el.y = v; draw(); updateResizeHandles(); });
+  bindSlider('propW', 'valW', v => { el.w = v; draw(); updateResizeHandles(); });
+  bindSlider('propH', 'valH', v => { el.h = v; draw(); updateResizeHandles(); });
 
   ['TL','TR','BL','BR'].forEach(c => {
     const input = document.getElementById('corner' + c);
@@ -1938,9 +2042,8 @@ function renderProperties() {
     Object.keys(FRAMES).forEach(key => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'frame-btn';
+      btn.className = 'frame-btn' + (el.frame === key ? ' active' : '');
       btn.title = key;
-      btn.style.borderColor = (el.frame === key) ? 'var(--accent)' : '';
       btn.innerHTML = `<svg viewBox="0 0 24 24">${FRAMES[key].icon}</svg>`;
       btn.addEventListener('click', () => {
         el.frame = key;
@@ -1960,10 +2063,17 @@ function renderProperties() {
       input.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
+        if (file.size > 10 * 1024 * 1024) {
+          setStatus('Файл больше 10 МБ', 'error');
+          return;
+        }
         const reader = new FileReader();
         reader.onload = () => {
           const img = new Image();
           img.onload = () => {
+            if (el.imageUrl && el.imageUrl.startsWith('blob:')) {
+              URL.revokeObjectURL(el.imageUrl);
+            }
             el.imageEl = img;
             el.imageUrl = reader.result;
             el.w = img.naturalWidth;
@@ -1975,6 +2085,7 @@ function renderProperties() {
             }
             renderAll();
             pushHistory();
+            setStatus('Картинка загружена', 'success');
           };
           img.src = reader.result;
         };
@@ -1992,6 +2103,10 @@ function renderProperties() {
       input.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
+        if (file.size > 50 * 1024 * 1024) {
+          setStatus('Видео больше 50 МБ', 'error');
+          return;
+        }
         const url = URL.createObjectURL(file);
         const v = document.createElement('video');
         v.src = url;
@@ -2011,6 +2126,11 @@ function renderProperties() {
           v.play().catch(() => {});
           renderAll();
           pushHistory();
+          setStatus('Видео загружено', 'success');
+        });
+        v.addEventListener('error', () => {
+          setStatus('Не удалось загрузить видео', 'error');
+          URL.revokeObjectURL(url);
         });
       });
       input.click();
@@ -2036,7 +2156,6 @@ function renderProperties() {
   bindSlider('propStrokeW', 'valStrokeW', v => { el.stroke.width = v; draw(); }, ' px');
   bindProp('propStrokeColor', 'input', e => { el.stroke.color = e.target.value; draw(); }, true);
   bindProp('propStrokeColor', 'change', () => pushHistory());
-  bindProp('propStrokeTop', 'change', (e) => { el.stroke.topOnly = e.target.checked; draw(); pushHistory(); }, true);
 
   bindProp('propLabelEnabled', 'change', (e) => { el.labelStyle.enabled = e.target.checked; draw(); pushHistory(); }, true);
   bindProp('propLabelText', 'input', e => { el.labelStyle.text = e.target.value; draw(); }, true);
@@ -2089,7 +2208,7 @@ function renderMultiProperties() {
   bindProp('multiStroke', 'input', e => {
     state.selectedIds.forEach(id => {
       const el = state.elements.find(x => x.id === id);
-      if (el) el.stroke.color = e.target.value;
+      if (el && el.stroke) el.stroke.color = e.target.value;
     });
     draw();
   });
@@ -2165,8 +2284,7 @@ function bindSlider(sliderId, labelId, onChange, suffix = '') {
   slider.addEventListener('change', pushHistory);
 }
 
-// ============ ДЕЙСТВИЯ ============
-
+// ─── ACTIONS ───────────────────────────────────────────
 function addElement(type) {
   const def = ELEMENT_TYPES[type];
   if (!def) return;
@@ -2220,6 +2338,7 @@ function setZoom(z) {
   state.zoom = clamp(z, 0.1, 3);
   canvasWrap.style.transform = `scale(${state.zoom})`;
   zoomDisplay.textContent = Math.round(state.zoom * 100) + '%';
+  updateResizeHandles();
 }
 
 function fitZoom() {
@@ -2253,8 +2372,7 @@ function updateRulers() {
   rv.innerHTML = vHtml;
 }
 
-// ============ ЭКСПОРТ ============
-
+// ─── EXPORT ────────────────────────────────────────────
 function downloadPng() {
   const wasGrid = state.showGrid;
   const wasSafe = state.showSafe;
@@ -2263,6 +2381,10 @@ function downloadPng() {
   draw();
 
   canvas.toBlob((blob) => {
+    if (!blob) {
+      setStatus('Ошибка экспорта', 'error');
+      return;
+    }
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `overlay-${state.canvas.width}x${state.canvas.height}.png`;
@@ -2283,7 +2405,8 @@ function downloadSvg() {
   state.elements.forEach(el => {
     if (el.hidden) return;
     if (el.type === 'shape' || el.type === 'webcam' || el.type === 'chat' || el.type === 'alert' || el.type === 'goal' || el.type === 'counter' || el.type === 'timer') {
-      svgParts.push(`<rect x="${el.x}" y="${el.y}" width="${el.w}" height="${el.h}" rx="${el.radius || 0}" fill="${hexToRgba(el.fill, el.fillAlpha)}" ${el.stroke.enabled ? `stroke="${el.stroke.color}" stroke-width="${el.stroke.width}"` : ''}/>`);
+      const c = el.corners || { tl: 0 };
+      svgParts.push(`<rect x="${el.x}" y="${el.y}" width="${el.w}" height="${el.h}" rx="${c.tl || el.radius || 0}" fill="${hexToRgba(el.fill, el.fillAlpha)}" ${el.stroke.enabled ? `stroke="${el.stroke.color}" stroke-width="${el.stroke.width}"` : ''}/>`);
     }
     if (el.type === 'line') {
       svgParts.push(`<rect x="${el.x}" y="${el.y}" width="${el.w}" height="${el.h}" fill="${hexToRgba(el.fill, el.fillAlpha)}"/>`);
@@ -2349,6 +2472,10 @@ function importJson() {
         canvas.width = state.canvas.width;
         canvas.height = state.canvas.height;
         canvasInfo.textContent = `${state.canvas.width} × ${state.canvas.height}`;
+        document.getElementById('canvasW').value = state.canvas.width;
+        document.getElementById('canvasWVal').textContent = state.canvas.width;
+        document.getElementById('canvasH').value = state.canvas.height;
+        document.getElementById('canvasHVal').textContent = state.canvas.height;
         updateRulers();
         renderAll();
         pushHistory();
@@ -2439,7 +2566,7 @@ requestAnimationFrame(drawAll);
   a.click();
   document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  setStatus('HTML-виджет скачан. Открой в OBS как Browser Source', 'success');
+  setStatus('HTML-виджет скачан', 'success');
 }
 
 async function downloadGif() {
@@ -2453,11 +2580,6 @@ async function downloadGif() {
     const frames = 12;
     const delay = 100;
     const gif = GIFEncoder();
-
-    const wasGrid = state.showGrid;
-    const wasSafe = state.showSafe;
-    state.showGrid = false;
-    state.showSafe = false;
 
     for (let f = 0; f < frames; f++) {
       const phase = (f / frames) * Math.PI * 2;
@@ -2493,10 +2615,6 @@ async function downloadGif() {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     setStatus('GIF готов', 'success');
-
-    state.showGrid = wasGrid;
-    state.showSafe = wasSafe;
-    draw();
   } catch (e) {
     console.error(e);
     setStatus('Не удалось создать GIF', 'error');
@@ -2622,8 +2740,7 @@ function mirrorHorizontal() {
   setStatus('Отражено по горизонтали', 'success');
 }
 
-// ============ СОБЫТИЯ ============
-
+// ─── EVENTS ────────────────────────────────────────────
 document.querySelectorAll('.side-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.side-tab').forEach(t => t.classList.remove('active'));
@@ -2646,7 +2763,7 @@ document.getElementById('btnDownload').addEventListener('click', () => {
   showModal(`
     <h3>Экспорт</h3>
     <p>Выбери формат</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
       <button type="button" class="btn primary" data-export="png" style="justify-content:center;">⬇ PNG</button>
       <button type="button" class="btn" data-export="svg" style="justify-content:center;">⬇ SVG</button>
       <button type="button" class="btn" data-export="html" style="justify-content:center;">📄 HTML</button>
@@ -2759,6 +2876,10 @@ document.getElementById('btnBgImage').addEventListener('click', () => document.g
 document.getElementById('bgImageInput').addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) return;
+  if (file.size > 10 * 1024 * 1024) {
+    setStatus('Файл больше 10 МБ', 'error');
+    return;
+  }
   const reader = new FileReader();
   reader.onload = () => {
     const img = new Image();
@@ -2768,6 +2889,7 @@ document.getElementById('bgImageInput').addEventListener('change', (e) => {
       state.background.visible = true;
       document.getElementById('bgVisible').checked = true;
       draw();
+      setStatus('Фон загружен', 'success');
     };
     img.src = reader.result;
   };
@@ -2807,6 +2929,7 @@ document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown') el.y += step;
     });
     draw();
+    updateResizeHandles();
     renderProperties();
   }
 });
@@ -2817,6 +2940,7 @@ document.addEventListener('keyup', (e) => {
 
 window.addEventListener('resize', () => {
   if (window.innerWidth < 900) setZoom(1);
+  else fitZoom();
 });
 
 function canvasToLocal(clientX, clientY) {
@@ -2870,6 +2994,7 @@ function snapValueY(v, exclude = []) {
   return Math.round(snapped);
 }
 
+// ─── CANVAS INTERACTION ────────────────────────────────
 canvas.addEventListener('mousedown', (e) => {
   const pt = canvasToLocal(e.clientX, e.clientY);
   const hit = hitTest(pt.x, pt.y);
@@ -2933,6 +3058,7 @@ canvas.addEventListener('mousedown', (e) => {
       }
 
       draw();
+      updateResizeHandles();
       renderProperties();
     };
 
@@ -2952,6 +3078,76 @@ canvas.addEventListener('mousedown', (e) => {
   }
 });
 
+// Resize handles
+resizeHandles.forEach(handle => {
+  handle.addEventListener('mousedown', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (state.selectedIds.length !== 1) return;
+    const el = state.elements.find(x => x.id === state.selectedIds[0]);
+    if (!el) return;
+
+    const corner = handle.dataset.corner;
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const orig = { x: el.x, y: el.y, w: el.w, h: el.h };
+    const aspect = orig.w / orig.h;
+    let moved = false;
+
+    const onMove = (ev) => {
+      const dx = (ev.clientX - startX) / state.zoom;
+      const dy = (ev.clientY - startY) / state.zoom;
+      if (Math.abs(dx) > 1 || Math.abs(dy) > 1) moved = true;
+
+      const isShift = ev.shiftKey;
+
+      if (corner === 'br') {
+        let newW = Math.max(10, orig.w + dx);
+        let newH = Math.max(10, orig.h + dy);
+        if (isShift) newH = newW / aspect;
+        el.w = Math.round(newW);
+        el.h = Math.round(newH);
+      } else if (corner === 'bl') {
+        let newW = Math.max(10, orig.w - dx);
+        let newH = Math.max(10, orig.h + dy);
+        if (isShift) newH = newW / aspect;
+        el.x = Math.round(orig.x + (orig.w - newW));
+        el.w = Math.round(newW);
+        el.h = Math.round(newH);
+      } else if (corner === 'tr') {
+        let newW = Math.max(10, orig.w + dx);
+        let newH = Math.max(10, orig.h - dy);
+        if (isShift) newH = newW / aspect;
+        el.y = Math.round(orig.y + (orig.h - newH));
+        el.w = Math.round(newW);
+        el.h = Math.round(newH);
+      } else if (corner === 'tl') {
+        let newW = Math.max(10, orig.w - dx);
+        let newH = Math.max(10, orig.h - dy);
+        if (isShift) newH = newW / aspect;
+        el.x = Math.round(orig.x + (orig.w - newW));
+        el.y = Math.round(orig.y + (orig.h - newH));
+        el.w = Math.round(newW);
+        el.h = Math.round(newH);
+      }
+
+      draw();
+      updateResizeHandles();
+      renderProperties();
+    };
+
+    const onUp = () => {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      if (moved) pushHistory();
+    };
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+});
+
+// Touch
 canvas.addEventListener('touchstart', (e) => {
   if (e.touches.length !== 1) return;
   const t = e.touches[0];
@@ -2982,6 +3178,7 @@ canvas.addEventListener('touchstart', (e) => {
     hit.x = state.snap ? snapValue(origX + dx, state.selectedIds) : Math.round(origX + dx);
     hit.y = state.snap ? snapValueY(origY + dy, state.selectedIds) : Math.round(origY + dy);
     draw();
+    updateResizeHandles();
     renderProperties();
   };
 
@@ -2995,11 +3192,19 @@ canvas.addEventListener('touchstart', (e) => {
   document.addEventListener('touchend', onEnd);
 }, { passive: false });
 
+// Video redraw loop
 setInterval(() => {
   if (state.elements.some(el => el.type === 'video' && el.videoEl)) {
     draw();
   }
 }, 33);
+
+// ─── INIT ──────────────────────────────────────────────
+try {
+  const savedTheme = localStorage.getItem('overlayforge-theme');
+  if (savedTheme) applyTheme(savedTheme);
+  else applyTheme('dark');
+} catch(e) { applyTheme('dark'); }
 
 canvas.width = state.canvas.width;
 canvas.height = state.canvas.height;
